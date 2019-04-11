@@ -1,5 +1,13 @@
+# Prometheus vmware exporter in golang
+
+**Build Docker Image**
+```
+$ docker build -t go-vm -f Dockerfile .
+```
 
 
 
-$ docker build -t go-docker-optimized -f Dockerfile.multistage .
-
+**Run Docker Image**
+```
+$ docker run -p 8080:8080 go-vm
+```
