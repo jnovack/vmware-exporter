@@ -10,15 +10,14 @@ import (
 	"strconv"
 )
 
-
 type Configuration struct {
-	Host        string
-	User        string
-	Password    string
-	Debug bool
+	Host     string
+	User     string
+	Password string
+	Debug    bool
 }
 
-var cfg  Configuration
+var cfg Configuration
 
 func main() {
 	port := flag.Int("port", 8080, "Port to attach exporter")
@@ -42,15 +41,10 @@ func init() {
 
 // Load Configuration data
 func loadConfig() {
-
-
-	// Check for properities in multiple locations
 	p := properties.MustLoadFiles([]string{
-		"/opt/govmware/config.properties",
 		"config.properties",
 	}, properties.UTF8, true)
 
 	cfg = Configuration{Host: p.MustGetString("host"), User: p.MustGetString("user"), Password: p.MustGetString("password"), Debug: p.MustGetBool("debug")}
-
 
 }
