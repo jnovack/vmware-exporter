@@ -28,6 +28,8 @@ WORKDIR /root/
 # Copy the Pre-built binary file from the previous stage
 COPY --from=builder /go/bin/go-vm .
 
+COPY --from=builder /go/src/github.com/marstid/go-vmware-exporter/config.properties .
+
 EXPOSE 8080
 
 CMD ["./go-vm"]
