@@ -7,6 +7,7 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"net/http"
+	"os"
 	"strconv"
 )
 
@@ -35,16 +36,21 @@ func redirect(w http.ResponseWriter, r *http.Request) {
 }
 
 func init() {
-	loadConfig()
+	// Get config details
+	if os.Getenv("HOST") != "" && os.Getenv("USERID") != "" && os.Getenv("PASSWORD") != "" {
+		if os.Getenv("DEBUG") == "True" {
+			cfg = Configuration{Host: os.Getenv("HOST"), User: os.Getenv("USERID"), Password: os.Getenv("PASSWORD"), Debug: true}
+		} else {
+			cfg = Configuration{Host: os.Getenv("HOST"), User: os.Getenv("USERID"), Password: os.Getenv("PASSWORD"), Debug: false}
+		}
+
+	} else {
+		p := properties.MustLoadFiles([]string{
+			"config.properties",
+		}, properties.UTF8, true)
+
+		cfg = Configuration{Host: p.MustGetString("host"), User: p.MustGetString("user"), Password: p.MustGetString("password"), Debug: p.MustGetBool("debug")}
+	}
+
 	prometheus.MustRegister(NewvCollector())
-}
-
-// Load Configuration data
-func loadConfig() {
-	p := properties.MustLoadFiles([]string{
-		"config.properties",
-	}, properties.UTF8, true)
-
-	cfg = Configuration{Host: p.MustGetString("host"), User: p.MustGetString("user"), Password: p.MustGetString("password"), Debug: p.MustGetBool("debug")}
-
 }
