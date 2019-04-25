@@ -13,8 +13,16 @@ import (
 	"github.com/vmware/govmomi/vim25/types"
 	"math"
 	"net/url"
+	"strings"
 	"time"
 )
+
+type vMetric struct {
+	name   string
+	help   string
+	value  float64
+	labels map[string]string
+}
 
 // Connect to vCenter
 func NewClient(ctx context.Context) (*govmomi.Client, error) {
@@ -30,7 +38,8 @@ func NewClient(ctx context.Context) (*govmomi.Client, error) {
 }
 
 func DSMetrics() []vMetric {
-	ctx := context.Background()
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
 
 	c, err := NewClient(ctx)
 	if err != nil {
@@ -50,7 +59,7 @@ func DSMetrics() []vMetric {
 	defer v.Destroy(ctx)
 
 	var dsl []mo.Datastore
-	err = v.Retrieve(ctx, []string{"Datastore"}, []string{"summary", "name"}, &dsl)
+	err = v.Retrieve(ctx, []string{"Datastore"}, []string{"summary", "name", "parent"}, &dsl)
 	if err != nil {
 		log.Error(err.Error())
 	}
@@ -59,6 +68,7 @@ func DSMetrics() []vMetric {
 
 	for _, ds := range dsl {
 		if ds.Summary.Accessible {
+
 			ds_capacity := ds.Summary.Capacity / 1024 / 1024 / 1024
 			ds_freespace := ds.Summary.FreeSpace / 1024 / 1024 / 1024
 			ds_used := ds_capacity - ds_freespace
@@ -80,7 +90,8 @@ func DSMetrics() []vMetric {
 }
 
 func ClusterMetrics() []vMetric {
-	ctx := context.Background()
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
 
 	c, err := NewClient(ctx)
 	if err != nil {
@@ -117,8 +128,14 @@ func ClusterMetrics() []vMetric {
 	for _, pool := range pools {
 		if pool.Summary != nil {
 			// Get Cluster name from Resource Pool Parent
-			cls, _ := ClusterFromID(c, pool.Parent.Value)
+			cls, err := ClusterFromID(c, pool.Parent.Value)
+			if err != nil {
+				log.Error(err.Error())
+				return nil
+			}
+
 			cname := cls.Name()
+			cname = strings.ToLower(cname)
 
 			// Get Quickstats form Resource Pool
 			qs := pool.Summary.GetResourcePoolSummary().QuickStats
@@ -154,7 +171,7 @@ func ClusterMetrics() []vMetric {
 
 			// Memory
 			metrics = append(metrics, vMetric{name: "cluster_mem_effective", help: "Cluster Mem ", value: float64(qs.EffectiveMemory * 1024 * 1024), labels: map[string]string{"cluster": cname}})
-			metrics = append(metrics, vMetric{name: "cluster_mem_total", help: "CTotal Amount of Memory in Cluster", value: float64(qs.TotalMemory * 1024 * 1024), labels: map[string]string{"cluster": cname}})
+			metrics = append(metrics, vMetric{name: "cluster_mem_total", help: "Total Amount of Memory in Cluster", value: float64(qs.TotalMemory * 1024 * 1024), labels: map[string]string{"cluster": cname}})
 
 			// CPU
 			metrics = append(metrics, vMetric{name: "cluster_cpu_effective", help: "Cluster Mem ", value: float64(qs.EffectiveCpu), labels: map[string]string{"cluster": cname}})
@@ -163,6 +180,7 @@ func ClusterMetrics() []vMetric {
 			// Misc
 			metrics = append(metrics, vMetric{name: "cluster_numHosts", help: "Number of Hypervisors in cluster ", value: float64(qs.NumHosts), labels: map[string]string{"cluster": cname}})
 
+			//ccrs := qs.su.(*types.ClusterComputeResourceSummary)
 			// TODO fix missing ClusterComputeResourceSummary no only BaseComputeResourceSummary available
 			//metrics = append(metrics, vMetric{ name: "cluster_numVmotions", help: "Cluster Number of vmotions ", value: float64(qs.NumHosts), labels: map[string]string{"cluster": cname}})
 
@@ -174,7 +192,7 @@ func ClusterMetrics() []vMetric {
 }
 
 func HostMetrics() []vMetric {
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
 	c, err := NewClient(ctx)
@@ -194,7 +212,7 @@ func HostMetrics() []vMetric {
 	defer v.Destroy(ctx)
 
 	var hosts []mo.HostSystem
-	err = v.Retrieve(ctx, []string{"HostSystem"}, []string{"summary"}, &hosts)
+	err = v.Retrieve(ctx, []string{"HostSystem"}, []string{"summary", "parent"}, &hosts)
 	if err != nil {
 		log.Error(err.Error())
 	}
@@ -202,23 +220,32 @@ func HostMetrics() []vMetric {
 	var metrics []vMetric
 
 	for _, hs := range hosts {
+		// Get name of cluster the host is part of
+		cls, err := ClusterFromRef(c, hs.Parent.Reference())
+		if err != nil {
+			log.Error(err.Error())
+			return nil
+		}
+		cname := cls.Name()
+		cname = strings.ToLower(cname)
+
 		name := hs.Summary.Config.Name
 		totalCPU := int64(hs.Summary.Hardware.CpuMhz) * int64(hs.Summary.Hardware.NumCpuCores)
 		freeCPU := int64(totalCPU) - int64(hs.Summary.QuickStats.OverallCpuUsage)
-		freeMemory := int64(hs.Summary.Hardware.MemorySize) - (int64(hs.Summary.QuickStats.OverallMemoryUsage) * 1024 * 1024)
-		usedMemory := int64(hs.Summary.QuickStats.OverallMemoryUsage) * 1024 * 1024
+		freeMemory := int64(hs.Summary.Hardware.MemorySize) - (int64(hs.Summary.QuickStats.OverallMemoryUsage) / 1024)
+		usedMemory := int64(hs.Summary.QuickStats.OverallMemoryUsage) / 1024
 		cpuPusage := math.Round((float64(hs.Summary.QuickStats.OverallCpuUsage) / float64(totalCPU)) * 100)
-		memPusage := math.Round((float64(hs.Summary.QuickStats.OverallCpuUsage) / float64(totalCPU)) * 100)
+		memPusage := math.Round((float64(hs.Summary.QuickStats.OverallMemoryUsage) / float64(hs.Summary.Hardware.MemorySize)) * 100)
 
-		metrics = append(metrics, vMetric{name: "host_cpu_usage", help: "Hypervisors CPU usage", value: float64(hs.Summary.QuickStats.OverallCpuUsage), labels: map[string]string{"host": name}})
-		metrics = append(metrics, vMetric{name: "host_cpu_total", help: "Hypervisors CPU Total", value: float64(totalCPU), labels: map[string]string{"host": name}})
-		metrics = append(metrics, vMetric{name: "host_cpu_free", help: "Hypervisors CPU Free", value: float64(freeCPU), labels: map[string]string{"host": name}})
-		metrics = append(metrics, vMetric{name: "host_cpu_pusage", help: "Hypervisors CPU Percent Usage", value: float64(cpuPusage), labels: map[string]string{"host": name}})
+		metrics = append(metrics, vMetric{name: "host_cpu_usage", help: "Hypervisors CPU usage", value: float64(hs.Summary.QuickStats.OverallCpuUsage), labels: map[string]string{"host": name, "cluster": cname}})
+		metrics = append(metrics, vMetric{name: "host_cpu_total", help: "Hypervisors CPU Total", value: float64(totalCPU), labels: map[string]string{"host": name, "cluster": cname}})
+		metrics = append(metrics, vMetric{name: "host_cpu_free", help: "Hypervisors CPU Free", value: float64(freeCPU), labels: map[string]string{"host": name, "cluster": cname}})
+		metrics = append(metrics, vMetric{name: "host_cpu_pusage", help: "Hypervisors CPU Percent Usage", value: float64(cpuPusage), labels: map[string]string{"host": name, "cluster": cname}})
 
-		metrics = append(metrics, vMetric{name: "host_mem_usage", help: "Hypervisors Memory Usage", value: float64(usedMemory), labels: map[string]string{"host": name}})
-		metrics = append(metrics, vMetric{name: "host_mem_total", help: "Hypervisors Memory Total", value: float64(hs.Summary.Hardware.MemorySize), labels: map[string]string{"host": name}})
-		metrics = append(metrics, vMetric{name: "host_mem_free", help: "Hypervisors Memory Free", value: float64(freeMemory), labels: map[string]string{"host": name}})
-		metrics = append(metrics, vMetric{name: "host_mem_pusage", help: "Hypervisors Memory Percent Usage", value: float64(memPusage), labels: map[string]string{"host": name}})
+		metrics = append(metrics, vMetric{name: "host_mem_usage", help: "Hypervisors Memory Usage", value: float64(usedMemory), labels: map[string]string{"host": name, "cluster": cname}})
+		metrics = append(metrics, vMetric{name: "host_mem_total", help: "Hypervisors Memory Total", value: float64(hs.Summary.Hardware.MemorySize), labels: map[string]string{"host": name, "cluster": cname}})
+		metrics = append(metrics, vMetric{name: "host_mem_free", help: "Hypervisors Memory Free", value: float64(freeMemory), labels: map[string]string{"host": name, "cluster": cname}})
+		metrics = append(metrics, vMetric{name: "host_mem_pusage", help: "Hypervisors Memory Percent Usage", value: float64(memPusage), labels: map[string]string{"host": name, "cluster": cname}})
 	}
 
 	return metrics
@@ -254,6 +281,18 @@ func ClusterFromID(client *govmomi.Client, id string) (*object.ClusterComputeRes
 		Type:  "ClusterComputeResource",
 		Value: id,
 	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), 100*time.Millisecond)
+	defer cancel()
+	obj, err := finder.ObjectReference(ctx, ref)
+	if err != nil {
+		return nil, err
+	}
+	return obj.(*object.ClusterComputeResource), nil
+}
+
+func ClusterFromRef(client *govmomi.Client, ref types.ManagedObjectReference) (*object.ClusterComputeResource, error) {
+	finder := find.NewFinder(client.Client, false)
 
 	ctx, cancel := context.WithTimeout(context.Background(), 100*time.Millisecond)
 	defer cancel()

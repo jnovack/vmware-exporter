@@ -4,12 +4,7 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 )
 
-type vMetric struct {
-	name   string
-	help   string
-	value  float64
-	labels map[string]string
-}
+const xver = "1.0"
 
 type vCollector struct {
 	desc string
@@ -17,26 +12,48 @@ type vCollector struct {
 
 func (c *vCollector) Describe(ch chan<- *prometheus.Desc) {
 
-	cm := DSMetrics()
-	for _, m := range cm {
-		ch <- prometheus.NewDesc(m.name, m.help, []string{}, m.labels)
+	metrics := make(chan prometheus.Metric)
+	go func() {
+		c.Collect(metrics)
+		close(metrics)
+	}()
+	for m := range metrics {
+		ch <- m.Desc()
 	}
+	/*
 
-	cm = ClusterMetrics()
-	for _, m := range cm {
-		ch <- prometheus.NewDesc(m.name, m.help, []string{}, m.labels)
-	}
+		ch <- prometheus.NewDesc("exporter_version", "go-vmware-export Version", []string{}, map[string]string{"version": xver})
 
-	cm = HostMetrics()
-	for _, m := range cm {
-		ch <- prometheus.NewDesc(m.name, m.help, []string{}, m.labels)
-	}
+
+		cm := DSMetrics()
+		for _, m := range cm {
+			ch <- prometheus.NewDesc(m.name, m.help, []string{}, m.labels)
+		}
+
+		cm = ClusterMetrics()
+		for _, m := range cm {
+			ch <- prometheus.NewDesc(m.name, m.help, []string{}, m.labels)
+		}
+
+		cm = HostMetrics()
+		for _, m := range cm {
+			ch <- prometheus.NewDesc(m.name, m.help, []string{}, m.labels)
+		}
+
+	*/
 }
 
 func (c *vCollector) Collect(ch chan<- prometheus.Metric) {
 
+	ch <- prometheus.MustNewConstMetric(
+		prometheus.NewDesc("vmware_exporter_version", "go-vmware-export Version", []string{}, prometheus.Labels{"version": xver}),
+		prometheus.GaugeValue,
+		1,
+	)
+
 	cm := DSMetrics()
 	for _, m := range cm {
+
 		ch <- prometheus.MustNewConstMetric(
 			prometheus.NewDesc(m.name, m.help, []string{}, m.labels),
 			prometheus.GaugeValue,
@@ -56,12 +73,13 @@ func (c *vCollector) Collect(ch chan<- prometheus.Metric) {
 	cm = HostMetrics()
 	for _, m := range cm {
 		ch <- prometheus.MustNewConstMetric(
-			prometheus.NewDesc(m.name, m.help, []string{}, m.labels),
+			prometheus.NewDesc(m.name, m.help, []string{"cluster", "host"}, nil),
 			prometheus.GaugeValue,
 			float64(m.value),
+			m.labels["cluster"],
+			m.labels["host"],
 		)
 	}
-
 }
 
 func NewvCollector() *vCollector {

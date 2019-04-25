@@ -21,11 +21,12 @@ type Configuration struct {
 var cfg Configuration
 
 func main() {
-	port := flag.Int("port", 8080, "Port to attach exporter")
+	port := flag.Int("port", 9490, "Port to attach exporter")
 	flag.Parse()
 
 	http.Handle("/metrics", promhttp.Handler())
 	http.HandleFunc("/", redirect)
+
 	log.Info("Serving metrics on " + strconv.FormatInt(int64(*port), 10))
 	log.Fatal(http.ListenAndServe(":"+strconv.FormatInt(int64(*port), 10), nil))
 }
