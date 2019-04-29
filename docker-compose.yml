@@ -4,8 +4,8 @@ services:
     image: go-vm:latest
     restart: always
     environment:
-        HOST: "vcenter.domain.tld"
+      HOST: "vcenter.domain.tld"
         USERID: "username"
         PASSWORD: "password"
     ports:
-      - "8080:8080"
+      - "9094:9094"

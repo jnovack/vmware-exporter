@@ -167,6 +167,7 @@ func ClusterMetrics() []vMetric {
 	for _, cl := range clusters {
 		if cl.Summary != nil {
 			cname := cl.Name
+			cname = strings.ToLower(cname)
 			qs := cl.Summary.GetComputeResourceSummary()
 
 			// Memory

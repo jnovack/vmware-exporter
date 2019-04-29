@@ -21,7 +21,7 @@ type Configuration struct {
 var cfg Configuration
 
 func main() {
-	port := flag.Int("port", 9490, "Port to attach exporter")
+	port := flag.Int("port", 9094, "Port to attach exporter")
 	flag.Parse()
 
 	http.Handle("/metrics", promhttp.Handler())
