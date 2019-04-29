@@ -161,7 +161,7 @@ func ClusterMetrics() []vMetric {
 			metrics = append(metrics, vMetric{name: "vsphere_cluster_cpu_demand", help: "Cluster CPU demand, Hz ", value: float64(qs.OverallCpuDemand * 1024 * 1024), labels: map[string]string{"cluster": cname}})
 			metrics = append(metrics, vMetric{name: "vsphere_cluster_cpu_usage", help: "Cluster CPU usage Hz", value: float64(qs.OverallCpuUsage * 1024 * 1024), labels: map[string]string{"cluster": cname}})
 			metrics = append(metrics, vMetric{name: "vsphere_cluster_cpu_staticCpuEntitlement", help: "Cluster CPU static, Hz", value: float64(qs.StaticCpuEntitlement * 1024 * 1024), labels: map[string]string{"cluster": cname}})
-			metrics = append(metrics, vMetric{name: "vsphere_cluster_cpu_limit", help: "Cluster CPU ", value: float64(*pool.Config.CpuAllocation.Limit * 1024 * 1024), labels: map[string]string{"cluster": cname}})
+			metrics = append(metrics, vMetric{name: "vsphere_cluster_cpu_limit", help: "Cluster CPU ", value: float64(*pool.Config.CpuAllocation.Limit * 1024 * 1024 * 1024), labels: map[string]string{"cluster": cname}})
 		}
 	}
 
@@ -176,8 +176,8 @@ func ClusterMetrics() []vMetric {
 			metrics = append(metrics, vMetric{name: "vsphere_cluster_mem_total", help: "Total Amount of Memory in Cluster", value: float64(qs.TotalMemory / 1024 / 1024 / 1024), labels: map[string]string{"cluster": cname}})
 
 			// CPU
-			metrics = append(metrics, vMetric{name: "vsphere_cluster_cpu_effective", help: "Effective available CPU Hz in Cluster", value: float64(qs.EffectiveCpu * 1024 * 1024), labels: map[string]string{"cluster": cname}})
-			metrics = append(metrics, vMetric{name: "vsphere_cluster_cpu_total", help: "Total Amount of CPU Hz in Cluster", value: float64(qs.TotalCpu * 1024 * 1024), labels: map[string]string{"cluster": cname}})
+			metrics = append(metrics, vMetric{name: "vsphere_cluster_cpu_effective", help: "Effective available CPU Hz in Cluster", value: float64(qs.EffectiveCpu * 1024 * 1024 * 1024), labels: map[string]string{"cluster": cname}})
+			metrics = append(metrics, vMetric{name: "vsphere_cluster_cpu_total", help: "Total Amount of CPU Hz in Cluster", value: float64(qs.TotalCpu * 1024 * 1024 * 1024), labels: map[string]string{"cluster": cname}})
 
 			// Misc
 			metrics = append(metrics, vMetric{name: "vsphere_cluster_numHosts", help: "Number of Hypervisors in cluster", value: float64(qs.NumHosts), labels: map[string]string{"cluster": cname}})
