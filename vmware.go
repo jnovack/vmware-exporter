@@ -76,11 +76,11 @@ func DSMetrics() []vMetric {
 			ds_uncommitted := ds.Summary.Uncommitted / 1024 / 1024 / 1024
 			ds_name := ds.Summary.Name
 
-			metrics = append(metrics, vMetric{name: "datastore_capacity_size", help: "Datastore Total Size", value: float64(ds_capacity), labels: map[string]string{"datastore": ds_name}})
-			metrics = append(metrics, vMetric{name: "datastore_capacity_free", help: "Datastore Size Free", value: float64(ds_freespace), labels: map[string]string{"datastore": ds_name}})
-			metrics = append(metrics, vMetric{name: "datastore_capacity_used", help: "Datastore Size Used", value: float64(ds_used), labels: map[string]string{"datastore": ds_name}})
-			metrics = append(metrics, vMetric{name: "datastore_capacity_uncommitted", help: "Datastore Size Uncommitted", value: float64(ds_uncommitted), labels: map[string]string{"datastore": ds_name}})
-			metrics = append(metrics, vMetric{name: "datastore_capacity_pused", help: "Datastore Size", value: ds_pused, labels: map[string]string{"datastore": ds_name}})
+			metrics = append(metrics, vMetric{name: "vsphere_datastore_capacity_size", help: "Datastore Total Size", value: float64(ds_capacity), labels: map[string]string{"datastore": ds_name}})
+			metrics = append(metrics, vMetric{name: "vsphere_datastore_capacity_free", help: "Datastore Size Free", value: float64(ds_freespace), labels: map[string]string{"datastore": ds_name}})
+			metrics = append(metrics, vMetric{name: "vsphere_datastore_capacity_used", help: "Datastore Size Used", value: float64(ds_used), labels: map[string]string{"datastore": ds_name}})
+			metrics = append(metrics, vMetric{name: "vsphere_datastore_capacity_uncommitted", help: "Datastore Size Uncommitted", value: float64(ds_uncommitted), labels: map[string]string{"datastore": ds_name}})
+			metrics = append(metrics, vMetric{name: "vsphere_datastore_capacity_pused", help: "Datastore Size", value: ds_pused, labels: map[string]string{"datastore": ds_name}})
 
 		}
 
@@ -142,25 +142,25 @@ func ClusterMetrics() []vMetric {
 			memLimit := pool.Config.MemoryAllocation.Limit
 
 			// Memory
-			metrics = append(metrics, vMetric{name: "cluster_mem_ballooned", help: "Cluster Memory Ballooned", value: float64(qs.BalloonedMemory * 1024 * 1024), labels: map[string]string{"cluster": cname}})
-			metrics = append(metrics, vMetric{name: "cluster_mem_compressed", help: "Cluster Memory ", value: float64(qs.CompressedMemory * 1024), labels: map[string]string{"cluster": cname}})
-			metrics = append(metrics, vMetric{name: "cluster_mem_consumedOverhead", help: "Cluster Memory ", value: float64(qs.ConsumedOverheadMemory * 1024 * 1024), labels: map[string]string{"cluster": cname}})
-			metrics = append(metrics, vMetric{name: "cluster_mem_distributedMemoryEntitlement", help: "Cluster Memory ", value: float64(qs.DistributedMemoryEntitlement * 1024 * 1024), labels: map[string]string{"cluster": cname}})
-			metrics = append(metrics, vMetric{name: "cluster_mem_guest", help: "Cluster Memory ", value: float64(qs.GuestMemoryUsage * 1024 * 1024), labels: map[string]string{"cluster": cname}})
-			metrics = append(metrics, vMetric{name: "cluster_mem_private", help: "Cluster Memory ", value: float64(qs.PrivateMemory * 1024 * 1024), labels: map[string]string{"cluster": cname}})
-			metrics = append(metrics, vMetric{name: "cluster_mem_staticMemoryEntitlement", help: "Cluster Memory ", value: float64(qs.StaticMemoryEntitlement), labels: map[string]string{"cluster": cname}})
-			metrics = append(metrics, vMetric{name: "cluster_mem_shared", help: "Cluster Memory ", value: float64(qs.SharedMemory * 1024 * 1024), labels: map[string]string{"cluster": cname}})
-			metrics = append(metrics, vMetric{name: "cluster_mem_swapped", help: "Cluster Memory ", value: float64(qs.SwappedMemory * 1024 * 1024), labels: map[string]string{"cluster": cname}})
-			metrics = append(metrics, vMetric{name: "cluster_mem_limit", help: "Cluster Memory ", value: float64(*memLimit * 1024 * 1024), labels: map[string]string{"cluster": cname}})
-			metrics = append(metrics, vMetric{name: "cluster_mem_usage", help: "Cluster Memory ", value: float64(qs.HostMemoryUsage * 1024 * 1024), labels: map[string]string{"cluster": cname}})
-			metrics = append(metrics, vMetric{name: "cluster_mem_overhead", help: "Cluster Memory ", value: float64(qs.OverheadMemory * 1024 * 1024), labels: map[string]string{"cluster": cname}})
+			metrics = append(metrics, vMetric{name: "vsphere_cluster_mem_ballooned", help: "Cluster Memory Ballooned", value: float64(qs.BalloonedMemory * 1024), labels: map[string]string{"cluster": cname}})
+			metrics = append(metrics, vMetric{name: "vsphere_cluster_mem_compressed", help: "The amount of compressed memory currently consumed by VM", value: float64(qs.CompressedMemory * 1024 * 1024), labels: map[string]string{"cluster": cname}})
+			metrics = append(metrics, vMetric{name: "vsphere_cluster_mem_consumedOverhead", help: "The amount of overhead memory", value: float64(qs.ConsumedOverheadMemory * 1024), labels: map[string]string{"cluster": cname}})
+			metrics = append(metrics, vMetric{name: "vsphere_cluster_mem_distributedMemoryEntitlement", help: "Cluster Memory ", value: float64(qs.DistributedMemoryEntitlement * 1024), labels: map[string]string{"cluster": cname}})
+			metrics = append(metrics, vMetric{name: "vsphere_cluster_mem_guest", help: "Guest memory utilization statistics", value: float64(qs.GuestMemoryUsage * 1024), labels: map[string]string{"cluster": cname}})
+			metrics = append(metrics, vMetric{name: "vsphere_cluster_mem_private", help: "Cluster Memory ", value: float64(qs.PrivateMemory * 1024), labels: map[string]string{"cluster": cname}})
+			metrics = append(metrics, vMetric{name: "vsphere_cluster_mem_staticMemoryEntitlement", help: "Cluster Memory ", value: float64(qs.StaticMemoryEntitlement * 1024), labels: map[string]string{"cluster": cname}})
+			metrics = append(metrics, vMetric{name: "vsphere_cluster_mem_shared", help: "Cluster Memory ", value: float64(qs.SharedMemory * 1024), labels: map[string]string{"cluster": cname}})
+			metrics = append(metrics, vMetric{name: "vsphere_cluster_mem_swapped", help: "Cluster Memory ", value: float64(qs.SwappedMemory * 1024), labels: map[string]string{"cluster": cname}})
+			metrics = append(metrics, vMetric{name: "vsphere_cluster_mem_limit", help: "Cluster Memory ", value: float64(*memLimit * 1024 * 1024), labels: map[string]string{"cluster": cname}})
+			metrics = append(metrics, vMetric{name: "vsphere_cluster_mem_usage", help: "Cluster Memory ", value: float64(qs.HostMemoryUsage * 1024), labels: map[string]string{"cluster": cname}})
+			metrics = append(metrics, vMetric{name: "vsphere_cluster_mem_overhead", help: "Cluster Memory ", value: float64(qs.OverheadMemory * 1024), labels: map[string]string{"cluster": cname}})
 
 			// CPU
-			metrics = append(metrics, vMetric{name: "cluster_cpu_distributedCpuEntitlement", help: "Cluster CPU ", value: float64(qs.DistributedCpuEntitlement), labels: map[string]string{"cluster": cname}})
-			metrics = append(metrics, vMetric{name: "cluster_cpu_demand", help: "Cluster CPU ", value: float64(qs.OverallCpuDemand), labels: map[string]string{"cluster": cname}})
-			metrics = append(metrics, vMetric{name: "cluster_cpu_usage", help: "Cluster CPU ", value: float64(qs.OverallCpuUsage), labels: map[string]string{"cluster": cname}})
-			metrics = append(metrics, vMetric{name: "cluster_cpu_staticCpuEntitlement", help: "Cluster CPU ", value: float64(qs.StaticCpuEntitlement), labels: map[string]string{"cluster": cname}})
-			metrics = append(metrics, vMetric{name: "cluster_cpu_limit", help: "Cluster CPU ", value: float64(*pool.Config.CpuAllocation.Limit), labels: map[string]string{"cluster": cname}})
+			metrics = append(metrics, vMetric{name: "vsphere_cluster_cpu_distributedCpuEntitlement", help: "Cluster CPU ", value: float64(qs.DistributedCpuEntitlement), labels: map[string]string{"cluster": cname}})
+			metrics = append(metrics, vMetric{name: "vsphere_cluster_cpu_demand", help: "Cluster CPU ", value: float64(qs.OverallCpuDemand), labels: map[string]string{"cluster": cname}})
+			metrics = append(metrics, vMetric{name: "vsphere_cluster_cpu_usage", help: "Cluster CPU ", value: float64(qs.OverallCpuUsage), labels: map[string]string{"cluster": cname}})
+			metrics = append(metrics, vMetric{name: "vsphere_cluster_cpu_staticCpuEntitlement", help: "Cluster CPU ", value: float64(qs.StaticCpuEntitlement), labels: map[string]string{"cluster": cname}})
+			metrics = append(metrics, vMetric{name: "vsphere_cluster_cpu_limit", help: "Cluster CPU ", value: float64(*pool.Config.CpuAllocation.Limit), labels: map[string]string{"cluster": cname}})
 		}
 	}
 
@@ -171,15 +171,15 @@ func ClusterMetrics() []vMetric {
 			qs := cl.Summary.GetComputeResourceSummary()
 
 			// Memory
-			metrics = append(metrics, vMetric{name: "cluster_mem_effective", help: "Cluster Mem ", value: float64(qs.EffectiveMemory * 1024 * 1024), labels: map[string]string{"cluster": cname}})
-			metrics = append(metrics, vMetric{name: "cluster_mem_total", help: "Total Amount of Memory in Cluster", value: float64(qs.TotalMemory * 1024 * 1024), labels: map[string]string{"cluster": cname}})
+			metrics = append(metrics, vMetric{name: "vsphere_cluster_mem_effective", help: "Effective amount of Memory in Cluster", value: float64(qs.EffectiveMemory * 1024), labels: map[string]string{"cluster": cname}})
+			metrics = append(metrics, vMetric{name: "vsphere_cluster_mem_total", help: "Total Amount of Memory in Cluster", value: float64(qs.TotalMemory * 1024 * 1024 * 1024), labels: map[string]string{"cluster": cname}})
 
 			// CPU
-			metrics = append(metrics, vMetric{name: "cluster_cpu_effective", help: "Cluster Mem ", value: float64(qs.EffectiveCpu), labels: map[string]string{"cluster": cname}})
-			metrics = append(metrics, vMetric{name: "cluster_cpu_total", help: "Total Amount of CPU MHz in Cluster", value: float64(qs.TotalCpu), labels: map[string]string{"cluster": cname}})
+			metrics = append(metrics, vMetric{name: "vsphere_cluster_cpu_effective", help: "Cluster Mem ", value: float64(qs.EffectiveCpu), labels: map[string]string{"cluster": cname}})
+			metrics = append(metrics, vMetric{name: "vsphere_cluster_cpu_total", help: "Total Amount of CPU MHz in Cluster", value: float64(qs.TotalCpu), labels: map[string]string{"cluster": cname}})
 
 			// Misc
-			metrics = append(metrics, vMetric{name: "cluster_numHosts", help: "Number of Hypervisors in cluster ", value: float64(qs.NumHosts), labels: map[string]string{"cluster": cname}})
+			metrics = append(metrics, vMetric{name: "vsphere_cluster_numHosts", help: "Number of Hypervisors in cluster ", value: float64(qs.NumHosts), labels: map[string]string{"cluster": cname}})
 
 			//ccrs := qs.su.(*types.ClusterComputeResourceSummary)
 			// TODO fix missing ClusterComputeResourceSummary no only BaseComputeResourceSummary available
@@ -238,15 +238,15 @@ func HostMetrics() []vMetric {
 		cpuPusage := math.Round((float64(hs.Summary.QuickStats.OverallCpuUsage) / float64(totalCPU)) * 100)
 		memPusage := math.Round((float64(hs.Summary.QuickStats.OverallMemoryUsage) / float64(hs.Summary.Hardware.MemorySize)) * 100)
 
-		metrics = append(metrics, vMetric{name: "host_cpu_usage", help: "Hypervisors CPU usage", value: float64(hs.Summary.QuickStats.OverallCpuUsage), labels: map[string]string{"host": name, "cluster": cname}})
-		metrics = append(metrics, vMetric{name: "host_cpu_total", help: "Hypervisors CPU Total", value: float64(totalCPU), labels: map[string]string{"host": name, "cluster": cname}})
-		metrics = append(metrics, vMetric{name: "host_cpu_free", help: "Hypervisors CPU Free", value: float64(freeCPU), labels: map[string]string{"host": name, "cluster": cname}})
-		metrics = append(metrics, vMetric{name: "host_cpu_pusage", help: "Hypervisors CPU Percent Usage", value: float64(cpuPusage), labels: map[string]string{"host": name, "cluster": cname}})
+		metrics = append(metrics, vMetric{name: "vsphere_host_cpu_usage", help: "Hypervisors CPU usage", value: float64(hs.Summary.QuickStats.OverallCpuUsage), labels: map[string]string{"host": name, "cluster": cname}})
+		metrics = append(metrics, vMetric{name: "vsphere_host_cpu_total", help: "Hypervisors CPU Total", value: float64(totalCPU), labels: map[string]string{"host": name, "cluster": cname}})
+		metrics = append(metrics, vMetric{name: "vsphere_host_cpu_free", help: "Hypervisors CPU Free", value: float64(freeCPU), labels: map[string]string{"host": name, "cluster": cname}})
+		metrics = append(metrics, vMetric{name: "vsphere_host_cpu_pusage", help: "Hypervisors CPU Percent Usage", value: float64(cpuPusage), labels: map[string]string{"host": name, "cluster": cname}})
 
-		metrics = append(metrics, vMetric{name: "host_mem_usage", help: "Hypervisors Memory Usage", value: float64(usedMemory), labels: map[string]string{"host": name, "cluster": cname}})
-		metrics = append(metrics, vMetric{name: "host_mem_total", help: "Hypervisors Memory Total", value: float64(hs.Summary.Hardware.MemorySize), labels: map[string]string{"host": name, "cluster": cname}})
-		metrics = append(metrics, vMetric{name: "host_mem_free", help: "Hypervisors Memory Free", value: float64(freeMemory), labels: map[string]string{"host": name, "cluster": cname}})
-		metrics = append(metrics, vMetric{name: "host_mem_pusage", help: "Hypervisors Memory Percent Usage", value: float64(memPusage), labels: map[string]string{"host": name, "cluster": cname}})
+		metrics = append(metrics, vMetric{name: "vsphere_host_mem_usage", help: "Hypervisors Memory Usage", value: float64(usedMemory), labels: map[string]string{"host": name, "cluster": cname}})
+		metrics = append(metrics, vMetric{name: "vsphere_host_mem_total", help: "Hypervisors Memory Total", value: float64(hs.Summary.Hardware.MemorySize), labels: map[string]string{"host": name, "cluster": cname}})
+		metrics = append(metrics, vMetric{name: "vsphere_host_mem_free", help: "Hypervisors Memory Free", value: float64(freeMemory), labels: map[string]string{"host": name, "cluster": cname}})
+		metrics = append(metrics, vMetric{name: "vsphere_host_mem_pusage", help: "Hypervisors Memory Percent Usage", value: float64(memPusage), labels: map[string]string{"host": name, "cluster": cname}})
 	}
 
 	return metrics
