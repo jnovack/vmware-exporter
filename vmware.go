@@ -13,7 +13,6 @@ import (
 	"github.com/vmware/govmomi/vim25/types"
 	"math"
 	"net/url"
-	"runtime/debug"
 	"strings"
 	"time"
 )
@@ -186,6 +185,31 @@ func ClusterMetrics() []vMetric {
 			// TODO fix missing ClusterComputeResourceSummary no only BaseComputeResourceSummary available
 			//metrics = append(metrics, vMetric{ name: "cluster_numVmotions", help: "Cluster Number of vmotions ", value: float64(qs.NumHosts), labels: map[string]string{"cluster": cname}})
 
+			// Check VMS powered vs created in cluster
+			v, err := m.CreateContainerView(ctx, cl.Reference(), []string{"VirtualMachine"}, true)
+			if err != nil {
+				log.Error(err.Error())
+			}
+
+			var vms []mo.VirtualMachine
+
+			err = v.RetrieveWithFilter(ctx, []string{"VirtualMachine"}, []string{"summary", "parent"}, &vms, property.Filter{"runtime.powerState": "poweredOn"})
+			if err != nil {
+				log.Error(err.Error())
+			}
+
+			poweredOn := len(vms)
+
+			err = v.Retrieve(ctx, []string{"VirtualMachine"}, []string{"summary", "parent"}, &vms)
+			if err != nil {
+				log.Error(err.Error())
+			}
+
+			total := len(vms)
+
+			metrics = append(metrics, vMetric{name: "vsphere_cluster_vm_poweredon", help: "Number of vms running in cluster", value: float64(poweredOn), labels: map[string]string{"cluster": cname}})
+			metrics = append(metrics, vMetric{name: "vsphere_cluster_vm_total", help: "Number of vms in cluster", value: float64(total), labels: map[string]string{"cluster": cname}})
+
 		}
 
 	}
@@ -237,8 +261,6 @@ func HostMetrics() []vMetric {
 		cpuPusage := math.Round((float64(hs.Summary.QuickStats.OverallCpuUsage) / float64(totalCPU)) * 100)
 
 		totalMemory := float64(hs.Summary.Hardware.MemorySize / 1024 / 1024 / 1024)
-		debug.FreeOSMemory()
-		//freeMemory := (int64(hs.Summary.Hardware.MemorySize) / 1024) - (int64(hs.Summary.QuickStats.OverallMemoryUsage) / 1024)
 		usedMemory := float64(hs.Summary.QuickStats.OverallMemoryUsage / 1024)
 		freeMemory := totalMemory - usedMemory
 		memPusage := math.Round((usedMemory / totalMemory) * 100)
@@ -252,6 +274,52 @@ func HostMetrics() []vMetric {
 		metrics = append(metrics, vMetric{name: "vsphere_host_mem_total", help: "Hypervisors Memory Total", value: totalMemory, labels: map[string]string{"host": name, "cluster": cname}})
 		metrics = append(metrics, vMetric{name: "vsphere_host_mem_free", help: "Hypervisors Memory Free", value: float64(freeMemory), labels: map[string]string{"host": name, "cluster": cname}})
 		metrics = append(metrics, vMetric{name: "vsphere_host_mem_pusage", help: "Hypervisors Memory Percent Usage", value: float64(memPusage), labels: map[string]string{"host": name, "cluster": cname}})
+	}
+
+	return metrics
+}
+
+func VmMetrics() []vMetric {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	c, err := NewClient(ctx)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	defer c.Logout(ctx)
+
+	m := view.NewManager(c.Client)
+
+	v, err := m.CreateContainerView(ctx, c.ServiceContent.RootFolder, []string{"VirtualMachine"}, true)
+	if err != nil {
+		log.Error(err.Error())
+	}
+
+	defer v.Destroy(ctx)
+
+	var vms []mo.VirtualMachine
+
+	err = v.Retrieve(ctx, []string{"VirtualMachine"}, []string{"summary", "name"}, &vms)
+	if err != nil {
+		log.Error(err.Error())
+	}
+
+	var metrics []vMetric
+
+	for _, vm := range vms {
+
+		BalloonedMemory := vm.Summary.QuickStats.BalloonedMemory
+		GuestMemoryUsage := vm.Summary.QuickStats.GuestMemoryUsage
+
+		metrics = append(metrics, vMetric{name: "vsphere_vm_mem_total", help: "VM Memory total", value: float64(vm.Config.Hardware.MemoryMB), labels: map[string]string{"vmname": vm.Name}})
+		metrics = append(metrics, vMetric{name: "vsphere_vm_mem_usage", help: "VM Memory usage", value: float64(GuestMemoryUsage), labels: map[string]string{"vmname": vm.Name}})
+		metrics = append(metrics, vMetric{name: "vsphere_vm_mem_balloonede", help: "VM Memory Ballooned", value: float64(BalloonedMemory), labels: map[string]string{"vmname": vm.Name}})
+
+		metrics = append(metrics, vMetric{name: "vsphere_vm_cpu_usage", help: "VM CPU Usage", value: float64(vm.Summary.QuickStats.OverallCpuUsage), labels: map[string]string{"vmname": vm.Name}})
+		metrics = append(metrics, vMetric{name: "vsphere_vm_cpu_demand", help: "VM CPU Demand", value: float64(vm.Summary.QuickStats.OverallCpuDemand), labels: map[string]string{"vmname": vm.Name}})
+
 	}
 
 	return metrics

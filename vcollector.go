@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/prometheus/client_golang/prometheus"
+	"sync"
 )
 
 const xver = "1.0"
@@ -45,41 +46,68 @@ func (c *vCollector) Describe(ch chan<- *prometheus.Desc) {
 
 func (c *vCollector) Collect(ch chan<- prometheus.Metric) {
 
+	wg := sync.WaitGroup{}
+	wg.Add(4)
+
 	ch <- prometheus.MustNewConstMetric(
 		prometheus.NewDesc("vmware_exporter_version", "go-vmware-export Version", []string{}, prometheus.Labels{"version": xver}),
 		prometheus.GaugeValue,
 		1,
 	)
 
-	cm := DSMetrics()
-	for _, m := range cm {
+	go func() {
+		defer wg.Done()
+		cm := DSMetrics()
+		for _, m := range cm {
 
-		ch <- prometheus.MustNewConstMetric(
-			prometheus.NewDesc(m.name, m.help, []string{}, m.labels),
-			prometheus.GaugeValue,
-			float64(m.value),
-		)
-	}
+			ch <- prometheus.MustNewConstMetric(
+				prometheus.NewDesc(m.name, m.help, []string{}, m.labels),
+				prometheus.GaugeValue,
+				float64(m.value),
+			)
+		}
 
-	cm = ClusterMetrics()
-	for _, m := range cm {
-		ch <- prometheus.MustNewConstMetric(
-			prometheus.NewDesc(m.name, m.help, []string{}, m.labels),
-			prometheus.GaugeValue,
-			float64(m.value),
-		)
-	}
+	}()
 
-	cm = HostMetrics()
-	for _, m := range cm {
-		ch <- prometheus.MustNewConstMetric(
-			prometheus.NewDesc(m.name, m.help, []string{"cluster", "host"}, nil),
-			prometheus.GaugeValue,
-			float64(m.value),
-			m.labels["cluster"],
-			m.labels["host"],
-		)
-	}
+	go func() {
+		defer wg.Done()
+		cm := ClusterMetrics()
+		for _, m := range cm {
+			ch <- prometheus.MustNewConstMetric(
+				prometheus.NewDesc(m.name, m.help, []string{}, m.labels),
+				prometheus.GaugeValue,
+				float64(m.value),
+			)
+		}
+	}()
+
+	go func() {
+		defer wg.Done()
+		cm := HostMetrics()
+		for _, m := range cm {
+			ch <- prometheus.MustNewConstMetric(
+				prometheus.NewDesc(m.name, m.help, []string{"cluster", "host"}, nil),
+				prometheus.GaugeValue,
+				float64(m.value),
+				m.labels["cluster"],
+				m.labels["host"],
+			)
+		}
+	}()
+
+	go func() {
+		defer wg.Done()
+		cm := VmMetrics()
+		for _, m := range cm {
+			ch <- prometheus.MustNewConstMetric(
+				prometheus.NewDesc(m.name, m.help, []string{}, m.labels),
+				prometheus.GaugeValue,
+				float64(m.value),
+			)
+		}
+	}()
+
+	wg.Wait()
 }
 
 func NewvCollector() *vCollector {
