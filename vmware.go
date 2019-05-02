@@ -312,10 +312,11 @@ func VmMetrics() []vMetric {
 
 		BalloonedMemory := vm.Summary.QuickStats.BalloonedMemory
 		GuestMemoryUsage := vm.Summary.QuickStats.GuestMemoryUsage
+		VmMemory := vm.Config.Hardware.MemoryMB
 
-		metrics = append(metrics, vMetric{name: "vsphere_vm_mem_total", help: "VM Memory total", value: float64(vm.Config.Hardware.MemoryMB), labels: map[string]string{"vmname": vm.Name}})
-		metrics = append(metrics, vMetric{name: "vsphere_vm_mem_usage", help: "VM Memory usage", value: float64(GuestMemoryUsage), labels: map[string]string{"vmname": vm.Name}})
-		metrics = append(metrics, vMetric{name: "vsphere_vm_mem_balloonede", help: "VM Memory Ballooned", value: float64(BalloonedMemory), labels: map[string]string{"vmname": vm.Name}})
+		metrics = append(metrics, vMetric{name: "vsphere_vm_mem_total", help: "VM Memory total, MB", value: float64(VmMemory), labels: map[string]string{"vmname": vm.Name}})
+		metrics = append(metrics, vMetric{name: "vsphere_vm_mem_usage", help: "VM Memory usage, MB", value: float64(GuestMemoryUsage), labels: map[string]string{"vmname": vm.Name}})
+		metrics = append(metrics, vMetric{name: "vsphere_vm_mem_balloonede", help: "VM Memory Ballooned, MB", value: float64(BalloonedMemory), labels: map[string]string{"vmname": vm.Name}})
 
 		metrics = append(metrics, vMetric{name: "vsphere_vm_cpu_usage", help: "VM CPU Usage", value: float64(vm.Summary.QuickStats.OverallCpuUsage), labels: map[string]string{"vmname": vm.Name}})
 		metrics = append(metrics, vMetric{name: "vsphere_vm_cpu_demand", help: "VM CPU Demand", value: float64(vm.Summary.QuickStats.OverallCpuDemand), labels: map[string]string{"vmname": vm.Name}})
