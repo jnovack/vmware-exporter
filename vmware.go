@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	log "github.com/Sirupsen/logrus"
 	"github.com/vmware/govmomi"
 	"github.com/vmware/govmomi/find"
@@ -9,6 +10,7 @@ import (
 	"github.com/vmware/govmomi/property"
 	"github.com/vmware/govmomi/view"
 	"github.com/vmware/govmomi/vim25"
+	"github.com/vmware/govmomi/vim25/methods"
 	"github.com/vmware/govmomi/vim25/mo"
 	"github.com/vmware/govmomi/vim25/types"
 	"math"
@@ -185,7 +187,7 @@ func ClusterMetrics() []vMetric {
 			// TODO fix missing ClusterComputeResourceSummary no only BaseComputeResourceSummary available
 			//metrics = append(metrics, vMetric{ name: "cluster_numVmotions", help: "Cluster Number of vmotions ", value: float64(qs.NumHosts), labels: map[string]string{"cluster": cname}})
 
-			// Check VMS powered vs created in cluster
+			// Virtual Servers, powered on vs created in cluster
 			v, err := m.CreateContainerView(ctx, cl.Reference(), []string{"VirtualMachine"}, true)
 			if err != nil {
 				log.Error(err.Error())
@@ -197,14 +199,12 @@ func ClusterMetrics() []vMetric {
 			if err != nil {
 				log.Error(err.Error())
 			}
-
 			poweredOn := len(vms)
 
 			err = v.Retrieve(ctx, []string{"VirtualMachine"}, []string{"summary", "parent"}, &vms)
 			if err != nil {
 				log.Error(err.Error())
 			}
-
 			total := len(vms)
 
 			metrics = append(metrics, vMetric{name: "vsphere_cluster_vm_poweredon", help: "Number of vms running in cluster", value: float64(poweredOn), labels: map[string]string{"cluster": cname}})
@@ -301,7 +301,7 @@ func VmMetrics() []vMetric {
 
 	var vms []mo.VirtualMachine
 
-	err = v.Retrieve(ctx, []string{"VirtualMachine"}, []string{"summary", "name"}, &vms)
+	err = v.Retrieve(ctx, []string{"VirtualMachine"}, []string{"summary", "config", "name"}, &vms)
 	if err != nil {
 		log.Error(err.Error())
 	}
@@ -375,4 +375,52 @@ func ClusterFromRef(client *govmomi.Client, ref types.ManagedObjectReference) (*
 		return nil, err
 	}
 	return obj.(*object.ClusterComputeResource), nil
+}
+
+func PerfQuery(ctx context.Context, client *govmomi.Client, metric string, instance string, entity mo.ManagedEntity) {
+
+	//perfMan := performance.NewManager(client.Client)
+
+	var pM mo.PerformanceManager
+	err := client.RetrieveOne(ctx, *client.ServiceContent.PerfManager, nil, &pM)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	metricMap := make(map[string]int32)
+
+	for _, perfCounterInfo := range pM.PerfCounter {
+		name := perfCounterInfo.GroupInfo.GetElementDescription().Key + "." + perfCounterInfo.NameInfo.GetElementDescription().Key + "." + string(perfCounterInfo.RollupType)
+		metricMap[name] = perfCounterInfo.Key
+	}
+
+	var pmidList []types.PerfMetricId
+	mid := types.PerfMetricId{CounterId: metricMap[metric], Instance: instance}
+	pmidList = append(pmidList, mid)
+
+	querySpec := types.PerfQuerySpec{
+		Entity:     entity.Reference(),
+		MetricId:   pmidList,
+		MaxSample:  1,
+		IntervalId: 20,
+	}
+	query := types.QueryPerf{
+		This:      pM.Reference(),
+		QuerySpec: []types.PerfQuerySpec{querySpec},
+	}
+
+	response, err := methods.QueryPerf(ctx, client, &query)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	for _, base := range response.Returnval {
+		metric := base.(*types.PerfEntityMetric)
+		for _, baseSeries := range metric.Value {
+			series := baseSeries.(*types.PerfMetricIntSeries)
+			fmt.Println(series.Id.Instance)
+			fmt.Println(float64(series.Value[0]))
+		}
+	}
+
 }
