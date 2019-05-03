@@ -47,7 +47,7 @@ func (c *vCollector) Describe(ch chan<- *prometheus.Desc) {
 func (c *vCollector) Collect(ch chan<- prometheus.Metric) {
 
 	wg := sync.WaitGroup{}
-	wg.Add(4)
+	wg.Add(5)
 
 	ch <- prometheus.MustNewConstMetric(
 		prometheus.NewDesc("vmware_exporter_version", "go-vmware-export Version", []string{}, prometheus.Labels{"version": xver}),
@@ -83,6 +83,18 @@ func (c *vCollector) Collect(ch chan<- prometheus.Metric) {
 
 	go func() {
 		defer wg.Done()
+		cm := ClusterCounters()
+		for _, m := range cm {
+			ch <- prometheus.MustNewConstMetric(
+				prometheus.NewDesc(m.name, m.help, []string{}, m.labels),
+				prometheus.CounterValue,
+				float64(m.value),
+			)
+		}
+	}()
+
+	go func() {
+		defer wg.Done()
 		cm := HostMetrics()
 		for _, m := range cm {
 			ch <- prometheus.MustNewConstMetric(
@@ -97,6 +109,7 @@ func (c *vCollector) Collect(ch chan<- prometheus.Metric) {
 
 	go func() {
 		defer wg.Done()
+
 		cm := VmMetrics()
 		for _, m := range cm {
 			ch <- prometheus.MustNewConstMetric(
@@ -105,6 +118,7 @@ func (c *vCollector) Collect(ch chan<- prometheus.Metric) {
 				float64(m.value),
 			)
 		}
+
 	}()
 
 	wg.Wait()

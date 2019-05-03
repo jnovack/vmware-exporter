@@ -2,11 +2,11 @@ package main
 
 import (
 	"context"
-	"fmt"
 	log "github.com/Sirupsen/logrus"
 	"github.com/vmware/govmomi"
 	"github.com/vmware/govmomi/find"
 	"github.com/vmware/govmomi/object"
+	"github.com/vmware/govmomi/performance"
 	"github.com/vmware/govmomi/property"
 	"github.com/vmware/govmomi/view"
 	"github.com/vmware/govmomi/vim25"
@@ -183,10 +183,6 @@ func ClusterMetrics() []vMetric {
 			// Misc
 			metrics = append(metrics, vMetric{name: "vsphere_cluster_numHosts", help: "Number of Hypervisors in cluster", value: float64(qs.NumHosts), labels: map[string]string{"cluster": cname}})
 
-			//ccrs := qs.su.(*types.ClusterComputeResourceSummary)
-			// TODO fix missing ClusterComputeResourceSummary no only BaseComputeResourceSummary available
-			//metrics = append(metrics, vMetric{ name: "cluster_numVmotions", help: "Cluster Number of vmotions ", value: float64(qs.NumHosts), labels: map[string]string{"cluster": cname}})
-
 			// Virtual Servers, powered on vs created in cluster
 			v, err := m.CreateContainerView(ctx, cl.Reference(), []string{"VirtualMachine"}, true)
 			if err != nil {
@@ -214,6 +210,88 @@ func ClusterMetrics() []vMetric {
 
 	}
 
+	return metrics
+}
+
+func ClusterCounters() []vMetric {
+	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+	defer cancel()
+
+	c, err := NewClient(ctx)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	defer c.Logout(ctx)
+
+	m := view.NewManager(c.Client)
+
+	v, err := m.CreateContainerView(ctx, c.ServiceContent.RootFolder, []string{"ClusterComputeResource"}, true)
+	if err != nil {
+		log.Error(err.Error())
+
+	}
+
+	defer v.Destroy(ctx)
+
+	var lst []mo.ClusterComputeResource
+	err = v.Retrieve(ctx, []string{"ClusterComputeResource"}, []string{"name"}, &lst)
+	if err != nil {
+		log.Error(err.Error())
+
+	}
+
+	pm := performance.NewManager(c.Client)
+	mlist, err := pm.CounterInfoByKey(ctx)
+	if err != nil {
+		log.Error(err.Error())
+
+	}
+
+	var metrics []vMetric
+
+	for _, cls := range lst {
+		cname := cls.Name
+		cname = strings.ToLower(cname)
+
+		am, _ := pm.AvailableMetric(ctx, cls.Reference(), 300)
+
+		var pqList []types.PerfMetricId
+		for _, v := range am {
+
+			if strings.Contains(mlist[v.CounterId].Name(), "vmop") {
+				pqList = append(pqList, v)
+			}
+		}
+
+		querySpec := types.PerfQuerySpec{
+			Entity:     cls.Reference(),
+			MetricId:   pqList,
+			MaxSample:  1,
+			IntervalId: 300,
+		}
+		query := types.QueryPerf{
+			This:      pm.Reference(),
+			QuerySpec: []types.PerfQuerySpec{querySpec},
+		}
+
+		response, err := methods.QueryPerf(ctx, c, &query)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		for _, base := range response.Returnval {
+			metric := base.(*types.PerfEntityMetric)
+			for _, baseSeries := range metric.Value {
+				series := baseSeries.(*types.PerfMetricIntSeries)
+				name := strings.TrimLeft(mlist[series.Id.CounterId].Name(), "vmop.")
+				name = strings.TrimRight(name, ".latest")
+				metrics = append(metrics, vMetric{name: "vsphere_cluster_vmop_" + name, help: "vmops counter ", value: float64(series.Value[0]), labels: map[string]string{"cluster": cname}})
+
+			}
+		}
+
+	}
 	return metrics
 }
 
@@ -280,7 +358,7 @@ func HostMetrics() []vMetric {
 }
 
 func VmMetrics() []vMetric {
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 
 	c, err := NewClient(ctx)
@@ -306,20 +384,35 @@ func VmMetrics() []vMetric {
 		log.Error(err.Error())
 	}
 
+	metricMap := GetMetricMap(ctx, c)
+
+	idToName := make(map[int32]string)
+	for k, v := range metricMap {
+		idToName[v] = k
+	}
+
 	var metrics []vMetric
 
 	for _, vm := range vms {
 
-		BalloonedMemory := vm.Summary.QuickStats.BalloonedMemory
-		GuestMemoryUsage := vm.Summary.QuickStats.GuestMemoryUsage
-		VmMemory := vm.Config.Hardware.MemoryMB
+		// VM Memory
+		freeMemory := (int64(vm.Summary.Config.MemorySizeMB) * 1024 * 1024) - (int64(vm.Summary.QuickStats.GuestMemoryUsage) * 1024 * 1024)
+		BalloonedMemory := int64(vm.Summary.QuickStats.BalloonedMemory) * 1024 * 1024
+		GuestMemoryUsage := int64(vm.Summary.QuickStats.GuestMemoryUsage) * 1024 * 1024
+		VmMemory := int64(vm.Config.Hardware.MemoryMB) * 1024 * 1024
 
-		metrics = append(metrics, vMetric{name: "vsphere_vm_mem_total", help: "VM Memory total, MB", value: float64(VmMemory), labels: map[string]string{"vmname": vm.Name}})
-		metrics = append(metrics, vMetric{name: "vsphere_vm_mem_usage", help: "VM Memory usage, MB", value: float64(GuestMemoryUsage), labels: map[string]string{"vmname": vm.Name}})
-		metrics = append(metrics, vMetric{name: "vsphere_vm_mem_balloonede", help: "VM Memory Ballooned, MB", value: float64(BalloonedMemory), labels: map[string]string{"vmname": vm.Name}})
+		metrics = append(metrics, vMetric{name: "vsphere_vm_mem_total", help: "VM Memory total, Byte", value: float64(VmMemory), labels: map[string]string{"vmname": vm.Name}})
+		metrics = append(metrics, vMetric{name: "vsphere_vm_mem_free", help: "VM Memory total, Byte", value: float64(freeMemory), labels: map[string]string{"vmname": vm.Name}})
+		metrics = append(metrics, vMetric{name: "vsphere_vm_mem_usage", help: "VM Memory usage, Byte", value: float64(GuestMemoryUsage), labels: map[string]string{"vmname": vm.Name}})
+		metrics = append(metrics, vMetric{name: "vsphere_vm_mem_balloonede", help: "VM Memory Ballooned, Byte", value: float64(BalloonedMemory), labels: map[string]string{"vmname": vm.Name}})
 
-		metrics = append(metrics, vMetric{name: "vsphere_vm_cpu_usage", help: "VM CPU Usage", value: float64(vm.Summary.QuickStats.OverallCpuUsage), labels: map[string]string{"vmname": vm.Name}})
-		metrics = append(metrics, vMetric{name: "vsphere_vm_cpu_demand", help: "VM CPU Demand", value: float64(vm.Summary.QuickStats.OverallCpuDemand), labels: map[string]string{"vmname": vm.Name}})
+		metrics = append(metrics, vMetric{name: "vsphere_vm_cpu_usage", help: "VM CPU Usage, MHz", value: float64(vm.Summary.QuickStats.OverallCpuUsage), labels: map[string]string{"vmname": vm.Name}})
+		metrics = append(metrics, vMetric{name: "vsphere_vm_cpu_demand", help: "VM CPU Demand, MHz", value: float64(vm.Summary.QuickStats.OverallCpuDemand), labels: map[string]string{"vmname": vm.Name}})
+		//metrics = append(metrics, vMetric{name: "vsphere_vm_cpu_total", help: "VM CPU Demand, MHz", value: float64(vm.Config), labels: map[string]string{"vmname": vm.Name}})
+		/*
+			perfMetrics := PerfQuery(ctx,c,[]string{"cpu.ready.summation", "cpu.usage.none"},vm.GetManagedEntity(),metricMap,idToName)
+			metrics = append(metrics, vMetric{name: "vsphere_vm_cpu_ready", help: "VM CPU % Ready", value: float64(perfMetrics["cpu.ready.summation"]), labels: map[string]string{"vmname": vm.Name}})
+		*/
 
 	}
 
@@ -378,9 +471,7 @@ func ClusterFromRef(client *govmomi.Client, ref types.ManagedObjectReference) (*
 	return obj.(*object.ClusterComputeResource), nil
 }
 
-func PerfQuery(ctx context.Context, client *govmomi.Client, metric string, instance string, entity mo.ManagedEntity) {
-
-	//perfMan := performance.NewManager(client.Client)
+func GetMetricMap(ctx context.Context, client *govmomi.Client) (MetricMap map[string]int32) {
 
 	var pM mo.PerformanceManager
 	err := client.RetrieveOne(ctx, *client.ServiceContent.PerfManager, nil, &pM)
@@ -394,15 +485,26 @@ func PerfQuery(ctx context.Context, client *govmomi.Client, metric string, insta
 		name := perfCounterInfo.GroupInfo.GetElementDescription().Key + "." + perfCounterInfo.NameInfo.GetElementDescription().Key + "." + string(perfCounterInfo.RollupType)
 		metricMap[name] = perfCounterInfo.Key
 	}
+	return metricMap
+}
+func PerfQuery(ctx context.Context, c *govmomi.Client, metrics []string, entity mo.ManagedEntity, nameToId map[string]int32, idToName map[int32]string) map[string]int64 {
+
+	var pM mo.PerformanceManager
+	err := c.RetrieveOne(ctx, *c.ServiceContent.PerfManager, nil, &pM)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	var pmidList []types.PerfMetricId
-	mid := types.PerfMetricId{CounterId: metricMap[metric], Instance: instance}
-	pmidList = append(pmidList, mid)
+	for _, v := range metrics {
+		mid := types.PerfMetricId{CounterId: nameToId[v]}
+		pmidList = append(pmidList, mid)
+	}
 
 	querySpec := types.PerfQuerySpec{
 		Entity:     entity.Reference(),
 		MetricId:   pmidList,
-		MaxSample:  1,
+		MaxSample:  3,
 		IntervalId: 20,
 	}
 	query := types.QueryPerf{
@@ -410,18 +512,23 @@ func PerfQuery(ctx context.Context, client *govmomi.Client, metric string, insta
 		QuerySpec: []types.PerfQuerySpec{querySpec},
 	}
 
-	response, err := methods.QueryPerf(ctx, client, &query)
+	response, err := methods.QueryPerf(ctx, c, &query)
 	if err != nil {
 		log.Fatal(err)
 	}
 
+	data := make(map[string]int64)
 	for _, base := range response.Returnval {
 		metric := base.(*types.PerfEntityMetric)
 		for _, baseSeries := range metric.Value {
 			series := baseSeries.(*types.PerfMetricIntSeries)
-			fmt.Println(series.Id.Instance)
-			fmt.Println(float64(series.Value[0]))
+			//fmt.Print(idToName[series.Id.CounterId] + ": ")
+			var sum int64
+			for _, v := range series.Value {
+				sum = sum + v
+			}
+			data[idToName[series.Id.CounterId]] = sum / 3
 		}
 	}
-
+	return data
 }
