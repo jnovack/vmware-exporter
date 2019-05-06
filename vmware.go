@@ -40,7 +40,7 @@ func NewClient(ctx context.Context) (*govmomi.Client, error) {
 }
 
 func DSMetrics() []vMetric {
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
 	defer cancel()
 
 	c, err := NewClient(ctx)
@@ -52,40 +52,49 @@ func DSMetrics() []vMetric {
 
 	m := view.NewManager(c.Client)
 
-	v, err := m.CreateContainerView(ctx, c.ServiceContent.RootFolder, []string{"Datastore"}, true)
+	vmgr, err := m.CreateContainerView(ctx, c.ServiceContent.RootFolder, []string{"ClusterComputeResource"}, true)
 	if err != nil {
 		log.Error(err.Error())
 
 	}
 
-	defer v.Destroy(ctx)
-
-	var dsl []mo.Datastore
-	err = v.Retrieve(ctx, []string{"Datastore"}, []string{"summary", "name", "parent"}, &dsl)
-	if err != nil {
-		log.Error(err.Error())
-	}
+	defer vmgr.Destroy(ctx)
 
 	var metrics []vMetric
 
-	for _, ds := range dsl {
-		if ds.Summary.Accessible {
+	var lst []mo.ClusterComputeResource
+	err = vmgr.Retrieve(ctx, []string{"ClusterComputeResource"}, []string{"name", "datastore"}, &lst)
+	if err != nil {
+		log.Error(err.Error())
 
-			ds_capacity := ds.Summary.Capacity / 1024 / 1024 / 1024
-			ds_freespace := ds.Summary.FreeSpace / 1024 / 1024 / 1024
-			ds_used := ds_capacity - ds_freespace
-			ds_pused := math.Round((float64(ds_used) / float64(ds_capacity)) * 100)
-			ds_uncommitted := ds.Summary.Uncommitted / 1024 / 1024 / 1024
-			ds_name := ds.Summary.Name
+	}
+	for _, cls := range lst {
 
-			metrics = append(metrics, vMetric{name: "vsphere_datastore_capacity_size", help: "Datastore Total Size", value: float64(ds_capacity), labels: map[string]string{"datastore": ds_name}})
-			metrics = append(metrics, vMetric{name: "vsphere_datastore_capacity_free", help: "Datastore Size Free", value: float64(ds_freespace), labels: map[string]string{"datastore": ds_name}})
-			metrics = append(metrics, vMetric{name: "vsphere_datastore_capacity_used", help: "Datastore Size Used", value: float64(ds_used), labels: map[string]string{"datastore": ds_name}})
-			metrics = append(metrics, vMetric{name: "vsphere_datastore_capacity_uncommitted", help: "Datastore Size Uncommitted", value: float64(ds_uncommitted), labels: map[string]string{"datastore": ds_name}})
-			metrics = append(metrics, vMetric{name: "vsphere_datastore_capacity_pused", help: "Datastore Size", value: ds_pused, labels: map[string]string{"datastore": ds_name}})
+		cname := cls.Name
+		cname = strings.ToLower(cname)
+
+		var dsl []mo.Datastore
+		pc := c.PropertyCollector()
+		pc.Retrieve(ctx, cls.Datastore, []string{"summary", "name"}, &dsl)
+
+		for _, ds := range dsl {
+			if ds.Summary.Accessible {
+
+				ds_capacity := ds.Summary.Capacity / 1024 / 1024 / 1024
+				ds_freespace := ds.Summary.FreeSpace / 1024 / 1024 / 1024
+				ds_used := ds_capacity - ds_freespace
+				ds_pused := math.Round((float64(ds_used) / float64(ds_capacity)) * 100)
+				ds_uncommitted := ds.Summary.Uncommitted / 1024 / 1024 / 1024
+				ds_name := ds.Summary.Name
+
+				metrics = append(metrics, vMetric{name: "vsphere_datastore_capacity_size", help: "Datastore Total Size", value: float64(ds_capacity), labels: map[string]string{"datastore": ds_name, "cluster": cname}})
+				metrics = append(metrics, vMetric{name: "vsphere_datastore_capacity_free", help: "Datastore Size Free", value: float64(ds_freespace), labels: map[string]string{"datastore": ds_name, "cluster": cname}})
+				metrics = append(metrics, vMetric{name: "vsphere_datastore_capacity_used", help: "Datastore Size Used", value: float64(ds_used), labels: map[string]string{"datastore": ds_name, "cluster": cname}})
+				metrics = append(metrics, vMetric{name: "vsphere_datastore_capacity_uncommitted", help: "Datastore Size Uncommitted", value: float64(ds_uncommitted), labels: map[string]string{"datastore": ds_name, "cluster": cname}})
+				metrics = append(metrics, vMetric{name: "vsphere_datastore_capacity_pused", help: "Datastore Size", value: ds_pused, labels: map[string]string{"datastore": ds_name, "cluster": cname}})
+			}
 
 		}
-
 	}
 
 	return metrics
@@ -113,7 +122,6 @@ func ClusterMetrics() []vMetric {
 	v, err := m.CreateContainerView(ctx, c.ServiceContent.RootFolder, []string{"ResourcePool"}, true)
 	if err != nil {
 		log.Error(err.Error())
-		//return err
 	}
 
 	defer v.Destroy(ctx)
@@ -177,8 +185,8 @@ func ClusterMetrics() []vMetric {
 			metrics = append(metrics, vMetric{name: "vsphere_cluster_mem_total", help: "Total Amount of Memory in Cluster", value: float64(qs.TotalMemory / 1024 / 1024 / 1024), labels: map[string]string{"cluster": cname}})
 
 			// CPU
-			metrics = append(metrics, vMetric{name: "vsphere_cluster_cpu_effective", help: "Effective available CPU MHz in Cluster", value: float64(qs.EffectiveCpu), labels: map[string]string{"cluster": cname}})
-			metrics = append(metrics, vMetric{name: "vsphere_cluster_cpu_total", help: "Total Amount of CPU MHz in Cluster", value: float64(qs.TotalCpu), labels: map[string]string{"cluster": cname}})
+			metrics = append(metrics, vMetric{name: "vsphere_cluster_cpu_effective", help: "Effective available CPU Hz in Cluster", value: float64(qs.EffectiveCpu), labels: map[string]string{"cluster": cname}})
+			metrics = append(metrics, vMetric{name: "vsphere_cluster_cpu_total", help: "Total Amount of CPU Hz in Cluster", value: float64(qs.TotalCpu), labels: map[string]string{"cluster": cname}})
 
 			// Misc
 			metrics = append(metrics, vMetric{name: "vsphere_cluster_numHosts", help: "Number of Hypervisors in cluster", value: float64(qs.NumHosts), labels: map[string]string{"cluster": cname}})
@@ -295,6 +303,7 @@ func ClusterCounters() []vMetric {
 	return metrics
 }
 
+// Collects Hypervisor metrics
 func HostMetrics() []vMetric {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
@@ -352,6 +361,77 @@ func HostMetrics() []vMetric {
 		metrics = append(metrics, vMetric{name: "vsphere_host_mem_total", help: "Hypervisors Memory Total", value: totalMemory, labels: map[string]string{"host": name, "cluster": cname}})
 		metrics = append(metrics, vMetric{name: "vsphere_host_mem_free", help: "Hypervisors Memory Free", value: float64(freeMemory), labels: map[string]string{"host": name, "cluster": cname}})
 		metrics = append(metrics, vMetric{name: "vsphere_host_mem_pusage", help: "Hypervisors Memory Percent Usage", value: float64(memPusage), labels: map[string]string{"host": name, "cluster": cname}})
+	}
+
+	return metrics
+}
+
+// Report status of the HBA attached to a hypervisor to be able to monitor if a hba goes offline
+func HostHBAStatus() []vMetric {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	c, err := NewClient(ctx)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	defer c.Logout(ctx)
+
+	m := view.NewManager(c.Client)
+
+	v, err := m.CreateContainerView(ctx, c.ServiceContent.RootFolder, []string{"HostSystem"}, true)
+	if err != nil {
+		log.Error(err.Error())
+	}
+
+	defer v.Destroy(ctx)
+
+	var hosts []mo.HostSystem
+	err = v.Retrieve(ctx, []string{"HostSystem"}, []string{"name", "summary", "parent"}, &hosts)
+	if err != nil {
+		log.Error(err.Error())
+	}
+
+	var metrics []vMetric
+
+	for _, host := range hosts {
+		// Get name of cluster the host is part of
+		cls, err := ClusterFromRef(c, host.Parent.Reference())
+		if err != nil {
+			log.Error(err.Error())
+			return nil
+		}
+		cname := cls.Name()
+		cname = strings.ToLower(cname)
+
+		hcm := object.NewHostConfigManager(c.Client, host.Reference())
+		ss, err := hcm.StorageSystem(ctx)
+		if err != nil {
+			log.Error(err.Error())
+		}
+
+		var hss mo.HostStorageSystem
+		err = ss.Properties(ctx, ss.Reference(), nil, &hss)
+		if err != nil {
+			return nil
+		}
+
+		hbas := hss.StorageDeviceInfo.HostBusAdapter
+
+		for _, v := range hbas {
+
+			hba := v.GetHostHostBusAdapter()
+
+			if hba.Status != "unknown" {
+				status := 0
+				if hba.Status == "online" {
+					status = 1
+				}
+				metrics = append(metrics, vMetric{name: "vsphere_host_hba_status", help: "Hypervisors hba Online status, 1 == Online", value: float64(status), labels: map[string]string{"host": host.Name, "cluster": cname, "hba": hba.Device}})
+			}
+
+		}
 	}
 
 	return metrics

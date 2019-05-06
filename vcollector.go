@@ -1,6 +1,7 @@
 package main
 
 import (
+	//log "github.com/Sirupsen/logrus"
 	"github.com/prometheus/client_golang/prometheus"
 	"sync"
 )
@@ -47,7 +48,7 @@ func (c *vCollector) Describe(ch chan<- *prometheus.Desc) {
 func (c *vCollector) Collect(ch chan<- prometheus.Metric) {
 
 	wg := sync.WaitGroup{}
-	wg.Add(5)
+	wg.Add(6)
 
 	ch <- prometheus.MustNewConstMetric(
 		prometheus.NewDesc("vmware_exporter_version", "go-vmware-export Version", []string{}, prometheus.Labels{"version": xver}),
@@ -57,6 +58,7 @@ func (c *vCollector) Collect(ch chan<- prometheus.Metric) {
 
 	go func() {
 		defer wg.Done()
+		//log.Info("DS Metrics")
 		cm := DSMetrics()
 		for _, m := range cm {
 
@@ -111,6 +113,20 @@ func (c *vCollector) Collect(ch chan<- prometheus.Metric) {
 		defer wg.Done()
 
 		cm := VmMetrics()
+		for _, m := range cm {
+			ch <- prometheus.MustNewConstMetric(
+				prometheus.NewDesc(m.name, m.help, []string{}, m.labels),
+				prometheus.GaugeValue,
+				float64(m.value),
+			)
+		}
+
+	}()
+
+	go func() {
+		defer wg.Done()
+
+		cm := HostHBAStatus()
 		for _, m := range cm {
 			ch <- prometheus.MustNewConstMetric(
 				prometheus.NewDesc(m.name, m.help, []string{}, m.labels),
