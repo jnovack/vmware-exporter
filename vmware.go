@@ -389,7 +389,7 @@ func HostCounters() []vMetric {
 	defer v.Destroy(ctx)
 
 	var hosts []mo.HostSystem
-	err = v.Retrieve(ctx, []string{"HostSystem"}, []string{"name", "parent", "summary.hardware"}, &hosts)
+	err = v.Retrieve(ctx, []string{"HostSystem"}, []string{"name", "parent", "summary"}, &hosts)
 	if err != nil {
 		log.Error(err.Error() + ": HostCounters")
 	}
