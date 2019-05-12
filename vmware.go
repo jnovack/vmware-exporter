@@ -434,17 +434,28 @@ func HostCounters() []vMetric {
 
 		var vMem int64
 		var vCPU int64
+		var vCPUOn int64
+		var vMemOn int64
 		vCPU = 0
 		vMem = 0
+		vCPUOn = 0
+		vMemOn = 0
 
 		for _, vm := range vms {
 
 			vCPU = vCPU + int64(vm.Summary.Config.NumCpu)
 			vMem = vMem + int64(vm.Summary.Config.MemorySizeMB/1024)
+
+			if vm.Runtime.PowerState == types.VirtualMachinePowerState("poweredOn") {
+				vCPUOn = vCPUOn + int64(vm.Summary.Config.NumCpu)
+				vMemOn = vMemOn + int64(vm.Summary.Config.MemorySizeMB/1024)
+			}
 		}
 
-		metrics = append(metrics, vMetric{name: "vsphere_host_vcpu", help: "Number of vcpu configured on host", value: float64(vCPU), labels: map[string]string{"host": name, "cluster": cname}})
-		metrics = append(metrics, vMetric{name: "vsphere_host_vmem", help: "Total vmem configured on host", value: float64(vMem), labels: map[string]string{"host": name, "cluster": cname}})
+		metrics = append(metrics, vMetric{name: "vsphere_host_vcpu_all", help: "Number of vcpu configured on host", value: float64(vCPU), labels: map[string]string{"host": name, "cluster": cname}})
+		metrics = append(metrics, vMetric{name: "vsphere_host_vmem_all", help: "Total vmem configured on host", value: float64(vMem), labels: map[string]string{"host": name, "cluster": cname}})
+		metrics = append(metrics, vMetric{name: "vsphere_host_vcpu_on", help: "Number of vcpu configured and running on host", value: float64(vCPUOn), labels: map[string]string{"host": name, "cluster": cname}})
+		metrics = append(metrics, vMetric{name: "vsphere_host_vmem_on", help: "Total vmem configured and running on host", value: float64(vMemOn), labels: map[string]string{"host": name, "cluster": cname}})
 
 		cores := hs.Summary.Hardware.NumCpuCores
 		metrics = append(metrics, vMetric{name: "vsphere_host_cores", help: "Number of physical cores available on host", value: float64(cores), labels: map[string]string{"host": name, "cluster": cname}})
