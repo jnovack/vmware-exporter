@@ -21,3 +21,12 @@ $ docker-compose up -d
 
 
 Curl http://localhost:9094
+
+
+# Supported Metrics
+
+
+
+Check if host HBA is Online or Offline
+vsphere_host_hba_status{cluster="clustername",hba="vmhba1",host="hypervisor.host.name"} 1.0`
+

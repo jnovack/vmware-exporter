@@ -22,33 +22,12 @@ func (c *vCollector) Describe(ch chan<- *prometheus.Desc) {
 	for m := range metrics {
 		ch <- m.Desc()
 	}
-	/*
-
-		ch <- prometheus.NewDesc("exporter_version", "go-vmware-export Version", []string{}, map[string]string{"version": xver})
-
-
-		cm := DSMetrics()
-		for _, m := range cm {
-			ch <- prometheus.NewDesc(m.name, m.help, []string{}, m.labels)
-		}
-
-		cm = ClusterMetrics()
-		for _, m := range cm {
-			ch <- prometheus.NewDesc(m.name, m.help, []string{}, m.labels)
-		}
-
-		cm = HostMetrics()
-		for _, m := range cm {
-			ch <- prometheus.NewDesc(m.name, m.help, []string{}, m.labels)
-		}
-
-	*/
 }
 
 func (c *vCollector) Collect(ch chan<- prometheus.Metric) {
 
 	wg := sync.WaitGroup{}
-	wg.Add(6)
+	wg.Add(7)
 
 	ch <- prometheus.MustNewConstMetric(
 		prometheus.NewDesc("vmware_exporter_version", "go-vmware-export Version", []string{}, prometheus.Labels{"version": xver}),
@@ -98,6 +77,20 @@ func (c *vCollector) Collect(ch chan<- prometheus.Metric) {
 	go func() {
 		defer wg.Done()
 		cm := HostMetrics()
+		for _, m := range cm {
+			ch <- prometheus.MustNewConstMetric(
+				prometheus.NewDesc(m.name, m.help, []string{"cluster", "host"}, nil),
+				prometheus.GaugeValue,
+				float64(m.value),
+				m.labels["cluster"],
+				m.labels["host"],
+			)
+		}
+	}()
+
+	go func() {
+		defer wg.Done()
+		cm := HostCounters()
 		for _, m := range cm {
 			ch <- prometheus.MustNewConstMetric(
 				prometheus.NewDesc(m.name, m.help, []string{"cluster", "host"}, nil),

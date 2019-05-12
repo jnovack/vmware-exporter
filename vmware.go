@@ -101,7 +101,7 @@ func DSMetrics() []vMetric {
 }
 
 func ClusterMetrics() []vMetric {
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
 	defer cancel()
 
 	c, err := NewClient(ctx)
@@ -305,7 +305,7 @@ func ClusterCounters() []vMetric {
 
 // Collects Hypervisor metrics
 func HostMetrics() []vMetric {
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
 	defer cancel()
 
 	c, err := NewClient(ctx)
@@ -325,7 +325,7 @@ func HostMetrics() []vMetric {
 	defer v.Destroy(ctx)
 
 	var hosts []mo.HostSystem
-	err = v.Retrieve(ctx, []string{"HostSystem"}, []string{"summary", "parent"}, &hosts)
+	err = v.Retrieve(ctx, []string{"HostSystem"}, []string{"summary", "parent", "vm"}, &hosts)
 	if err != nil {
 		log.Error(err.Error())
 	}
@@ -361,6 +361,95 @@ func HostMetrics() []vMetric {
 		metrics = append(metrics, vMetric{name: "vsphere_host_mem_total", help: "Hypervisors Memory Total", value: totalMemory, labels: map[string]string{"host": name, "cluster": cname}})
 		metrics = append(metrics, vMetric{name: "vsphere_host_mem_free", help: "Hypervisors Memory Free", value: float64(freeMemory), labels: map[string]string{"host": name, "cluster": cname}})
 		metrics = append(metrics, vMetric{name: "vsphere_host_mem_pusage", help: "Hypervisors Memory Percent Usage", value: float64(memPusage), labels: map[string]string{"host": name, "cluster": cname}})
+
+	}
+
+	return metrics
+}
+
+// Collects Hypervisor counters
+func HostCounters() []vMetric {
+	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+	defer cancel()
+
+	c, err := NewClient(ctx)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	defer c.Logout(ctx)
+
+	m := view.NewManager(c.Client)
+
+	v, err := m.CreateContainerView(ctx, c.ServiceContent.RootFolder, []string{"HostSystem"}, true)
+	if err != nil {
+		log.Error(err.Error())
+	}
+
+	defer v.Destroy(ctx)
+
+	var hosts []mo.HostSystem
+	err = v.Retrieve(ctx, []string{"HostSystem"}, []string{"name", "parent", "summary"}, &hosts)
+	if err != nil {
+		log.Error(err.Error())
+	}
+
+	var metrics []vMetric
+
+	for _, hs := range hosts {
+		// Get name of cluster the host is part of
+		cls, err := ClusterFromRef(c, hs.Parent.Reference())
+		if err != nil {
+			log.Error(err.Error())
+			return nil
+		}
+		cname := cls.Name()
+		cname = strings.ToLower(cname)
+		name := hs.Summary.Config.Name
+
+		vMgr := view.NewManager(c.Client)
+		vmView, err := vMgr.CreateContainerView(ctx, hs.Reference(), []string{"VirtualMachine"}, true)
+		if err != nil {
+			log.Error(err.Error() + " " + hs.Name)
+		}
+
+		var vms []mo.VirtualMachine
+
+		err = vmView.RetrieveWithFilter(ctx, []string{"VirtualMachine"}, []string{"name"}, &vms, property.Filter{"runtime.powerState": "poweredOn"})
+		if err != nil {
+			log.Error(err.Error())
+		}
+
+		poweredOn := len(vms)
+
+		err = vmView.Retrieve(ctx, []string{"VirtualMachine"}, []string{"name", "summary"}, &vms)
+		if err != nil {
+			log.Error(err.Error() + " : " + "in retrieving vms")
+		}
+
+		total := len(vms)
+
+		metrics = append(metrics, vMetric{name: "vsphere_host_vm_poweron", help: "Number of vms running on host", value: float64(poweredOn), labels: map[string]string{"host": name, "cluster": cname}})
+		metrics = append(metrics, vMetric{name: "vsphere_host_vm_total", help: "Number of vms registered on host", value: float64(total), labels: map[string]string{"host": name, "cluster": cname}})
+
+		var vMem int64
+		var vCPU int64
+		vCPU = 0
+		vMem = 0
+
+		for _, vm := range vms {
+
+			vCPU = vCPU + int64(vm.Summary.Config.NumCpu)
+			vMem = vMem + int64(vm.Summary.Config.MemorySizeMB/1024)
+		}
+
+		metrics = append(metrics, vMetric{name: "vsphere_host_vcpu", help: "Number of vcpu configured on host", value: float64(vCPU), labels: map[string]string{"host": name, "cluster": cname}})
+		metrics = append(metrics, vMetric{name: "vsphere_host_vmem", help: "Total vmem configured on host", value: float64(vMem), labels: map[string]string{"host": name, "cluster": cname}})
+
+		cores := hs.Summary.Hardware.NumCpuCores
+		metrics = append(metrics, vMetric{name: "vsphere_host_cores", help: "Number of physical cores available on host", value: float64(cores), labels: map[string]string{"host": name, "cluster": cname}})
+
+		vmView.Destroy(ctx)
 	}
 
 	return metrics
@@ -368,7 +457,7 @@ func HostMetrics() []vMetric {
 
 // Report status of the HBA attached to a hypervisor to be able to monitor if a hba goes offline
 func HostHBAStatus() []vMetric {
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
 	defer cancel()
 
 	c, err := NewClient(ctx)
