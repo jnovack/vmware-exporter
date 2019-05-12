@@ -446,7 +446,7 @@ func HostCounters() []vMetric {
 			vCPU = vCPU + int64(vm.Summary.Config.NumCpu)
 			vMem = vMem + int64(vm.Summary.Config.MemorySizeMB/1024)
 
-			if vm.Runtime.PowerState == types.VirtualMachinePowerState("poweredOn") {
+			if vm.Runtime.PowerState == types.VirtualMachinePowerStatePoweredOn {
 				vCPUOn = vCPUOn + int64(vm.Summary.Config.NumCpu)
 				vMemOn = vMemOn + int64(vm.Summary.Config.MemorySizeMB/1024)
 			}

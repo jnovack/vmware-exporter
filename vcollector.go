@@ -13,6 +13,11 @@ type vCollector struct {
 	desc string
 }
 
+func timeTrack(start time.Time, name string) {
+	elapsed := time.Since(start)
+	log.Printf("%s took %s", name, elapsed)
+}
+
 func (c *vCollector) Describe(ch chan<- *prometheus.Desc) {
 
 	metrics := make(chan prometheus.Metric)
@@ -38,9 +43,8 @@ func (c *vCollector) Collect(ch chan<- prometheus.Metric) {
 
 	go func() {
 		defer wg.Done()
-		start := time.Now()
+		defer timeTrack(time.Now(), "DSMetrics")
 		cm := DSMetrics()
-		log.Info("DSMetrics: " + time.Since(start).String())
 		for _, m := range cm {
 
 			ch <- prometheus.MustNewConstMetric(
@@ -54,10 +58,8 @@ func (c *vCollector) Collect(ch chan<- prometheus.Metric) {
 
 	go func() {
 		defer wg.Done()
-		start := time.Now()
-
+		defer timeTrack(time.Now(), "ClusterMetrics")
 		cm := ClusterMetrics()
-		log.Info("ClusterMetrics: " + time.Since(start).String())
 		for _, m := range cm {
 			ch <- prometheus.MustNewConstMetric(
 				prometheus.NewDesc(m.name, m.help, []string{}, m.labels),
@@ -69,10 +71,8 @@ func (c *vCollector) Collect(ch chan<- prometheus.Metric) {
 
 	go func() {
 		defer wg.Done()
-		start := time.Now()
-
+		defer timeTrack(time.Now(), "ClusterCounters")
 		cm := ClusterCounters()
-		log.Info("ClusterCounters: " + time.Since(start).String())
 		for _, m := range cm {
 			ch <- prometheus.MustNewConstMetric(
 				prometheus.NewDesc(m.name, m.help, []string{}, m.labels),
@@ -84,10 +84,8 @@ func (c *vCollector) Collect(ch chan<- prometheus.Metric) {
 
 	go func() {
 		defer wg.Done()
-		start := time.Now()
-
+		defer timeTrack(time.Now(), "HostMetrics")
 		cm := HostMetrics()
-		log.Info("HostMetrics: " + time.Since(start).String())
 		for _, m := range cm {
 			ch <- prometheus.MustNewConstMetric(
 				prometheus.NewDesc(m.name, m.help, []string{"cluster", "host"}, nil),
@@ -101,10 +99,8 @@ func (c *vCollector) Collect(ch chan<- prometheus.Metric) {
 
 	go func() {
 		defer wg.Done()
-		start := time.Now()
-
+		defer timeTrack(time.Now(), "HostCounters")
 		cm := HostCounters()
-		log.Info("HostCounters: " + time.Since(start).String())
 		for _, m := range cm {
 			ch <- prometheus.MustNewConstMetric(
 				prometheus.NewDesc(m.name, m.help, []string{"cluster", "host"}, nil),
@@ -118,10 +114,8 @@ func (c *vCollector) Collect(ch chan<- prometheus.Metric) {
 
 	go func() {
 		defer wg.Done()
-		start := time.Now()
-
+		defer timeTrack(time.Now(), "HostCounters")
 		cm := VmMetrics()
-		log.Info("VMMetrics: " + time.Since(start).String())
 		for _, m := range cm {
 			ch <- prometheus.MustNewConstMetric(
 				prometheus.NewDesc(m.name, m.help, []string{}, m.labels),
@@ -134,10 +128,8 @@ func (c *vCollector) Collect(ch chan<- prometheus.Metric) {
 
 	go func() {
 		defer wg.Done()
-		start := time.Now()
-
+		defer timeTrack(time.Now(), "HostHBAStatus")
 		cm := HostHBAStatus()
-		log.Info("HBAStatus: " + time.Since(start).String())
 		for _, m := range cm {
 			ch <- prometheus.MustNewConstMetric(
 				prometheus.NewDesc(m.name, m.help, []string{}, m.labels),
