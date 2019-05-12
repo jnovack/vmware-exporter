@@ -1,9 +1,10 @@
 package main
 
 import (
-	//log "github.com/Sirupsen/logrus"
+	log "github.com/Sirupsen/logrus"
 	"github.com/prometheus/client_golang/prometheus"
 	"sync"
+	"time"
 )
 
 const xver = "1.0"
@@ -37,8 +38,9 @@ func (c *vCollector) Collect(ch chan<- prometheus.Metric) {
 
 	go func() {
 		defer wg.Done()
-		//log.Info("DS Metrics")
+		start := time.Now()
 		cm := DSMetrics()
+		log.Info("DSMetrics: " + time.Since(start).String())
 		for _, m := range cm {
 
 			ch <- prometheus.MustNewConstMetric(
@@ -52,7 +54,10 @@ func (c *vCollector) Collect(ch chan<- prometheus.Metric) {
 
 	go func() {
 		defer wg.Done()
+		start := time.Now()
+
 		cm := ClusterMetrics()
+		log.Info("ClusterMetrics: " + time.Since(start).String())
 		for _, m := range cm {
 			ch <- prometheus.MustNewConstMetric(
 				prometheus.NewDesc(m.name, m.help, []string{}, m.labels),
@@ -64,7 +69,10 @@ func (c *vCollector) Collect(ch chan<- prometheus.Metric) {
 
 	go func() {
 		defer wg.Done()
+		start := time.Now()
+
 		cm := ClusterCounters()
+		log.Info("ClusterCounters: " + time.Since(start).String())
 		for _, m := range cm {
 			ch <- prometheus.MustNewConstMetric(
 				prometheus.NewDesc(m.name, m.help, []string{}, m.labels),
@@ -76,7 +84,10 @@ func (c *vCollector) Collect(ch chan<- prometheus.Metric) {
 
 	go func() {
 		defer wg.Done()
+		start := time.Now()
+
 		cm := HostMetrics()
+		log.Info("HostMetrics: " + time.Since(start).String())
 		for _, m := range cm {
 			ch <- prometheus.MustNewConstMetric(
 				prometheus.NewDesc(m.name, m.help, []string{"cluster", "host"}, nil),
@@ -90,7 +101,10 @@ func (c *vCollector) Collect(ch chan<- prometheus.Metric) {
 
 	go func() {
 		defer wg.Done()
+		start := time.Now()
+
 		cm := HostCounters()
+		log.Info("HostCounters: " + time.Since(start).String())
 		for _, m := range cm {
 			ch <- prometheus.MustNewConstMetric(
 				prometheus.NewDesc(m.name, m.help, []string{"cluster", "host"}, nil),
@@ -104,8 +118,10 @@ func (c *vCollector) Collect(ch chan<- prometheus.Metric) {
 
 	go func() {
 		defer wg.Done()
+		start := time.Now()
 
 		cm := VmMetrics()
+		log.Info("VMMetrics: " + time.Since(start).String())
 		for _, m := range cm {
 			ch <- prometheus.MustNewConstMetric(
 				prometheus.NewDesc(m.name, m.help, []string{}, m.labels),
@@ -118,8 +134,10 @@ func (c *vCollector) Collect(ch chan<- prometheus.Metric) {
 
 	go func() {
 		defer wg.Done()
+		start := time.Now()
 
 		cm := HostHBAStatus()
+		log.Info("HBAStatus: " + time.Since(start).String())
 		for _, m := range cm {
 			ch <- prometheus.MustNewConstMetric(
 				prometheus.NewDesc(m.name, m.help, []string{}, m.labels),

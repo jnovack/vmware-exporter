@@ -222,7 +222,7 @@ func ClusterMetrics() []vMetric {
 }
 
 func ClusterCounters() []vMetric {
-	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 
 	c, err := NewClient(ctx)
@@ -383,15 +383,15 @@ func HostCounters() []vMetric {
 
 	v, err := m.CreateContainerView(ctx, c.ServiceContent.RootFolder, []string{"HostSystem"}, true)
 	if err != nil {
-		log.Error(err.Error())
+		log.Error(err.Error() + ": HostCounters")
 	}
 
 	defer v.Destroy(ctx)
 
 	var hosts []mo.HostSystem
-	err = v.Retrieve(ctx, []string{"HostSystem"}, []string{"name", "parent", "summary"}, &hosts)
+	err = v.Retrieve(ctx, []string{"HostSystem"}, []string{"name", "parent", "summary.hardware"}, &hosts)
 	if err != nil {
-		log.Error(err.Error())
+		log.Error(err.Error() + ": HostCounters")
 	}
 
 	var metrics []vMetric
@@ -415,14 +415,14 @@ func HostCounters() []vMetric {
 
 		var vms []mo.VirtualMachine
 
-		err = vmView.RetrieveWithFilter(ctx, []string{"VirtualMachine"}, []string{"name"}, &vms, property.Filter{"runtime.powerState": "poweredOn"})
-		if err != nil {
-			log.Error(err.Error())
+		err2 := vmView.RetrieveWithFilter(ctx, []string{"VirtualMachine"}, []string{"name", "runtime"}, &vms, property.Filter{"runtime.powerState": "poweredOn"})
+		if err2 != nil {
+			//	log.Error(err2.Error() +": HostCounters - poweron")
 		}
 
 		poweredOn := len(vms)
 
-		err = vmView.Retrieve(ctx, []string{"VirtualMachine"}, []string{"name", "summary"}, &vms)
+		err = vmView.Retrieve(ctx, []string{"VirtualMachine"}, []string{"name", "summary.config"}, &vms)
 		if err != nil {
 			log.Error(err.Error() + " : " + "in retrieving vms")
 		}
@@ -477,7 +477,7 @@ func HostHBAStatus() []vMetric {
 	defer v.Destroy(ctx)
 
 	var hosts []mo.HostSystem
-	err = v.Retrieve(ctx, []string{"HostSystem"}, []string{"name", "summary", "parent"}, &hosts)
+	err = v.Retrieve(ctx, []string{"HostSystem"}, []string{"name", "parent"}, &hosts)
 	if err != nil {
 		log.Error(err.Error())
 	}
@@ -501,7 +501,7 @@ func HostHBAStatus() []vMetric {
 		}
 
 		var hss mo.HostStorageSystem
-		err = ss.Properties(ctx, ss.Reference(), nil, &hss)
+		err = ss.Properties(ctx, ss.Reference(), []string{"StorageDeviceInfo.HostBusAdapter"}, &hss)
 		if err != nil {
 			return nil
 		}
