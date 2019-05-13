@@ -422,7 +422,7 @@ func HostCounters() []vMetric {
 
 		poweredOn := len(vms)
 
-		err = vmView.Retrieve(ctx, []string{"VirtualMachine"}, []string{"name", "summary.config"}, &vms)
+		err = vmView.Retrieve(ctx, []string{"VirtualMachine"}, []string{"name", "summary.config", "runtime.powerState"}, &vms)
 		if err != nil {
 			log.Error(err.Error() + " : " + "in retrieving vms")
 		}
@@ -446,7 +446,9 @@ func HostCounters() []vMetric {
 			vCPU = vCPU + int64(vm.Summary.Config.NumCpu)
 			vMem = vMem + int64(vm.Summary.Config.MemorySizeMB/1024)
 
-			if vm.Runtime.PowerState == types.VirtualMachinePowerStatePoweredOn {
+			pwr := string(vm.Runtime.PowerState)
+			//fmt.Println(pwr)
+			if pwr == "poweredOn" {
 				vCPUOn = vCPUOn + int64(vm.Summary.Config.NumCpu)
 				vMemOn = vMemOn + int64(vm.Summary.Config.MemorySizeMB/1024)
 			}
