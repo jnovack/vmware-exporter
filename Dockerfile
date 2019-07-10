@@ -1,6 +1,6 @@
 
 # Start from golang v1.11 base image
-FROM golang:1.11 as builder
+FROM golang:1.12 as builder
 
 # Add Maintainer Info
 LABEL maintainer="MS <marstid@juppi.net>"
