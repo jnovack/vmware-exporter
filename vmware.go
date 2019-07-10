@@ -26,6 +26,7 @@ type vMetric struct {
 	labels map[string]string
 }
 
+
 // Connect to vCenter
 func NewClient(ctx context.Context) (*govmomi.Client, error) {
 
@@ -40,7 +41,7 @@ func NewClient(ctx context.Context) (*govmomi.Client, error) {
 }
 
 func DSMetrics() []vMetric {
-	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
 
 	c, err := NewClient(ctx)
@@ -101,7 +102,7 @@ func DSMetrics() []vMetric {
 }
 
 func ClusterMetrics() []vMetric {
-	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
 
 	c, err := NewClient(ctx)
@@ -222,7 +223,7 @@ func ClusterMetrics() []vMetric {
 }
 
 func ClusterCounters() []vMetric {
-	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
 
 	c, err := NewClient(ctx)
@@ -305,7 +306,7 @@ func ClusterCounters() []vMetric {
 
 // Collects Hypervisor metrics
 func HostMetrics() []vMetric {
-	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
 
 	c, err := NewClient(ctx)
@@ -369,7 +370,7 @@ func HostMetrics() []vMetric {
 
 // Collects Hypervisor counters
 func HostCounters() []vMetric {
-	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
 
 	c, err := NewClient(ctx)
@@ -470,7 +471,7 @@ func HostCounters() []vMetric {
 
 // Report status of the HBA attached to a hypervisor to be able to monitor if a hba goes offline
 func HostHBAStatus() []vMetric {
-	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
 
 	c, err := NewClient(ctx)
@@ -524,8 +525,6 @@ func HostHBAStatus() []vMetric {
 		for _, v := range hbas {
 
 			hba := v.GetHostHostBusAdapter()
-
-			
 
 			if hba.Status != "unknown" {
 				status := 0

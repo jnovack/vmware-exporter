@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"time"
 )
 
 type Configuration struct {
@@ -20,6 +21,8 @@ type Configuration struct {
 }
 
 var cfg Configuration
+
+var defaultTimeout time.Duration
 
 func main() {
 	port := flag.Int("port", 9094, "Port to attach exporter")
@@ -38,6 +41,9 @@ func redirect(w http.ResponseWriter, r *http.Request) {
 }
 
 func init() {
+
+	defaultTimeout = 30 * time.Second
+
 	// Get config details
 	if os.Getenv("HOST") != "" && os.Getenv("USERID") != "" && os.Getenv("PASSWORD") != "" {
 		if os.Getenv("DEBUG") == "True" {
