@@ -33,7 +33,11 @@ func (c *vCollector) Describe(ch chan<- *prometheus.Desc) {
 func (c *vCollector) Collect(ch chan<- prometheus.Metric) {
 
 	wg := sync.WaitGroup{}
-	wg.Add(7)
+	if cfg.vmStats == true {
+		wg.Add(7)
+	} else {
+		wg.Add(6)
+	}
 
 	ch <- prometheus.MustNewConstMetric(
 		prometheus.NewDesc("vmware_exporter_version", "go-vmware-export Version", []string{}, prometheus.Labels{"version": xver}),
@@ -41,6 +45,7 @@ func (c *vCollector) Collect(ch chan<- prometheus.Metric) {
 		1,
 	)
 
+	// Datastore Metrics
 	go func() {
 		defer wg.Done()
 		defer timeTrack(time.Now(), "DSMetrics")
@@ -56,6 +61,7 @@ func (c *vCollector) Collect(ch chan<- prometheus.Metric) {
 
 	}()
 
+	// Cluster Metrics
 	go func() {
 		defer wg.Done()
 		defer timeTrack(time.Now(), "ClusterMetrics")
@@ -69,6 +75,7 @@ func (c *vCollector) Collect(ch chan<- prometheus.Metric) {
 		}
 	}()
 
+	// Cluster Counters
 	go func() {
 		defer wg.Done()
 		defer timeTrack(time.Now(), "ClusterCounters")
@@ -82,6 +89,7 @@ func (c *vCollector) Collect(ch chan<- prometheus.Metric) {
 		}
 	}()
 
+	// Host Metrics
 	go func() {
 		defer wg.Done()
 		defer timeTrack(time.Now(), "HostMetrics")
@@ -97,6 +105,7 @@ func (c *vCollector) Collect(ch chan<- prometheus.Metric) {
 		}
 	}()
 
+	// Host Counters
 	go func() {
 		defer wg.Done()
 		defer timeTrack(time.Now(), "HostCounters")
@@ -112,20 +121,24 @@ func (c *vCollector) Collect(ch chan<- prometheus.Metric) {
 		}
 	}()
 
-	go func() {
-		defer wg.Done()
-		defer timeTrack(time.Now(), "HostCounters")
-		cm := VmMetrics()
-		for _, m := range cm {
-			ch <- prometheus.MustNewConstMetric(
-				prometheus.NewDesc(m.name, m.help, []string{}, m.labels),
-				prometheus.GaugeValue,
-				float64(m.value),
-			)
-		}
+	// VM Metrics
+	if cfg.vmStats == true {
+		go func() {
+			defer wg.Done()
+			defer timeTrack(time.Now(), "VMMetrics")
+			cm := VmMetrics()
+			for _, m := range cm {
+				ch <- prometheus.MustNewConstMetric(
+					prometheus.NewDesc(m.name, m.help, []string{}, m.labels),
+					prometheus.GaugeValue,
+					float64(m.value),
+				)
+			}
 
-	}()
+		}()
+	}
 
+	// HBA Status
 	go func() {
 		defer wg.Done()
 		defer timeTrack(time.Now(), "HostHBAStatus")

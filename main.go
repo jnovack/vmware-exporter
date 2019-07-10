@@ -16,6 +16,7 @@ type Configuration struct {
 	User     string
 	Password string
 	Debug    bool
+	vmStats  bool
 }
 
 var cfg Configuration
@@ -43,6 +44,11 @@ func init() {
 			cfg = Configuration{Host: os.Getenv("HOST"), User: os.Getenv("USERID"), Password: os.Getenv("PASSWORD"), Debug: true}
 		} else {
 			cfg = Configuration{Host: os.Getenv("HOST"), User: os.Getenv("USERID"), Password: os.Getenv("PASSWORD"), Debug: false}
+		}
+		if os.Getenv("VMSTATS") == "False" {
+			cfg = Configuration{Host: os.Getenv("HOST"), User: os.Getenv("USERID"), Password: os.Getenv("PASSWORD"), Debug: true, vmStats: false}
+		} else {
+			cfg = Configuration{Host: os.Getenv("HOST"), User: os.Getenv("USERID"), Password: os.Getenv("PASSWORD"), Debug: false, vmStats: true}
 		}
 
 	} else {

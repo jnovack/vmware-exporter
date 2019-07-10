@@ -525,6 +525,8 @@ func HostHBAStatus() []vMetric {
 
 			hba := v.GetHostHostBusAdapter()
 
+			
+
 			if hba.Status != "unknown" {
 				status := 0
 				if hba.Status == "online" {
