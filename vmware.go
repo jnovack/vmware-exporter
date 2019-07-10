@@ -641,7 +641,7 @@ func ClusterFromID(client *govmomi.Client, id string) (*object.ClusterComputeRes
 		Value: id,
 	}
 
-	ctx, cancel := context.WithTimeout(context.Background(), 100*time.Millisecond)
+	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
 	defer cancel()
 	obj, err := finder.ObjectReference(ctx, ref)
 	if err != nil {
@@ -653,7 +653,7 @@ func ClusterFromID(client *govmomi.Client, id string) (*object.ClusterComputeRes
 func ClusterFromRef(client *govmomi.Client, ref types.ManagedObjectReference) (*object.ClusterComputeResource, error) {
 	finder := find.NewFinder(client.Client, false)
 
-	ctx, cancel := context.WithTimeout(context.Background(), 100*time.Millisecond)
+	ctx, cancel := context.WithTimeout(context.Background(),  2*time.Second)
 	defer cancel()
 	obj, err := finder.ObjectReference(ctx, ref)
 	if err != nil {
