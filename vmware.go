@@ -27,6 +27,7 @@ type vMetric struct {
 }
 
 
+
 // Connect to vCenter
 func NewClient(ctx context.Context) (*govmomi.Client, error) {
 
@@ -41,6 +42,7 @@ func NewClient(ctx context.Context) (*govmomi.Client, error) {
 }
 
 func DSMetrics() []vMetric {
+	log.SetReportCaller(true)
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
 
@@ -102,6 +104,7 @@ func DSMetrics() []vMetric {
 }
 
 func ClusterMetrics() []vMetric {
+	log.SetReportCaller(true)
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
 
@@ -223,6 +226,7 @@ func ClusterMetrics() []vMetric {
 }
 
 func ClusterCounters() []vMetric {
+	log.SetReportCaller(true)
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
 
@@ -306,6 +310,7 @@ func ClusterCounters() []vMetric {
 
 // Collects Hypervisor metrics
 func HostMetrics() []vMetric {
+	log.SetReportCaller(true)
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
 
@@ -370,6 +375,7 @@ func HostMetrics() []vMetric {
 
 // Collects Hypervisor counters
 func HostCounters() []vMetric {
+	log.SetReportCaller(true)
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
 
@@ -471,6 +477,7 @@ func HostCounters() []vMetric {
 
 // Report status of the HBA attached to a hypervisor to be able to monitor if a hba goes offline
 func HostHBAStatus() []vMetric {
+	log.SetReportCaller(true)
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
 
@@ -541,6 +548,7 @@ func HostHBAStatus() []vMetric {
 }
 
 func VmMetrics() []vMetric {
+	log.SetReportCaller(true)
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 

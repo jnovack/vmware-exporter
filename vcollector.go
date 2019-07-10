@@ -9,6 +9,7 @@ import (
 
 const xver = "1.0"
 
+
 type vCollector struct {
 	desc string
 }
