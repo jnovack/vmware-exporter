@@ -2,14 +2,15 @@ package main
 
 import (
 	"flag"
-	log "github.com/Sirupsen/logrus"
-	"github.com/magiconair/properties"
-	"github.com/prometheus/client_golang/prometheus"
-	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"net/http"
 	"os"
 	"strconv"
 	"time"
+
+	log "github.com/Sirupsen/logrus"
+	"github.com/magiconair/properties"
+	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 type Configuration struct {
@@ -62,7 +63,7 @@ func init() {
 			"config.properties",
 		}, properties.UTF8, true)
 
-		cfg = Configuration{Host: p.MustGetString("host"), User: p.MustGetString("user"), Password: p.MustGetString("password"), Debug: p.MustGetBool("debug")}
+		cfg = Configuration{Host: p.MustGetString("host"), User: p.MustGetString("user"), Password: p.MustGetString("password"), Debug: p.MustGetBool("debug"), vmStats: p.MustGetBool("vmstats")}
 	}
 
 	prometheus.MustRegister(NewvCollector())
