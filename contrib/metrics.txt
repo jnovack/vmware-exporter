@@ -1,0 +1,533 @@
+clusterServices.cpufairness.latest 1 Fairness of distributed CPU resource allocation
+clusterServices.effectivecpu.average 1 Total available CPU resources of all hosts within a cluster
+clusterServices.effectivemem.average 1 Total amount of machine memory of all hosts in the cluster that is available for use for virtual machine memory and overhead memory
+clusterServices.failover.latest 1 vSphere HA number of failures that can be tolerated
+clusterServices.memfairness.latest 1 Aggregate available memory resources of all the hosts within a cluster
+cpu.capacity.contention.average 4 Percent of time the VM is unable to run because it is contending for access to the physical CPU(s)
+cpu.capacity.demand.average 4 The amount of CPU resources a VM would use if there were no CPU contention or CPU limit
+cpu.capacity.entitlement.average 4 CPU resources devoted by the ESXi scheduler to the virtual machines and resource pools
+cpu.capacity.provisioned.average 4 Capacity in MHz of the physical CPU cores
+cpu.capacity.usage.average 4 CPU usage as a percent during the interval.
+cpu.corecount.contention.average 4 Time the VM vCPU is ready to run, but is unable to run due to co-scheduling constraints
+cpu.corecount.provisioned.average 4 The number of virtual processors provisioned to the entity.
+cpu.corecount.usage.average 4 The number of virtual processors running on the host.
+cpu.coreUtilization.average 2 CPU utilization of the corresponding core (if hyper-threading is enabled) as a percentage during the interval (A core is utilized if either or both of its logical CPUs are utilized)
+cpu.coreUtilization.maximum 4 CPU utilization of the corresponding core (if hyper-threading is enabled) as a percentage during the interval (A core is utilized if either or both of its logical CPUs are utilized)
+cpu.coreUtilization.minimum 4 CPU utilization of the corresponding core (if hyper-threading is enabled) as a percentage during the interval (A core is utilized if either or both of its logical CPUs are utilized)
+cpu.coreUtilization.none 4 CPU utilization of the corresponding core (if hyper-threading is enabled) as a percentage during the interval (A core is utilized if either or both of its logical CPUs are utilized)
+cpu.costop.summation 2 Time the virtual machine is ready to run, but is unable to run due to co-scheduling constraints
+cpu.cpuentitlement.latest 2 Amount of CPU resources allocated to the virtual machine or resource pool, based on the total cluster capacity and the resource configuration of the resource hierarchy
+cpu.demand.average 2 The amount of CPU resources a virtual machine would use if there were no CPU contention or CPU limit
+cpu.demandEntitlementRatio.latest 4 CPU resource entitlement to CPU demand ratio (in percents)
+cpu.entitlement.latest 2 CPU resources devoted by the ESX scheduler
+cpu.idle.summation 2 Total time that the CPU spent in an idle state
+cpu.latency.average 2 Percent of time the virtual machine is unable to run because it is contending for access to the physical CPU(s)
+cpu.maxlimited.summation 2 Time the virtual machine is ready to run, but is not run due to maxing out its CPU limit setting
+cpu.overlap.summation 3 Time the virtual machine was interrupted to perform system services on behalf of itself or other virtual machines
+cpu.readiness.average 4 Percentage of time that the virtual machine was ready, but could not get scheduled to run on the physical CPU
+cpu.ready.summation 1 Time that the virtual machine was ready, but could not get scheduled to run on the physical CPU during last measurement interval
+cpu.reservedCapacity.average 2 Total CPU capacity reserved by virtual machines
+cpu.run.summation 2 Time the virtual machine is scheduled to run
+cpu.swapwait.summation 3 CPU time spent waiting for swap-in
+cpu.system.summation 3 Amount of time spent on system processes on each virtual CPU in the virtual machine
+cpu.totalCapacity.average 2 Total CPU capacity reserved by and available for virtual machines
+cpu.totalmhz.average 1 Total amount of CPU resources of all hosts in the cluster
+cpu.usage.average 1 CPU usage as a percentage during the interval
+cpu.usage.maximum 4 CPU usage as a percentage during the interval
+cpu.usage.minimum 4 CPU usage as a percentage during the interval
+cpu.usage.none 4 CPU usage as a percentage during the interval
+cpu.usagemhz.average 1 CPU usage in megahertz during the interval
+cpu.usagemhz.maximum 4 CPU usage in megahertz during the interval
+cpu.usagemhz.minimum 4 CPU usage in megahertz during the interval
+cpu.usagemhz.none 4 CPU usage in megahertz during the interval
+cpu.used.summation 3 Total CPU usage
+cpu.utilization.average 2 CPU utilization as a percentage during the interval (CPU usage and CPU utilization might be different due to power management technologies or hyper-threading)
+cpu.utilization.maximum 4 CPU utilization as a percentage during the interval (CPU usage and CPU utilization might be different due to power management technologies or hyper-threading)
+cpu.utilization.minimum 4 CPU utilization as a percentage during the interval (CPU usage and CPU utilization might be different due to power management technologies or hyper-threading)
+cpu.utilization.none 4 CPU utilization as a percentage during the interval (CPU usage and CPU utilization might be different due to power management technologies or hyper-threading)
+cpu.wait.summation 3 Total CPU time spent in wait state
+datastore.busResets.summation 2 busResets
+datastore.commandsAborted.summation 2 commandsAborted
+datastore.datastoreIops.average 1 Storage I/O Control aggregated IOPS
+datastore.datastoreMaxQueueDepth.latest 1 Storage I/O Control datastore maximum queue depth
+datastore.datastoreNormalReadLatency.latest 2 Storage DRS datastore normalized read latency
+datastore.datastoreNormalWriteLatency.latest 2 Storage DRS datastore normalized write latency
+datastore.datastoreReadBytes.latest 2 Storage DRS datastore bytes read
+datastore.datastoreReadIops.latest 1 Storage DRS datastore read I/O rate
+datastore.datastoreReadLoadMetric.latest 4 Storage DRS datastore metric for read workload model
+datastore.datastoreReadOIO.latest 1 Storage DRS datastore outstanding read requests
+datastore.datastoreVMObservedLatency.latest 1 The average datastore latency as seen by virtual machines
+datastore.datastoreWriteBytes.latest 2 Storage DRS datastore bytes written
+datastore.datastoreWriteIops.latest 1 Storage DRS datastore write I/O rate
+datastore.datastoreWriteLoadMetric.latest 4 Storage DRS datastore metric for write workload model
+datastore.datastoreWriteOIO.latest 1 Storage DRS datastore outstanding write requests
+datastore.maxTotalLatency.latest 3 Highest latency value across all datastores used by the host
+datastore.numberReadAveraged.average 1 Average number of read commands issued per second to the datastore during the collection interval
+datastore.numberWriteAveraged.average 1 Average number of write commands issued per second to the datastore during the collection interval
+datastore.read.average 2 Rate of reading data from the datastore
+datastore.siocActiveTimePercentage.average 1 Percentage of time Storage I/O Control actively controlled datastore latency
+datastore.sizeNormalizedDatastoreLatency.average 1 Storage I/O Control size-normalized I/O latency
+datastore.throughput.contention.average 4 contention
+datastore.throughput.usage.average 4 usage
+datastore.totalReadLatency.average 1 The average time a read from the datastore takes
+datastore.totalWriteLatency.average 1 The average time a write to the datastore takes
+datastore.unmapIOs.summation 4 unmapIOs
+datastore.unmapSize.summation 4 unmapSize
+datastore.write.average 2 Rate of writing data to the datastore
+disk.busResets.summation 2 Number of SCSI-bus reset commands issued during the collection interval
+disk.capacity.contention.average 4 contention
+disk.capacity.latest 1 Configured size of the datastore
+disk.capacity.provisioned.average 4 provisioned
+disk.capacity.usage.average 4 usage
+disk.commands.summation 2 Number of SCSI commands issued during the collection interval
+disk.commandsAborted.summation 2 Number of SCSI commands aborted during the collection interval
+disk.commandsAveraged.average 2 Average number of SCSI commands issued per second during the collection interval
+disk.deltaused.latest 2 Storage overhead of a virtual machine or a datastore due to delta disk backings
+disk.deviceLatency.average 1 Average amount of time, in milliseconds, to complete a SCSI command from the physical device
+disk.deviceReadLatency.average 2 Average amount of time, in milliseconds, to read from the physical device
+disk.deviceWriteLatency.average 2 Average amount of time, in milliseconds, to write to the physical device
+disk.kernelLatency.average 2 Average amount of time, in milliseconds, spent by VMkernel to process each SCSI command
+disk.kernelReadLatency.average 2 Average amount of time, in milliseconds, spent by VMkernel to process each SCSI read command
+disk.kernelWriteLatency.average 2 Average amount of time, in milliseconds, spent by VMkernel to process each SCSI write command
+disk.maxQueueDepth.average 1 Maximum queue depth
+disk.maxTotalLatency.latest 1 Highest latency value across all disks used by the host
+disk.numberRead.summation 3 Number of disk reads during the collection interval
+disk.numberReadAveraged.average 1 Average number of disk reads per second during the collection interval
+disk.numberWrite.summation 3 Number of disk writes during the collection interval
+disk.numberWriteAveraged.average 1 Average number of disk writes per second during the collection interval
+disk.provisioned.latest 1 Amount of storage set aside for use by a datastore or a virtual machine
+disk.queueLatency.average 2 Average amount of time spent in the VMkernel queue, per SCSI command, during the collection interval
+disk.queueReadLatency.average 2 Average amount of time spent in the VMkernel queue, per SCSI read command, during the collection interval
+disk.queueWriteLatency.average 2 Average amount of time spent in the VMkernel queue, per SCSI write command, during the collection interval
+disk.read.average 2 Average number of kilobytes read from the disk each second during the collection interval
+disk.scsiReservationCnflctsPct.average 4 Number of SCSI reservation conflicts for the LUN as a percent of total commands during the collection interval
+disk.scsiReservationConflicts.summation 2 Number of SCSI reservation conflicts for the LUN during the collection interval
+disk.throughput.contention.average 4 Average amount of time for an I/O operation to complete successfully
+disk.throughput.usage.average 4 Aggregated disk I/O rate, including the rates for all virtual machines running on the host during the collection interval
+disk.totalLatency.average 3 Average amount of time taken during the collection interval to process a SCSI command issued by the guest OS to the virtual machine
+disk.totalReadLatency.average 2 Average amount of time taken during the collection interval to process a SCSI read command issued from the guest OS to the virtual machine
+disk.totalWriteLatency.average 2 Average amount of time taken during the collection interval to process a SCSI write command issued by the guest OS to the virtual machine
+disk.unshared.latest 1 Amount of space associated exclusively with a virtual machine
+disk.usage.average 1 Aggregated disk I/O rate. For hosts, this metric includes the rates for all virtual machines running on the host during the collection interval.
+disk.usage.maximum 4 Aggregated disk I/O rate. For hosts, this metric includes the rates for all virtual machines running on the host during the collection interval.
+disk.usage.minimum 4 Aggregated disk I/O rate. For hosts, this metric includes the rates for all virtual machines running on the host during the collection interval.
+disk.usage.none 4 Aggregated disk I/O rate. For hosts, this metric includes the rates for all virtual machines running on the host during the collection interval.
+disk.used.latest 1 Amount of space actually used by the virtual machine or the datastore
+disk.write.average 2 Average number of kilobytes written to disk each second during the collection interval
+gpu.mem.usage.average 4 The amount of GPU memory used in percentages of the total available
+gpu.mem.usage.maximum 4 The amount of GPU memory used in percentages of the total available
+gpu.mem.usage.minimum 4 The amount of GPU memory used in percentages of the total available
+gpu.mem.usage.none 4 The amount of GPU memory used in percentages of the total available
+gpu.mem.used.average 4 The amount of GPU memory used in kilobytes
+gpu.mem.used.maximum 4 The amount of GPU memory used in kilobytes
+gpu.mem.used.minimum 4 The amount of GPU memory used in kilobytes
+gpu.mem.used.none 4 The amount of GPU memory used in kilobytes
+gpu.temperature.average 4 The temperature of a GPU in degrees celsius
+gpu.utilization.average 4 The utilization of a GPU in percentages
+gpu.utilization.maximum 4 The utilization of a GPU in percentages
+gpu.utilization.minimum 4 The utilization of a GPU in percentages
+gpu.utilization.none 4 The utilization of a GPU in percentages
+hbr.hbrNetRx.average 4 Average amount of data received per second
+hbr.hbrNetTx.average 4 Average amount of data transmitted per second
+hbr.hbrNumVms.average 4 Current number of replicated virtual machines
+managementAgent.cpuUsage.average 3 Amount of Service Console CPU usage
+managementAgent.memUsed.average 3 Amount of total configured memory that is available for use
+managementAgent.swapIn.average 3 Amount of memory that is swapped in for the Service Console
+managementAgent.swapOut.average 3 Amount of memory that is swapped out for the Service Console
+managementAgent.swapUsed.average 3 Sum of the memory swapped by all powered-on virtual machines on the host
+mem.active.average 2 Amount of guest physical memory that is being actively read or written by guest. Activeness is estimated by ESXi
+mem.active.maximum 4 Amount of guest physical memory that is being actively read or written by guest. Activeness is estimated by ESXi
+mem.active.minimum 4 Amount of guest physical memory that is being actively read or written by guest. Activeness is estimated by ESXi
+mem.active.none 4 Amount of guest physical memory that is being actively read or written by guest. Activeness is estimated by ESXi
+mem.activewrite.average 2 Amount of guest physical memory that is being actively written by guest. Activeness is estimated by ESXi
+mem.capacity.contention.average 4 Percentage of time VMs are waiting to access swapped, compressed or ballooned memory
+mem.capacity.entitlement.average 4 Amount of host physical memory the VM is entitled to, as determined by the ESXi scheduler
+mem.capacity.provisioned.average 4 Total amount of memory available to the host
+mem.capacity.usable.average 4 Amount of physical memory available for use by virtual machines on this host
+mem.capacity.usage.average 4 Amount of physical memory actively used
+mem.capacity.usage.userworld.average 2 userworld
+mem.capacity.usage.vm.average 2 vm
+mem.capacity.usage.vmkOvrhd.average 2 vmkOvrhd
+mem.capacity.usage.vmOvrhd.average 2 vmOvrhd
+mem.compressed.average 2 Guest physical memory pages that have undergone memory compression
+mem.compressionRate.average 2 Rate of guest physical memory page compression by ESXi
+mem.consumed.average 1 Amount of host physical memory consumed for backing up guest physical memory pages
+mem.consumed.maximum 4 Amount of host physical memory consumed for backing up guest physical memory pages
+mem.consumed.minimum 4 Amount of host physical memory consumed for backing up guest physical memory pages
+mem.consumed.none 4 Amount of host physical memory consumed for backing up guest physical memory pages
+mem.consumed.userworlds.average 2 Amount of physical memory consumed by userworlds on this host
+mem.consumed.vms.average 2 Amount of physical memory consumed by VMs on this host
+mem.decompressionRate.average 2 Rate of guest physical memory decompression
+mem.entitlement.average 2 Amount of host physical memory the virtual machine deserves, as determined by ESXi
+mem.granted.average 2 Amount of host physical memory or physical memory that is mapped for a virtual machine or a host
+mem.granted.maximum 4 Amount of host physical memory or physical memory that is mapped for a virtual machine or a host
+mem.granted.minimum 4 Amount of host physical memory or physical memory that is mapped for a virtual machine or a host
+mem.granted.none 4 Amount of host physical memory or physical memory that is mapped for a virtual machine or a host
+mem.heap.average 4 Virtual address space of ESXi that is dedicated to its heap
+mem.heap.maximum 4 Virtual address space of ESXi that is dedicated to its heap
+mem.heap.minimum 4 Virtual address space of ESXi that is dedicated to its heap
+mem.heap.none 4 Virtual address space of ESXi that is dedicated to its heap
+mem.heapfree.average 4 Free address space in the heap of ESXi. This is less than or equal to Heap
+mem.heapfree.maximum 4 Free address space in the heap of ESXi. This is less than or equal to Heap
+mem.heapfree.minimum 4 Free address space in the heap of ESXi. This is less than or equal to Heap
+mem.heapfree.none 4 Free address space in the heap of ESXi. This is less than or equal to Heap
+mem.latency.average 2 Percentage of time the virtual machine spent waiting to swap in or decompress guest physical memory
+mem.llSwapIn.average 4 Amount of guest physical memory swapped in from host cache
+mem.llSwapIn.maximum 4 Amount of guest physical memory swapped in from host cache
+mem.llSwapIn.minimum 4 Amount of guest physical memory swapped in from host cache
+mem.llSwapIn.none 4 Amount of guest physical memory swapped in from host cache
+mem.llSwapInRate.average 2 Rate at which guest physical memory is swapped in from the host swap cache
+mem.llSwapOut.average 4 Amount of guest physical memory swapped out to the host swap cache
+mem.llSwapOut.maximum 4 Amount of guest physical memory swapped out to the host swap cache
+mem.llSwapOut.minimum 4 Amount of guest physical memory swapped out to the host swap cache
+mem.llSwapOut.none 4 Amount of guest physical memory swapped out to the host swap cache
+mem.llSwapOutRate.average 2 Rate at which guest physical memory is swapped out to the host swap cache
+mem.llSwapUsed.average 4 Storage space consumed on the host swap cache for storing swapped guest physical memory pages
+mem.llSwapUsed.maximum 4 Storage space consumed on the host swap cache for storing swapped guest physical memory pages
+mem.llSwapUsed.minimum 4 Storage space consumed on the host swap cache for storing swapped guest physical memory pages
+mem.llSwapUsed.none 4 Storage space consumed on the host swap cache for storing swapped guest physical memory pages
+mem.lowfreethreshold.average 2 Threshold of free host physical memory below which ESXi will begin actively reclaiming memory from virtual machines by swapping, compression and ballooning
+mem.mementitlement.latest 2 Memory allocation as calculated by the VMkernel scheduler based on current estimated demand and reservation, limit, and shares policies set for all virtual machines and resource pools in the host or cluster
+mem.overhead.average 1 Host physical memory consumed by ESXi data structures for running the virtual machines
+mem.overhead.maximum 4 Host physical memory consumed by ESXi data structures for running the virtual machines
+mem.overhead.minimum 4 Host physical memory consumed by ESXi data structures for running the virtual machines
+mem.overhead.none 4 Host physical memory consumed by ESXi data structures for running the virtual machines
+mem.overheadMax.average 2 Host physical memory reserved by ESXi, for its data structures, for running the virtual machine
+mem.overheadTouched.average 4 Estimate of the host physical memory, from Overhead consumed, that is actively read or written to by ESXi
+mem.reservedCapacity.average 2 Memory reservation consumed by powered-on virtual machines
+mem.reservedCapacity.userworld.average 2 userworld
+mem.reservedCapacity.vm.average 2 vm
+mem.reservedCapacity.vmkOvrhd.average 2 vmkOvrhd
+mem.reservedCapacity.vmOvhd.average 2 vmOvhd
+mem.reservedCapacityPct.average 4 Percent of memory that has been reserved either through VMkernel use, by userworlds or due to VM memory reservations
+mem.shared.average 2 Amount of guest physical memory that is shared within a single virtual machine or across virtual machines
+mem.shared.maximum 4 Amount of guest physical memory that is shared within a single virtual machine or across virtual machines
+mem.shared.minimum 4 Amount of guest physical memory that is shared within a single virtual machine or across virtual machines
+mem.shared.none 4 Amount of guest physical memory that is shared within a single virtual machine or across virtual machines
+mem.sharedcommon.average 2 Amount of host physical memory that backs shared guest physical memory (Shared)
+mem.sharedcommon.maximum 4 Amount of host physical memory that backs shared guest physical memory (Shared)
+mem.sharedcommon.minimum 4 Amount of host physical memory that backs shared guest physical memory (Shared)
+mem.sharedcommon.none 4 Amount of host physical memory that backs shared guest physical memory (Shared)
+mem.state.latest 2 Current memory availability state of ESXi. Possible values are high, clear, soft, hard, low. The state value determines the techniques used for memory reclamation from virtual machines
+mem.swapin.average 2 Amount of guest physical memory that is swapped in from the swap space since the virtual machine has been powered on. This value is less than or equal to the 'Swap out' counter
+mem.swapIn.average 2 swapIn
+mem.swapin.maximum 4 Amount of guest physical memory that is swapped in from the swap space since the virtual machine has been powered on. This value is less than or equal to the 'Swap out' counter
+mem.swapIn.maximum 4 swapIn
+mem.swapin.minimum 4 Amount of guest physical memory that is swapped in from the swap space since the virtual machine has been powered on. This value is less than or equal to the 'Swap out' counter
+mem.swapIn.minimum 4 swapIn
+mem.swapin.none 4 Amount of guest physical memory that is swapped in from the swap space since the virtual machine has been powered on. This value is less than or equal to the 'Swap out' counter
+mem.swapIn.none 4 swapIn
+mem.swapinRate.average 1 Rate at which guest physical memory is swapped in from the swap space
+mem.swapout.average 2 Amount of guest physical memory that is swapped out from the virtual machine to its swap space since it has been powered on.
+mem.swapOut.average 2 swapOut
+mem.swapout.maximum 4 Amount of guest physical memory that is swapped out from the virtual machine to its swap space since it has been powered on.
+mem.swapOut.maximum 4 swapOut
+mem.swapout.minimum 4 Amount of guest physical memory that is swapped out from the virtual machine to its swap space since it has been powered on.
+mem.swapOut.minimum 4 swapOut
+mem.swapout.none 4 Amount of guest physical memory that is swapped out from the virtual machine to its swap space since it has been powered on.
+mem.swapOut.none 4 swapOut
+mem.swapoutRate.average 1 Rate at which guest physical memory is swapped out to the swap space
+mem.swapped.average 2 Amount of guest physical memory that is swapped out to the swap space
+mem.swapped.maximum 4 Amount of guest physical memory that is swapped out to the swap space
+mem.swapped.minimum 4 Amount of guest physical memory that is swapped out to the swap space
+mem.swapped.none 4 Amount of guest physical memory that is swapped out to the swap space
+mem.swaptarget.average 2 Amount of memory that ESXi needs to reclaim by swapping
+mem.swaptarget.maximum 4 Amount of memory that ESXi needs to reclaim by swapping
+mem.swaptarget.minimum 4 Amount of memory that ESXi needs to reclaim by swapping
+mem.swaptarget.none 4 Amount of memory that ESXi needs to reclaim by swapping
+mem.swapunreserved.average 4 swapunreserved
+mem.swapunreserved.maximum 4 swapunreserved
+mem.swapunreserved.minimum 4 swapunreserved
+mem.swapunreserved.none 4 swapunreserved
+mem.swapused.average 2 Swap storage space consumed
+mem.swapused.maximum 4 Swap storage space consumed
+mem.swapused.minimum 4 Swap storage space consumed
+mem.swapused.none 4 Swap storage space consumed
+mem.sysUsage.average 2 Amount of host physical memory consumed by VMkernel
+mem.sysUsage.maximum 4 Amount of host physical memory consumed by VMkernel
+mem.sysUsage.minimum 4 Amount of host physical memory consumed by VMkernel
+mem.sysUsage.none 4 Amount of host physical memory consumed by VMkernel
+mem.totalCapacity.average 2 Total reservation, available and consumed, for powered-on virtual machines
+mem.totalmb.average 1 Total amount of host physical memory of all hosts in the cluster that is available for virtual machine memory (physical memory for use by the guest OS) and virtual machine overhead memory
+mem.unreserved.average 2 Amount by which reservation can be raised
+mem.unreserved.maximum 4 Amount by which reservation can be raised
+mem.unreserved.minimum 4 Amount by which reservation can be raised
+mem.unreserved.none 4 Amount by which reservation can be raised
+mem.usage.average 1 Percentage of host physical memory that has been consumed
+mem.usage.maximum 4 Percentage of host physical memory that has been consumed
+mem.usage.minimum 4 Percentage of host physical memory that has been consumed
+mem.usage.none 4 Percentage of host physical memory that has been consumed
+mem.vmfs.pbc.capMissRatio.latest 4 Trailing average of the ratio of capacity misses to compulsory misses for the VMFS PB Cache
+mem.vmfs.pbc.overhead.latest 4 Amount of VMFS heap used by the VMFS PB Cache
+mem.vmfs.pbc.size.latest 4 Space used for holding VMFS Pointer Blocks in memory
+mem.vmfs.pbc.sizeMax.latest 4 Maximum size the VMFS Pointer Block Cache can grow to
+mem.vmfs.pbc.workingSet.latest 4 Amount of file blocks whose addresses are cached in the VMFS PB Cache
+mem.vmfs.pbc.workingSetMax.latest 4 Maximum amount of file blocks whose addresses are cached in the VMFS PB Cache
+mem.vmmemctl.average 1 Amount of guest physical memory reclaimed from the virtual machine by the balloon driver in the guest
+mem.vmmemctl.maximum 4 Amount of guest physical memory reclaimed from the virtual machine by the balloon driver in the guest
+mem.vmmemctl.minimum 4 Amount of guest physical memory reclaimed from the virtual machine by the balloon driver in the guest
+mem.vmmemctl.none 4 Amount of guest physical memory reclaimed from the virtual machine by the balloon driver in the guest
+mem.vmmemctltarget.average 2 Desired amount of guest physical memory the balloon driver needs to reclaim, as determined by ESXi
+mem.vmmemctltarget.maximum 4 Desired amount of guest physical memory the balloon driver needs to reclaim, as determined by ESXi
+mem.vmmemctltarget.minimum 4 Desired amount of guest physical memory the balloon driver needs to reclaim, as determined by ESXi
+mem.vmmemctltarget.none 4 Desired amount of guest physical memory the balloon driver needs to reclaim, as determined by ESXi
+mem.zero.average 2 Guest physical memory pages whose content is 0x00
+mem.zero.maximum 4 Guest physical memory pages whose content is 0x00
+mem.zero.minimum 4 Guest physical memory pages whose content is 0x00
+mem.zero.none 4 Guest physical memory pages whose content is 0x00
+mem.zipped.latest 2 Amount of guest physical memory pages compressed by ESXi
+mem.zipSaved.latest 2 Host physical memory, reclaimed from a virtual machine, by memory compression. This value is less than the value of 'Compressed' memory
+net.broadcastRx.summation 2 Number of broadcast packets received during the sampling interval
+net.broadcastTx.summation 2 Number of broadcast packets transmitted during the sampling interval
+net.bytesRx.average 2 Average amount of data received per second
+net.bytesTx.average 2 Average amount of data transmitted per second
+net.droppedRx.summation 2 Number of receives dropped
+net.droppedTx.summation 2 Number of transmits dropped
+net.errorsRx.summation 2 Number of packets with errors received during the sampling interval
+net.errorsTx.summation 2 Number of packets with errors transmitted during the sampling interval
+net.multicastRx.summation 2 Number of multicast packets received during the sampling interval
+net.multicastTx.summation 2 Number of multicast packets transmitted during the sampling interval
+net.packetsRx.summation 2 Number of packets received during the interval
+net.packetsTx.summation 2 Number of packets transmitted during the interval
+net.pnicBytesRx.average 4 pnicBytesRx
+net.pnicBytesTx.average 4 pnicBytesTx
+net.received.average 2 Average rate at which data was received during the interval
+net.throughput.contention.summation 4 The aggregate network droppped packets for the host
+net.throughput.droppedRx.average 3 Count of dropped received packets for this VDS
+net.throughput.droppedTx.average 3 Count of dropped transmitted packets for this VDS
+net.throughput.packetsPerSec.average 4 Average rate of packets received and transmitted per second
+net.throughput.pktsRx.average 3 The rate of received packets for this vDS
+net.throughput.pktsRxBroadcast.average 3 The rate of received Broadcast packets for this VDS
+net.throughput.pktsRxMulticast.average 3 The rate of received Multicast packets for this VDS
+net.throughput.pktsTx.average 3 The rate of transmitted packets for this VDS
+net.throughput.pktsTxBroadcast.average 3 The rate of transmitted Broadcast packets for this VDS
+net.throughput.pktsTxMulticast.average 3 The rate of transmitted Multicast packets for this VDS
+net.throughput.provisioned.average 4 The maximum network bandwidth for the host
+net.throughput.usable.average 4 The current available network bandwidth for the host
+net.throughput.usage.average 4 The current network bandwidth usage for the host
+net.throughput.usage.ft.average 3 Average pNic I/O rate for FT
+net.throughput.usage.hbr.average 3 Average pNic I/O rate for HBR
+net.throughput.usage.iscsi.average 3 Average pNic I/O rate for iSCSI
+net.throughput.usage.nfs.average 3 Average pNic I/O rate for NFS
+net.throughput.usage.vm.average 3 Average pNic I/O rate for VMs
+net.throughput.usage.vmotion.average 3 Average pNic I/O rate for vMotion
+net.throughput.vds.droppedRx.average 3 Count of dropped received packets for this DVPort
+net.throughput.vds.droppedTx.average 3 Count of dropped transmitted packets for this DVPort
+net.throughput.vds.lagDropRx.average 3 Count of dropped received packets for this LAG
+net.throughput.vds.lagDropTx.average 3 Count of dropped transmitted packets for this LAG
+net.throughput.vds.lagRx.average 3 The rate of received packets for this LAG
+net.throughput.vds.lagRxBcast.average 3 The rate of received Broadcast packets for this LAG
+net.throughput.vds.lagRxMcast.average 3 The rate of received multicast packets for this LAG
+net.throughput.vds.lagTx.average 3 The rate of transmitted packets for this LAG
+net.throughput.vds.lagTxBcast.average 3 The rate of transmitted Broadcast packets for this LAG
+net.throughput.vds.lagTxMcast.average 3 The rate of transmitted Multicast packets for this LAG
+net.throughput.vds.pktsRx.average 3 The rate of received packets for this DVPort
+net.throughput.vds.pktsRxBcast.average 3 The rate of received broadcast packets for this DVPort
+net.throughput.vds.pktsRxMcast.average 3 The rate of received multicast packets for this DVPort
+net.throughput.vds.pktsTx.average 3 The rate of transmitted packets for this DVPort
+net.throughput.vds.pktsTxBcast.average 3 The rate of transmitted broadcast packets for this DVPort
+net.throughput.vds.pktsTxMcast.average 3 The rate of transmitted multicast packets for this DVPort
+net.transmitted.average 2 Average rate at which data was transmitted during the interval
+net.unknownProtos.summation 2 Number of frames with unknown protocol received during the sampling interval
+net.usage.average 1 Network utilization (combined transmit-rates and receive-rates) during the interval
+net.usage.maximum 4 Network utilization (combined transmit-rates and receive-rates) during the interval
+net.usage.minimum 4 Network utilization (combined transmit-rates and receive-rates) during the interval
+net.usage.none 4 Network utilization (combined transmit-rates and receive-rates) during the interval
+pmem.available.reservation.latest 4 Persistent memory available reservation on a host.
+pmem.drsmanaged.reservation.latest 4 Persistent memory reservation managed by DRS on a host.
+power.capacity.usable.average 4 Current maximum allowed power usage.
+power.capacity.usage.average 4 Current power usage
+power.capacity.usagePct.average 4 Current power usage as a percentage of maximum allowed power.
+power.energy.summation 3 Total energy used since last stats reset
+power.power.average 2 Current power usage
+power.powerCap.average 3 Maximum allowed power usage
+rescpu.actav1.latest 3 CPU active average over 1 minute
+rescpu.actav15.latest 3 CPU active average over 15 minutes
+rescpu.actav5.latest 3 CPU active average over 5 minutes
+rescpu.actpk1.latest 3 CPU active peak over 1 minute
+rescpu.actpk15.latest 3 CPU active peak over 15 minutes
+rescpu.actpk5.latest 3 CPU active peak over 5 minutes
+rescpu.maxLimited1.latest 3 Amount of CPU resources over the limit that were refused, average over 1 minute
+rescpu.maxLimited15.latest 3 Amount of CPU resources over the limit that were refused, average over 15 minutes
+rescpu.maxLimited5.latest 3 Amount of CPU resources over the limit that were refused, average over 5 minutes
+rescpu.runav1.latest 3 CPU running average over 1 minute
+rescpu.runav15.latest 3 CPU running average over 15 minutes
+rescpu.runav5.latest 3 CPU running average over 5 minutes
+rescpu.runpk1.latest 3 CPU running peak over 1 minute
+rescpu.runpk15.latest 3 CPU running peak over 15 minutes
+rescpu.runpk5.latest 3 CPU running peak over 5 minutes
+rescpu.sampleCount.latest 3 Group CPU sample count
+rescpu.samplePeriod.latest 3 Group CPU sample period
+storageAdapter.commandsAveraged.average 2 Average number of commands issued per second by the storage adapter during the collection interval
+storageAdapter.maxTotalLatency.latest 3 Highest latency value across all storage adapters used by the host
+storageAdapter.numberReadAveraged.average 2 Average number of read commands issued per second by the storage adapter during the collection interval
+storageAdapter.numberWriteAveraged.average 2 Average number of write commands issued per second by the storage adapter during the collection interval
+storageAdapter.OIOsPct.average 4 The percent of I/Os that have been issued but have not yet completed
+storageAdapter.outstandingIOs.average 2 The number of I/Os that have been issued but have not yet completed
+storageAdapter.queued.average 2 The current number of I/Os that are waiting to be issued
+storageAdapter.queueDepth.average 2 The maximum number of I/Os that can be outstanding at a given time
+storageAdapter.queueLatency.average 2 Average amount of time spent in the VMkernel queue, per SCSI command, during the collection interval
+storageAdapter.read.average 2 Rate of reading data by the storage adapter
+storageAdapter.throughput.cont.average 4 Average amount of time for an I/O operation to complete successfully
+storageAdapter.throughput.usag.average 4 The storage adapter's I/O rate
+storageAdapter.totalReadLatency.average 2 The average time a read by the storage adapter takes
+storageAdapter.totalWriteLatency.average 2 The average time a write by the storage adapter takes
+storageAdapter.write.average 2 Rate of writing data by the storage adapter
+storagePath.busResets.summation 2 Number of SCSI-bus reset commands issued during the collection interval
+storagePath.commandsAborted.summation 2 Number of SCSI commands terminated during the collection interval
+storagePath.commandsAveraged.average 3 Average number of commands issued per second on the storage path during the collection interval
+storagePath.maxTotalLatency.latest 3 Highest latency value across all storage paths used by the host
+storagePath.numberReadAveraged.average 3 Average number of read commands issued per second on the storage path during the collection interval
+storagePath.numberWriteAveraged.average 3 Average number of write commands issued per second on the storage path during the collection interval
+storagePath.read.average 3 Rate of reading data on the storage path
+storagePath.throughput.cont.average 4 Average amount of time for an I/O operation to complete successfully
+storagePath.throughput.usage.average 4 Storage path I/O rate
+storagePath.totalReadLatency.average 3 The average time a read issued on the storage path takes
+storagePath.totalWriteLatency.average 3 The average time a write issued on the storage path takes
+storagePath.write.average 3 Rate of writing data on the storage path
+sys.diskUsage.latest 3 Amount of disk space usage for each mount point
+sys.heartbeat.latest 4 Number of heartbeats issued per virtual machine during the interval
+sys.heartbeat.summation 1 Number of heartbeats issued per virtual machine during the interval
+sys.osUptime.latest 4 Total time elapsed, in seconds, since last operating system boot-up
+sys.resourceCpuAct1.latest 3 CPU active average over 1 minute of the system resource group
+sys.resourceCpuAct5.latest 3 CPU active average over 5 minutes of the system resource group
+sys.resourceCpuAllocMax.latest 3 CPU allocation limit (in MHz) of the system resource group
+sys.resourceCpuAllocMin.latest 3 CPU allocation reservation (in MHz) of the system resource group
+sys.resourceCpuAllocShares.latest 3 CPU allocation shares of the system resource group
+sys.resourceCpuMaxLimited1.latest 3 CPU maximum limited over 1 minute of the system resource group
+sys.resourceCpuMaxLimited5.latest 3 CPU maximum limited over 5 minutes of the system resource group
+sys.resourceCpuRun1.latest 3 CPU running average over 1 minute of the system resource group
+sys.resourceCpuRun5.latest 3 CPU running average over 5 minutes of the system resource group
+sys.resourceCpuUsage.average 3 Amount of CPU used by the Service Console and other applications during the interval
+sys.resourceCpuUsage.maximum 4 Amount of CPU used by the Service Console and other applications during the interval
+sys.resourceCpuUsage.minimum 4 Amount of CPU used by the Service Console and other applications during the interval
+sys.resourceCpuUsage.none 4 Amount of CPU used by the Service Console and other applications during the interval
+sys.resourceFdUsage.latest 4 Number of file descriptors used by the system resource group
+sys.resourceMemAllocMax.latest 3 Memory allocation limit (in KB) of the system resource group
+sys.resourceMemAllocMin.latest 3 Memory allocation reservation (in KB) of the system resource group
+sys.resourceMemAllocShares.latest 3 Memory allocation shares of the system resource group
+sys.resourceMemConsumed.latest 4 Memory consumed by the system resource group
+sys.resourceMemCow.latest 3 Memory shared by the system resource group
+sys.resourceMemMapped.latest 3 Memory mapped by the system resource group
+sys.resourceMemOverhead.latest 3 Overhead memory consumed by the system resource group
+sys.resourceMemShared.latest 3 Memory saved due to sharing by the system resource group
+sys.resourceMemSwapped.latest 3 Memory swapped out by the system resource group
+sys.resourceMemTouched.latest 3 Memory touched by the system resource group
+sys.resourceMemZero.latest 3 Zero filled memory used by the system resource group
+sys.uptime.latest 1 Total time elapsed, in seconds, since last system startup
+vcDebugInfo.activationlatencystats.maximum 4 The latency of an activation operation in vCenter Server
+vcDebugInfo.activationlatencystats.minimum 4 The latency of an activation operation in vCenter Server
+vcDebugInfo.activationlatencystats.summation 1 The latency of an activation operation in vCenter Server
+vcDebugInfo.activationstats.maximum 4 Activation operations in vCenter Server
+vcDebugInfo.activationstats.minimum 4 Activation operations in vCenter Server
+vcDebugInfo.activationstats.summation 1 Activation operations in vCenter Server
+vcDebugInfo.hostsynclatencystats.maximum 4 The latency of a host sync operation in vCenter Server
+vcDebugInfo.hostsynclatencystats.minimum 4 The latency of a host sync operation in vCenter Server
+vcDebugInfo.hostsynclatencystats.summation 1 The latency of a host sync operation in vCenter Server
+vcDebugInfo.hostsyncstats.maximum 4 The number of host sync operations in vCenter Server
+vcDebugInfo.hostsyncstats.minimum 4 The number of host sync operations in vCenter Server
+vcDebugInfo.hostsyncstats.summation 1 The number of host sync operations in vCenter Server
+vcDebugInfo.inventorystats.maximum 4 vCenter Server inventory statistics
+vcDebugInfo.inventorystats.minimum 4 vCenter Server inventory statistics
+vcDebugInfo.inventorystats.summation 1 vCenter Server inventory statistics
+vcDebugInfo.lockstats.maximum 4 vCenter Server locking statistics
+vcDebugInfo.lockstats.minimum 4 vCenter Server locking statistics
+vcDebugInfo.lockstats.summation 1 vCenter Server locking statistics
+vcDebugInfo.lrostats.maximum 4 vCenter Server LRO statistics
+vcDebugInfo.lrostats.minimum 4 vCenter Server LRO statistics
+vcDebugInfo.lrostats.summation 1 vCenter Server LRO statistics
+vcDebugInfo.miscstats.maximum 4 Miscellaneous statistics
+vcDebugInfo.miscstats.minimum 4 Miscellaneous statistics
+vcDebugInfo.miscstats.summation 1 Miscellaneous statistics
+vcDebugInfo.morefregstats.maximum 4 Managed object reference counts in vCenter Server
+vcDebugInfo.morefregstats.minimum 4 Managed object reference counts in vCenter Server
+vcDebugInfo.morefregstats.summation 1 Managed object reference counts in vCenter Server
+vcDebugInfo.scoreboard.maximum 4 Object counts in vCenter Server
+vcDebugInfo.scoreboard.minimum 4 Object counts in vCenter Server
+vcDebugInfo.scoreboard.summation 3 Object counts in vCenter Server
+vcDebugInfo.sessionstats.maximum 4 The statistics of client sessions connected to vCenter Server
+vcDebugInfo.sessionstats.minimum 4 The statistics of client sessions connected to vCenter Server
+vcDebugInfo.sessionstats.summation 1 The statistics of client sessions connected to vCenter Server
+vcDebugInfo.systemstats.maximum 4 The statistics of vCenter Server as a running system such as thread statistics and heap statistics
+vcDebugInfo.systemstats.minimum 4 The statistics of vCenter Server as a running system such as thread statistics and heap statistics
+vcDebugInfo.systemstats.summation 1 The statistics of vCenter Server as a running system such as thread statistics and heap statistics
+vcDebugInfo.vcservicestats.maximum 4 vCenter service statistics such as events, alarms, and tasks
+vcDebugInfo.vcservicestats.minimum 4 vCenter service statistics such as events, alarms, and tasks
+vcDebugInfo.vcservicestats.summation 1 vCenter service statistics such as events, alarms, and tasks
+vcResources.buffersz.average 4 buffersz
+vcResources.cachesz.average 4 cachesz
+vcResources.ctxswitchesrate.average 1 Number of context switches per second on the system where vCenter Server is running
+vcResources.diskreadsectorrate.average 4 diskreadsectorrate
+vcResources.diskreadsrate.average 1 Number of disk reads per second on the system where vCenter Server is running
+vcResources.diskwritesectorrate.average 4 diskwritesectorrate
+vcResources.diskwritesrate.average 1 Number of disk writes per second on the system where vCenter Server is running
+vcResources.packetrecvrate.average 1 Rate of the number of total packets received per second on the system where vCenter Server is running
+vcResources.packetsentrate.average 1 Number of total packets sent per second on the system where vCenter Server is running
+vcResources.pagefaultrate.average 1 Number of page faults per second on the system where vCenter Server is running
+vcResources.physicalmemusage.average 1 Physical memory used by vCenter
+vcResources.priviledgedcpuusage.average 1 CPU used by vCenter Server in privileged mode
+vcResources.syscallsrate.average 1 Number of systems calls made per second on the system where vCenter Server is running
+vcResources.systemcpuusage.average 1 Total system CPU used on the system where vCenter Server in running
+vcResources.usercpuusage.average 1 CPU used by vCenter Server in user mode
+vcResources.virtualmemusage.average 1 Virtual memory used by vCenter Server
+vflashModule.numActiveVMDKs.latest 4 Number of caches controlled by the virtual flash module
+virtualDisk.busResets.summation 2 Number of resets to a virtual disk
+virtualDisk.commandsAborted.summation 2 Number of terminations to a virtual disk
+virtualDisk.largeSeeks.latest 4 Number of seeks during the interval that were greater than 8192 LBNs apart
+virtualDisk.mediumSeeks.latest 4 Number of seeks during the interval that were between 64 and 8192 LBNs apart
+virtualDisk.numberReadAveraged.average 1 Average number of read commands issued per second to the virtual disk during the collection interval
+virtualDisk.numberWriteAveraged.average 1 Average number of write commands issued per second to the virtual disk during the collection interval
+virtualDisk.read.average 2 Rate of reading data from the virtual disk
+virtualDisk.readIOSize.latest 4 Average read request size in bytes
+virtualDisk.readLatencyUS.latest 4 Read latency in microseconds
+virtualDisk.readLoadMetric.latest 2 Storage DRS virtual disk metric for the read workload model
+virtualDisk.readOIO.latest 2 Average number of outstanding read requests to the virtual disk during the collection interval
+virtualDisk.smallSeeks.latest 4 Number of seeks during the interval that were less than 64 LBNs apart
+virtualDisk.throughput.cont.average 4 Average amount of time for an I/O operation to complete successfully
+virtualDisk.throughput.usage.average 4 Virtual disk I/O rate
+virtualDisk.totalReadLatency.average 1 The average time a read from the virtual disk takes
+virtualDisk.totalWriteLatency.average 1 The average time a write to the virtual disk takes
+virtualDisk.vFlashCacheIops.latest 4 The average virtual Flash Read Cache I/Os per second value for the virtual disk
+virtualDisk.vFlashCacheLatency.latest 4 The average virtual Flash Read Cache latency value for the virtual disk
+virtualDisk.vFlashCacheThroughput.latest 4 The average virtual Flash Read Cache throughput value for the virtual disk
+virtualDisk.write.average 2 Rate of writing data to the virtual disk
+virtualDisk.writeIOSize.latest 4 Average write request size in bytes
+virtualDisk.writeLatencyUS.latest 4 Write latency in microseconds
+virtualDisk.writeLoadMetric.latest 2 Storage DRS virtual disk metric for the write workload model
+virtualDisk.writeOIO.latest 2 Average number of outstanding write requests to the virtual disk during the collection interval
+vmop.numChangeDS.latest 1 Number of datastore change operations for powered-off and suspended virtual machines
+vmop.numChangeHost.latest 1 Number of host change operations for powered-off and suspended VMs
+vmop.numChangeHostDS.latest 1 Number of host and datastore change operations for powered-off and suspended virtual machines
+vmop.numClone.latest 1 Number of virtual machine clone operations
+vmop.numCreate.latest 1 Number of virtual machine create operations
+vmop.numDeploy.latest 1 Number of virtual machine template deploy operations
+vmop.numDestroy.latest 1 Number of virtual machine delete operations
+vmop.numPoweroff.latest 1 Number of virtual machine power off operations
+vmop.numPoweron.latest 1 Number of virtual machine power on operations
+vmop.numRebootGuest.latest 1 Number of virtual machine guest reboot operations
+vmop.numReconfigure.latest 1 Number of virtual machine reconfigure operations
+vmop.numRegister.latest 1 Number of virtual machine register operations
+vmop.numReset.latest 1 Number of virtual machine reset operations
+vmop.numShutdownGuest.latest 1 Number of virtual machine guest shutdown operations
+vmop.numStandbyGuest.latest 1 Number of virtual machine standby guest operations
+vmop.numSuspend.latest 1 Number of virtual machine suspend operations
+vmop.numSVMotion.latest 1 Number of migrations with Storage vMotion (datastore change operations for powered-on VMs)
+vmop.numUnregister.latest 1 Number of virtual machine unregister operations
+vmop.numVMotion.latest 1 Number of migrations with vMotion (host change operations for powered-on VMs)
+vmop.numXVMotion.latest 1 Number of host and datastore change operations for powered-on and suspended virtual machines
+vsanDomObj.readAvgLatency.average 4 Average read latency in ms
+vsanDomObj.readCacheHitRate.latest 4 Cache hit rate percentage
+vsanDomObj.readCongestion.average 4 Read congestion
+vsanDomObj.readIops.average 4 Read IOPS
+vsanDomObj.readMaxLatency.latest 4 Max read latency in ms
+vsanDomObj.readThroughput.average 4 Read throughput in kBps
+vsanDomObj.recoveryWriteAvgLatency.average 4 Average recovery write latency in ms
+vsanDomObj.recoveryWriteCongestion.average 4 Recovery write congestion
+vsanDomObj.recoveryWriteIops.average 4 Recovery write IOPS
+vsanDomObj.recoveryWriteMaxLatency.latest 4 Max recovery write latency in ms
+vsanDomObj.recoveryWriteThroughput.average 4 Recovery write through-put in kBps
+vsanDomObj.writeAvgLatency.average 4 Average write latency in ms
+vsanDomObj.writeCongestion.average 4 Write congestion
+vsanDomObj.writeIops.average 4 Write IOPS
+vsanDomObj.writeMaxLatency.latest 4 Max write latency in ms
+vsanDomObj.writeThroughput.average 4 Write throughput in kBps

@@ -1,0 +1,1103 @@
+# HELP vmware_vm_power_state VMWare VM Power state (On / Off)
+# TYPE vmware_vm_power_state gauge
+vmware_vm_power_state{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",vm_name="Web2"} 1.0
+vmware_vm_power_state{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",vm_name="SQLBackup1"} 1.0
+vmware_vm_power_state{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",vm_name="template"} 0.0
+vmware_vm_power_state{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",vm_name="Web4"} 1.0
+vmware_vm_power_state{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",vm_name="Web5"} 1.0
+vmware_vm_power_state{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",vm_name="FMC"} 1.0
+vmware_vm_power_state{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw6.host.vmware",vm_name="SQL1"} 1.0
+vmware_vm_power_state{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw5.host.vmware",vm_name="MIS1"} 1.0
+vmware_vm_power_state{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="MIS2"} 1.0
+vmware_vm_power_state{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="RDP1"} 1.0
+vmware_vm_power_state{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="AD2"} 1.0
+vmware_vm_power_state{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="dns01.localhost.localdomain"} 1.0
+vmware_vm_power_state{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="RGS2"} 1.0
+vmware_vm_power_state{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="Win2016"} 0.0
+vmware_vm_power_state{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="DB1"} 1.0
+vmware_vm_power_state{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="Admin1"} 1.0
+vmware_vm_power_state{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="LDBL2"} 1.0
+vmware_vm_power_state{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="Admin2"} 1.0
+vmware_vm_power_state{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="fusion.localhost.localdomain"} 1.0
+vmware_vm_power_state{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="Web3"} 1.0
+vmware_vm_power_state{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="LDBL1"} 1.0
+vmware_vm_power_state{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="NAS1"} 1.0
+vmware_vm_power_state{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="Web1"} 1.0
+vmware_vm_power_state{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="RGS1"} 1.0
+vmware_vm_power_state{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="DB3"} 1.0
+vmware_vm_power_state{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="vcenter1"} 1.0
+vmware_vm_power_state{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="SQL2"} 1.0
+vmware_vm_power_state{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="AD1"} 1.0
+vmware_vm_power_state{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="MS3"} 1.0
+vmware_vm_power_state{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="MS1"} 1.0
+vmware_vm_power_state{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="MS2"} 1.0
+vmware_vm_power_state{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="DB2"} 1.0
+# HELP vmware_vm_boot_timestamp_seconds VMWare VM boot time in seconds
+# TYPE vmware_vm_boot_timestamp_seconds gauge
+vmware_vm_boot_timestamp_seconds{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",vm_name="Web2"} 1569856649.128254
+vmware_vm_boot_timestamp_seconds{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",vm_name="Web4"} 1569855825.0122
+vmware_vm_boot_timestamp_seconds{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",vm_name="Web5"} 1569855571.191863
+vmware_vm_boot_timestamp_seconds{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="MIS2"} 1557370541.921899
+vmware_vm_boot_timestamp_seconds{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="RDP1"} 1557370486.127263
+vmware_vm_boot_timestamp_seconds{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="AD2"} 1555380328.289027
+vmware_vm_boot_timestamp_seconds{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="dns01.localhost.localdomain"} 1557768009.301543
+vmware_vm_boot_timestamp_seconds{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="RGS2"} 1555377094.63576
+vmware_vm_boot_timestamp_seconds{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="DB1"} 1555376314.66085
+vmware_vm_boot_timestamp_seconds{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="Admin2"} 1557370643.124088
+vmware_vm_boot_timestamp_seconds{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="fusion.localhost.localdomain"} 1557370541.938463
+vmware_vm_boot_timestamp_seconds{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="Web3"} 1569856284.790245
+vmware_vm_boot_timestamp_seconds{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="LDBL1"} 1555376451.43852
+vmware_vm_boot_timestamp_seconds{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="NAS1"} 1556033724.816262
+vmware_vm_boot_timestamp_seconds{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="Web1"} 1569856959.022668
+vmware_vm_boot_timestamp_seconds{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="RGS1"} 1555377032.927499
+vmware_vm_boot_timestamp_seconds{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="DB3"} 1555376389.186244
+vmware_vm_boot_timestamp_seconds{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="SQL2"} 1557370840.84273
+vmware_vm_boot_timestamp_seconds{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="MS3"} 1555376926.208735
+vmware_vm_boot_timestamp_seconds{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="MS1"} 1555376577.34811
+vmware_vm_boot_timestamp_seconds{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="MS2"} 1555381574.967051
+vmware_vm_boot_timestamp_seconds{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="DB2"} 1555376366.78545
+# HELP vmware_vm_num_cpu VMWare Number of processors in the virtual machine
+# TYPE vmware_vm_num_cpu gauge
+vmware_vm_num_cpu{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",vm_name="Web2"} 16.0
+vmware_vm_num_cpu{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",vm_name="SQLBackup1"} 6.0
+vmware_vm_num_cpu{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",vm_name="template"} 8.0
+vmware_vm_num_cpu{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",vm_name="Web4"} 14.0
+vmware_vm_num_cpu{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",vm_name="Web5"} 16.0
+vmware_vm_num_cpu{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",vm_name="FMC"} 8.0
+vmware_vm_num_cpu{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw6.host.vmware",vm_name="SQL1"} 6.0
+vmware_vm_num_cpu{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw5.host.vmware",vm_name="MIS1"} 6.0
+vmware_vm_num_cpu{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="MIS2"} 6.0
+vmware_vm_num_cpu{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="RDP1"} 4.0
+vmware_vm_num_cpu{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="AD2"} 4.0
+vmware_vm_num_cpu{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="dns01.localhost.localdomain"} 1.0
+vmware_vm_num_cpu{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="RGS2"} 8.0
+vmware_vm_num_cpu{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="Win2016"} 6.0
+vmware_vm_num_cpu{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="DB1"} 8.0
+vmware_vm_num_cpu{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="Admin1"} 6.0
+vmware_vm_num_cpu{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="LDBL2"} 6.0
+vmware_vm_num_cpu{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="Admin2"} 6.0
+vmware_vm_num_cpu{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="fusion.localhost.localdomain"} 2.0
+vmware_vm_num_cpu{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="Web3"} 16.0
+vmware_vm_num_cpu{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="LDBL1"} 6.0
+vmware_vm_num_cpu{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="NAS1"} 6.0
+vmware_vm_num_cpu{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="Web1"} 16.0
+vmware_vm_num_cpu{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="RGS1"} 8.0
+vmware_vm_num_cpu{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="DB3"} 8.0
+vmware_vm_num_cpu{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="vcenter1"} 4.0
+vmware_vm_num_cpu{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="SQL2"} 6.0
+vmware_vm_num_cpu{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="AD1"} 4.0
+vmware_vm_num_cpu{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="MS3"} 8.0
+vmware_vm_num_cpu{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="MS1"} 8.0
+vmware_vm_num_cpu{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="MS2"} 8.0
+vmware_vm_num_cpu{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="DB2"} 8.0
+# HELP vmware_vm_memory_max VMWare VM Memory Max availability in Mbytes
+# TYPE vmware_vm_memory_max gauge
+vmware_vm_memory_max{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",vm_name="Web2"} 24576.0
+vmware_vm_memory_max{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",vm_name="SQLBackup1"} 32768.0
+vmware_vm_memory_max{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",vm_name="template"} 24576.0
+vmware_vm_memory_max{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",vm_name="Web4"} 24576.0
+vmware_vm_memory_max{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",vm_name="Web5"} 24576.0
+vmware_vm_memory_max{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",vm_name="FMC"} 16384.0
+vmware_vm_memory_max{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw6.host.vmware",vm_name="SQL1"} 262144.0
+vmware_vm_memory_max{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw5.host.vmware",vm_name="MIS1"} 262144.0
+vmware_vm_memory_max{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="MIS2"} 262144.0
+vmware_vm_memory_max{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="RDP1"} 8192.0
+vmware_vm_memory_max{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="AD2"} 8192.0
+vmware_vm_memory_max{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="dns01.localhost.localdomain"} 2048.0
+vmware_vm_memory_max{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="RGS2"} 24576.0
+vmware_vm_memory_max{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="Win2016"} 262144.0
+vmware_vm_memory_max{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="DB1"} 24576.0
+vmware_vm_memory_max{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="Admin1"} 8192.0
+vmware_vm_memory_max{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="LDBL2"} 8192.0
+vmware_vm_memory_max{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="Admin2"} 8192.0
+vmware_vm_memory_max{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="fusion.localhost.localdomain"} 4096.0
+vmware_vm_memory_max{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="Web3"} 24576.0
+vmware_vm_memory_max{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="LDBL1"} 8192.0
+vmware_vm_memory_max{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="NAS1"} 16384.0
+vmware_vm_memory_max{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="Web1"} 24576.0
+vmware_vm_memory_max{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="RGS1"} 24576.0
+vmware_vm_memory_max{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="DB3"} 24576.0
+vmware_vm_memory_max{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="vcenter1"} 16384.0
+vmware_vm_memory_max{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="SQL2"} 262144.0
+vmware_vm_memory_max{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="AD1"} 8192.0
+vmware_vm_memory_max{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="MS3"} 24576.0
+vmware_vm_memory_max{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="MS1"} 24576.0
+vmware_vm_memory_max{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="MS2"} 24576.0
+vmware_vm_memory_max{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="DB2"} 24576.0
+# HELP vmware_vm_guest_disk_free Disk metric per partition
+# TYPE vmware_vm_guest_disk_free gauge
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",partition="/",vm_name="Web2"} 3881181184.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",partition="/home",vm_name="Web2"} 5318512640.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",partition="/usr/local",vm_name="Web2"} 19029344256.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",partition="/var",vm_name="Web2"} 19628867584.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",partition="C:\\",vm_name="SQLBackup1"} 9519681536.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",partition="F:\\",vm_name="SQLBackup1"} 51931611136.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",partition="E:\\",vm_name="SQLBackup1"} 16247271784448.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",partition="/",vm_name="template"} 3891376128.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",partition="/home",vm_name="template"} 5324386304.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",partition="/var",vm_name="template"} 22257582080.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",partition="/",vm_name="Web4"} 3881164800.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",partition="/home",vm_name="Web4"} 5318103040.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",partition="/var",vm_name="Web4"} 19653754880.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",partition="/usr/local",vm_name="Web4"} 19032150016.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",partition="/",vm_name="Web5"} 3881144320.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",partition="/home",vm_name="Web5"} 5318103040.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",partition="/usr/local",vm_name="Web5"} 19026972672.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",partition="/var",vm_name="Web5"} 19214581760.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",partition="/",vm_name="FMC"} 2440712192.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",partition="/boot",vm_name="FMC"} 53613568.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",partition="/Volume",vm_name="FMC"} 216879886336.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",partition="/var",vm_name="FMC"} 216879886336.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",partition="/usr/local/sf",vm_name="FMC"} 216879886336.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",partition="/usr/lib/perl5",vm_name="FMC"} 216879886336.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",partition="/var/lib/mysql",vm_name="FMC"} 216879886336.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw6.host.vmware",partition="C:\\",vm_name="SQL1"} 62848446464.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw5.host.vmware",partition="C:\\",vm_name="MIS1"} 44719001600.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw5.host.vmware",partition="H:\\",vm_name="MIS1"} 1020534784.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="C:\\",vm_name="MIS2"} 44713717760.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="F:\\",vm_name="MIS2"} 1006080000.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="F:\\AncillaryDatabases\\",vm_name="MIS2"} 531304194048.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="F:\\ArchiveDatabases\\",vm_name="MIS2"} 5496461606912.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="F:\\ArchiveHistory\\",vm_name="MIS2"} 4874022912.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="F:\\ArchiveIndexes\\",vm_name="MIS2"} 26625589248.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="F:\\ArchiveLogs\\",vm_name="MIS2"} 429029867520.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="F:\\Backup\\",vm_name="MIS2"} 640450416640.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="F:\\CurrentData\\",vm_name="MIS2"} 159673794560.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="F:\\CurrentLogs\\",vm_name="MIS2"} 61811507200.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="F:\\AccountJournal\\",vm_name="MIS2"} 303272181760.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="F:\\Indexes\\",vm_name="MIS2"} 3252810960896.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="F:\\Log\\",vm_name="MIS2"} 614711451648.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="F:\\Primary\\",vm_name="MIS2"} 950167289856.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="F:\\Session\\",vm_name="MIS2"} 20450070528.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="F:\\History\\",vm_name="MIS2"} 214466322432.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="F:\\Logs\\",vm_name="MIS2"} 265960230912.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="F:\\System\\",vm_name="MIS2"} 138071523328.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="F:\\TempDB01\\",vm_name="MIS2"} 52355096576.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="F:\\TempDB02\\",vm_name="MIS2"} 52355096576.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="F:\\TempDB03\\",vm_name="MIS2"} 52355088384.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="F:\\TempDB04\\",vm_name="MIS2"} 52355088384.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="F:\\TempDBLog\\",vm_name="MIS2"} 52355088384.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="G:\\AncillaryDatabases\\",vm_name="MIS2"} 191103385600.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="G:\\Backup\\",vm_name="MIS2"} 267128553472.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="G:\\Logs\\",vm_name="MIS2"} 15317942272.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="G:\\",vm_name="MIS2"} 930586624.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="G:\\OLAP\\Backup\\",vm_name="MIS2"} 268151767040.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="G:\\OLAP\\Config\\",vm_name="MIS2"} 53428764672.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="G:\\OLAP\\Data\\",vm_name="MIS2"} 267083161600.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="G:\\OLAP\\Log\\",vm_name="MIS2"} 107101941760.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="G:\\OLAP\\",vm_name="MIS2"} 1006088192.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="G:\\OLAP\\Temp\\",vm_name="MIS2"} 53428555776.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="G:\\System\\",vm_name="MIS2"} 213206536192.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="G:\\TempDB01\\",vm_name="MIS2"} 46986379264.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="G:\\TempDBLog\\",vm_name="MIS2"} 52891967488.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="H:\\",vm_name="MIS2"} 1020551168.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="C:\\",vm_name="RDP1"} 36375703552.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="E:\\",vm_name="RDP1"} 41954889728.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="C:\\",vm_name="AD2"} 83752108032.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="/",vm_name="dns01.localhost.localdomain"} 12896460800.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="/boot",vm_name="dns01.localhost.localdomain"} 788033536.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="/var/named/chroot/etc/localtime",vm_name="dns01.localhost.localdomain"} 12896460800.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="/var/named/chroot/etc/named",vm_name="dns01.localhost.localdomain"} 12896460800.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="/var/named/chroot/etc/named.root.key",vm_name="dns01.localhost.localdomain"} 12896460800.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="/var/named/chroot/etc/named.conf",vm_name="dns01.localhost.localdomain"} 12896460800.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="/var/named/chroot/etc/named.rfc1912.zones",vm_name="dns01.localhost.localdomain"} 12896460800.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="/var/named/chroot/etc/rndc.key",vm_name="dns01.localhost.localdomain"} 12896460800.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="/var/named/chroot/etc/named.iscdlv.key",vm_name="dns01.localhost.localdomain"} 12896460800.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="/var/named/chroot/etc/protocols",vm_name="dns01.localhost.localdomain"} 12896460800.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="/var/named/chroot/etc/services",vm_name="dns01.localhost.localdomain"} 12896460800.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="/var/named/chroot/usr/lib64/bind",vm_name="dns01.localhost.localdomain"} 12896460800.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="/var/named/chroot/var/named",vm_name="dns01.localhost.localdomain"} 12896460800.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="/",vm_name="RGS2"} 3674984448.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="/home",vm_name="RGS2"} 5321785344.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="/usr/local",vm_name="RGS2"} 4277411840.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="/var",vm_name="RGS2"} 22221705216.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="/",vm_name="DB1"} 3296219136.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="/home",vm_name="DB1"} 5297467392.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="/usr/local",vm_name="DB1"} 4219006976.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="/var",vm_name="DB1"} 20638732288.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",partition="/",vm_name="Admin1"} 3213139968.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",partition="/usr/local",vm_name="Admin1"} 4191797248.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",partition="/var",vm_name="Admin1"} 22193745920.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",partition="/home",vm_name="Admin1"} 5232668672.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",partition="/gan",vm_name="Admin1"} 1032548651008.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",partition="/",vm_name="LDBL2"} 2893287424.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",partition="/home",vm_name="LDBL2"} 5321494528.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",partition="/var",vm_name="LDBL2"} 22229630976.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",partition="/",vm_name="Admin2"} 2851295232.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",partition="/var",vm_name="Admin2"} 19112583168.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",partition="/home",vm_name="Admin2"} 5321650176.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",partition="/usr/local",vm_name="Admin2"} 918274048.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",partition="/",vm_name="Web3"} 3881263104.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",partition="/var",vm_name="Web3"} 19779391488.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",partition="/home",vm_name="Web3"} 5318127616.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",partition="/usr/local",vm_name="Web3"} 19033096192.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",partition="/",vm_name="LDBL1"} 2798555136.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",partition="/home",vm_name="LDBL1"} 5321445376.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",partition="/var",vm_name="LDBL1"} 22226522112.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",partition="C:\\",vm_name="NAS1"} 89318457344.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",partition="E:\\",vm_name="NAS1"} 15819619401728.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",partition="/",vm_name="Web1"} 3879264256.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",partition="/usr/local",vm_name="Web1"} 18741370880.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",partition="/home",vm_name="Web1"} 5313495040.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",partition="/var",vm_name="Web1"} 21434814464.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",partition="/",vm_name="RGS1"} 3675475968.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",partition="/home",vm_name="RGS1"} 5321338880.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",partition="/usr/local",vm_name="RGS1"} 4283817984.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",partition="/var",vm_name="RGS1"} 22050553856.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",partition="/",vm_name="DB3"} 3702644736.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",partition="/home",vm_name="DB3"} 5297610752.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",partition="/var",vm_name="DB3"} 22211170304.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",partition="/usr/local",vm_name="DB3"} 4451336192.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/",vm_name="vcenter1"} 4648587264.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/boot",vm_name="vcenter1"} 80848896.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/storage/core",vm_name="vcenter1"} 49947021312.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/storage/log",vm_name="vcenter1"} 6869942272.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/storage/db",vm_name="vcenter1"} 9658421248.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/storage/dblog",vm_name="vcenter1"} 14782709760.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/storage/seat",vm_name="vcenter1"} 24673144832.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/storage/netdump",vm_name="vcenter1"} 960466944.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/storage/autodeploy",vm_name="vcenter1"} 9849495552.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/storage/imagebuilder",vm_name="vcenter1"} 9849491456.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/storage/updatemgr",vm_name="vcenter1"} 100085444608.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/storage/archive",vm_name="vcenter1"} 36658024448.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="C:\\",vm_name="SQL2"} 62393741312.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="Q:\\",vm_name="SQL2"} 999575552.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="M:\\",vm_name="SQL2"} 991862784.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="P:\\",vm_name="SQL2"} 35462311936.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="E:\\",vm_name="SQL2"} 1006075904.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="E:\\AncillaryDatabases\\",vm_name="SQL2"} 694450126848.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="E:\\ArchiveDatabases\\",vm_name="SQL2"} 5496712527872.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="E:\\ArchiveIndexes\\",vm_name="SQL2"} 26761953280.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="E:\\ArchiveLogs\\",vm_name="SQL2"} 428808863744.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="E:\\Backup\\",vm_name="SQL2"} 536432934912.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="E:\\AccountJournal\\",vm_name="SQL2"} 303425388544.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="E:\\Indexes\\",vm_name="SQL2"} 3253040971776.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="E:\\Log\\",vm_name="SQL2"} 614865633280.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="E:\\ArchiveHistory\\",vm_name="SQL2"} 5496997675008.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="E:\\Primary\\",vm_name="SQL2"} 950322069504.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="E:\\Session\\",vm_name="SQL2"} 20586233856.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="E:\\Logs\\",vm_name="SQL2"} 749528088576.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="E:\\System\\",vm_name="SQL2"} 104509407232.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="E:\\TempDB01\\",vm_name="SQL2"} 52492435456.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="E:\\TempDB02\\",vm_name="SQL2"} 52492435456.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="E:\\TempDB03\\",vm_name="SQL2"} 52492369920.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="E:\\TempDB04\\",vm_name="SQL2"} 52492369920.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="E:\\TempDBLog\\",vm_name="SQL2"} 52492500992.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="C:\\",vm_name="AD1"} 83968008192.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/",vm_name="MS3"} 3715309568.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/var",vm_name="MS3"} 16992440320.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/home",vm_name="MS3"} 5232066560.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/usr/local",vm_name="MS3"} 3246665728.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/",vm_name="MS1"} 3715407872.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/usr/local",vm_name="MS1"} 3772874752.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/home",vm_name="MS1"} 5061521408.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/var",vm_name="MS1"} 20145930240.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/",vm_name="MS2"} 3696005120.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/home",vm_name="MS2"} 5229395968.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/usr/local",vm_name="MS2"} 3706204160.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/var",vm_name="MS2"} 21499822080.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/",vm_name="DB2"} 3702800384.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/home",vm_name="DB2"} 5297750016.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/usr/local",vm_name="DB2"} 4243722240.0
+vmware_vm_guest_disk_free{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/var",vm_name="DB2"} 21646458880.0
+# HELP vmware_vm_guest_disk_capacity Disk capacity metric per partition
+# TYPE vmware_vm_guest_disk_capacity gauge
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",partition="/",vm_name="Web2"} 5358223360.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",partition="/home",vm_name="Web2"} 5358223360.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",partition="/usr/local",vm_name="Web2"} 53659832320.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",partition="/var",vm_name="Web2"} 22535475200.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",partition="C:\\",vm_name="SQLBackup1"} 54350835712.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",partition="F:\\",vm_name="SQLBackup1"} 52427747328.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",partition="E:\\",vm_name="SQLBackup1"} 16492540002304.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",partition="/",vm_name="template"} 5358223360.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",partition="/home",vm_name="template"} 5358223360.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",partition="/var",vm_name="template"} 22535475200.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",partition="/",vm_name="Web4"} 5358223360.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",partition="/home",vm_name="Web4"} 5358223360.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",partition="/var",vm_name="Web4"} 22535475200.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",partition="/usr/local",vm_name="Web4"} 53659832320.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",partition="/",vm_name="Web5"} 5358223360.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",partition="/home",vm_name="Web5"} 5358223360.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",partition="/usr/local",vm_name="Web5"} 53659832320.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",partition="/var",vm_name="Web5"} 22535475200.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",partition="/",vm_name="FMC"} 3869302784.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",partition="/boot",vm_name="FMC"} 90237952.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",partition="/Volume",vm_name="FMC"} 255232167936.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",partition="/var",vm_name="FMC"} 255232167936.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",partition="/usr/local/sf",vm_name="FMC"} 255232167936.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",partition="/usr/lib/perl5",vm_name="FMC"} 255232167936.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",partition="/var/lib/mysql",vm_name="FMC"} 255232167936.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw6.host.vmware",partition="C:\\",vm_name="SQL1"} 106779635712.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw5.host.vmware",partition="C:\\",vm_name="MIS1"} 106779635712.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw5.host.vmware",partition="H:\\",vm_name="MIS1"} 1038086144.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="C:\\",vm_name="MIS2"} 106779635712.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="F:\\",vm_name="MIS2"} 1038086144.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="F:\\AncillaryDatabases\\",vm_name="MIS2"} 536734593024.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="F:\\ArchiveDatabases\\",vm_name="MIS2"} 5497421819904.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="F:\\ArchiveHistory\\",vm_name="MIS2"} 5333053440.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="F:\\ArchiveIndexes\\",vm_name="MIS2"} 26707226624.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="F:\\ArchiveLogs\\",vm_name="MIS2"} 429360410624.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="F:\\Backup\\",vm_name="MIS2"} 644108775424.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="F:\\CurrentData\\",vm_name="MIS2"} 187768500224.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="F:\\CurrentLogs\\",vm_name="MIS2"} 80394317824.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="F:\\AccountJournal\\",vm_name="MIS2"} 321986228224.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="F:\\Indexes\\",vm_name="MIS2"} 3298398564352.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="F:\\Log\\",vm_name="MIS2"} 644108775424.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="F:\\Primary\\",vm_name="MIS2"} 966231322624.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="F:\\Session\\",vm_name="MIS2"} 21338517504.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="F:\\History\\",vm_name="MIS2"} 214612045824.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="F:\\Logs\\",vm_name="MIS2"} 268299137024.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="F:\\System\\",vm_name="MIS2"} 187768500224.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="F:\\TempDB01\\",vm_name="MIS2"} 53550772224.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="F:\\TempDB02\\",vm_name="MIS2"} 53550772224.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="F:\\TempDB03\\",vm_name="MIS2"} 53550772224.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="F:\\TempDB04\\",vm_name="MIS2"} 53550772224.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="F:\\TempDBLog\\",vm_name="MIS2"} 53550772224.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="G:\\AncillaryDatabases\\",vm_name="MIS2"} 214612045824.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="G:\\Backup\\",vm_name="MIS2"} 268299137024.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="G:\\Logs\\",vm_name="MIS2"} 26707226624.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="G:\\",vm_name="MIS2"} 1038086144.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="G:\\OLAP\\Backup\\",vm_name="MIS2"} 268299137024.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="G:\\OLAP\\Config\\",vm_name="MIS2"} 53550772224.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="G:\\OLAP\\Data\\",vm_name="MIS2"} 268299137024.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="G:\\OLAP\\Log\\",vm_name="MIS2"} 107237863424.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="G:\\OLAP\\",vm_name="MIS2"} 1038086144.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="G:\\OLAP\\Temp\\",vm_name="MIS2"} 53550772224.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="G:\\System\\",vm_name="MIS2"} 214612045824.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="G:\\TempDB01\\",vm_name="MIS2"} 53550772224.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="G:\\TempDBLog\\",vm_name="MIS2"} 53550772224.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="H:\\",vm_name="MIS2"} 1038086144.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="C:\\",vm_name="RDP1"} 53041164288.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="E:\\",vm_name="RDP1"} 42946523136.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="C:\\",vm_name="AD2"} 106779635712.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="/",vm_name="dns01.localhost.localdomain"} 14371782656.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="/boot",vm_name="dns01.localhost.localdomain"} 1063256064.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="/var/named/chroot/etc/localtime",vm_name="dns01.localhost.localdomain"} 14371782656.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="/var/named/chroot/etc/named",vm_name="dns01.localhost.localdomain"} 14371782656.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="/var/named/chroot/etc/named.root.key",vm_name="dns01.localhost.localdomain"} 14371782656.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="/var/named/chroot/etc/named.conf",vm_name="dns01.localhost.localdomain"} 14371782656.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="/var/named/chroot/etc/named.rfc1912.zones",vm_name="dns01.localhost.localdomain"} 14371782656.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="/var/named/chroot/etc/rndc.key",vm_name="dns01.localhost.localdomain"} 14371782656.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="/var/named/chroot/etc/named.iscdlv.key",vm_name="dns01.localhost.localdomain"} 14371782656.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="/var/named/chroot/etc/protocols",vm_name="dns01.localhost.localdomain"} 14371782656.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="/var/named/chroot/etc/services",vm_name="dns01.localhost.localdomain"} 14371782656.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="/var/named/chroot/usr/lib64/bind",vm_name="dns01.localhost.localdomain"} 14371782656.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="/var/named/chroot/var/named",vm_name="dns01.localhost.localdomain"} 14371782656.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="/",vm_name="RGS2"} 5358223360.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="/home",vm_name="RGS2"} 5358223360.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="/usr/local",vm_name="RGS2"} 5357174784.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="/var",vm_name="RGS2"} 22535475200.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="/",vm_name="DB1"} 5358223360.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="/home",vm_name="DB1"} 5358223360.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="/usr/local",vm_name="DB1"} 5357174784.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",partition="/var",vm_name="DB1"} 22535475200.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",partition="/",vm_name="Admin1"} 5358223360.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",partition="/usr/local",vm_name="Admin1"} 5357174784.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",partition="/var",vm_name="Admin1"} 22535475200.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",partition="/home",vm_name="Admin1"} 5358223360.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",partition="/gan",vm_name="Admin1"} 1072143273984.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",partition="/",vm_name="LDBL2"} 5358223360.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",partition="/home",vm_name="LDBL2"} 5358223360.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",partition="/var",vm_name="LDBL2"} 22535475200.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",partition="/",vm_name="Admin2"} 5358223360.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",partition="/var",vm_name="Admin2"} 22535475200.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",partition="/home",vm_name="Admin2"} 5358223360.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",partition="/usr/local",vm_name="Admin2"} 5357174784.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",partition="/",vm_name="Web3"} 5358223360.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",partition="/var",vm_name="Web3"} 22535475200.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",partition="/home",vm_name="Web3"} 5358223360.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",partition="/usr/local",vm_name="Web3"} 53659832320.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",partition="/",vm_name="LDBL1"} 5358223360.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",partition="/home",vm_name="LDBL1"} 5358223360.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",partition="/var",vm_name="LDBL1"} 22535475200.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",partition="C:\\",vm_name="NAS1"} 106779635712.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",partition="E:\\",vm_name="NAS1"} 16492538097664.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",partition="/",vm_name="Web1"} 5358223360.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",partition="/usr/local",vm_name="Web1"} 53659832320.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",partition="/home",vm_name="Web1"} 5358223360.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",partition="/var",vm_name="Web1"} 22535475200.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",partition="/",vm_name="RGS1"} 5358223360.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",partition="/home",vm_name="RGS1"} 5358223360.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",partition="/usr/local",vm_name="RGS1"} 5357174784.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",partition="/var",vm_name="RGS1"} 22535475200.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",partition="/",vm_name="DB3"} 5358223360.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",partition="/home",vm_name="DB3"} 5358223360.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",partition="/var",vm_name="DB3"} 22535475200.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",partition="/usr/local",vm_name="DB3"} 5357174784.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/",vm_name="vcenter1"} 11355283456.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/boot",vm_name="vcenter1"} 125783040.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/storage/core",vm_name="vcenter1"} 52702081024.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/storage/log",vm_name="vcenter1"} 10426310656.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/storage/db",vm_name="vcenter1"} 10426310656.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/storage/dblog",vm_name="vcenter1"} 15710797824.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/storage/seat",vm_name="vcenter1"} 26279735296.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/storage/netdump",vm_name="vcenter1"} 1031823360.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/storage/autodeploy",vm_name="vcenter1"} 10426310656.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/storage/imagebuilder",vm_name="vcenter1"} 10426310656.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/storage/updatemgr",vm_name="vcenter1"} 105546809344.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/storage/archive",vm_name="vcenter1"} 52702081024.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="C:\\",vm_name="SQL2"} 106779635712.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="Q:\\",vm_name="SQL2"} 1038086144.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="M:\\",vm_name="SQL2"} 1038086144.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="P:\\",vm_name="SQL2"} 53550772224.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="E:\\",vm_name="SQL2"} 1038086144.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="E:\\AncillaryDatabases\\",vm_name="SQL2"} 697931988992.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="E:\\ArchiveDatabases\\",vm_name="SQL2"} 5497557942272.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="E:\\ArchiveIndexes\\",vm_name="SQL2"} 26843348992.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="E:\\ArchiveLogs\\",vm_name="SQL2"} 429496532992.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="E:\\Backup\\",vm_name="SQL2"} 536870715392.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="E:\\AccountJournal\\",vm_name="SQL2"} 322122350592.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="E:\\Indexes\\",vm_name="SQL2"} 3298534686720.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="E:\\Log\\",vm_name="SQL2"} 644244897792.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="E:\\ArchiveHistory\\",vm_name="SQL2"} 5497557942272.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="E:\\Primary\\",vm_name="SQL2"} 966367444992.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="E:\\Session\\",vm_name="SQL2"} 21474639872.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="E:\\Logs\\",vm_name="SQL2"} 751619080192.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="E:\\System\\",vm_name="SQL2"} 107373985792.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="E:\\TempDB01\\",vm_name="SQL2"} 53686894592.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="E:\\TempDB02\\",vm_name="SQL2"} 53686894592.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="E:\\TempDB03\\",vm_name="SQL2"} 53686894592.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="E:\\TempDB04\\",vm_name="SQL2"} 53686894592.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="E:\\TempDBLog\\",vm_name="SQL2"} 53686894592.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="C:\\",vm_name="AD1"} 106779635712.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/",vm_name="MS3"} 5358223360.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/var",vm_name="MS3"} 22535475200.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/home",vm_name="MS3"} 5358223360.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/usr/local",vm_name="MS3"} 5357174784.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/",vm_name="MS1"} 5358223360.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/usr/local",vm_name="MS1"} 5357174784.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/home",vm_name="MS1"} 5358223360.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/var",vm_name="MS1"} 22535475200.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/",vm_name="MS2"} 5358223360.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/home",vm_name="MS2"} 5358223360.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/usr/local",vm_name="MS2"} 5357174784.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/var",vm_name="MS2"} 22535475200.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/",vm_name="DB2"} 5358223360.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/home",vm_name="DB2"} 5358223360.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/usr/local",vm_name="DB2"} 5357174784.0
+vmware_vm_guest_disk_capacity{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",partition="/var",vm_name="DB2"} 22535475200.0
+# HELP vmware_vm_guest_tools_running_status VM tools running status
+# TYPE vmware_vm_guest_tools_running_status gauge
+vmware_vm_guest_tools_running_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",tools_status="toolsOk",vm_name="Web2"} 1.0
+vmware_vm_guest_tools_running_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",tools_status="toolsOk",vm_name="SQLBackup1"} 1.0
+vmware_vm_guest_tools_running_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",tools_status="toolsNotRunning",vm_name="template"} 1.0
+vmware_vm_guest_tools_running_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",tools_status="toolsOk",vm_name="Web4"} 1.0
+vmware_vm_guest_tools_running_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",tools_status="toolsOk",vm_name="Web5"} 1.0
+vmware_vm_guest_tools_running_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",tools_status="toolsOk",vm_name="FMC"} 1.0
+vmware_vm_guest_tools_running_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw6.host.vmware",tools_status="toolsOk",vm_name="SQL1"} 1.0
+vmware_vm_guest_tools_running_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw5.host.vmware",tools_status="toolsOk",vm_name="MIS1"} 1.0
+vmware_vm_guest_tools_running_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",tools_status="toolsOk",vm_name="MIS2"} 1.0
+vmware_vm_guest_tools_running_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",tools_status="toolsOk",vm_name="RDP1"} 1.0
+vmware_vm_guest_tools_running_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",tools_status="toolsOk",vm_name="AD2"} 1.0
+vmware_vm_guest_tools_running_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",tools_status="toolsOk",vm_name="dns01.localhost.localdomain"} 1.0
+vmware_vm_guest_tools_running_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",tools_status="toolsOk",vm_name="RGS2"} 1.0
+vmware_vm_guest_tools_running_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",tools_status="toolsNotRunning",vm_name="Win2016"} 1.0
+vmware_vm_guest_tools_running_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",tools_status="toolsOk",vm_name="DB1"} 1.0
+vmware_vm_guest_tools_running_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",tools_status="toolsOk",vm_name="Admin1"} 1.0
+vmware_vm_guest_tools_running_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",tools_status="toolsOk",vm_name="LDBL2"} 1.0
+vmware_vm_guest_tools_running_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",tools_status="toolsOk",vm_name="Admin2"} 1.0
+vmware_vm_guest_tools_running_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",tools_status="toolsNotInstalled",vm_name="fusion.localhost.localdomain"} 1.0
+vmware_vm_guest_tools_running_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",tools_status="toolsOk",vm_name="Web3"} 1.0
+vmware_vm_guest_tools_running_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",tools_status="toolsOk",vm_name="LDBL1"} 1.0
+vmware_vm_guest_tools_running_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",tools_status="toolsOk",vm_name="NAS1"} 1.0
+vmware_vm_guest_tools_running_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",tools_status="toolsOk",vm_name="Web1"} 1.0
+vmware_vm_guest_tools_running_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",tools_status="toolsOk",vm_name="RGS1"} 1.0
+vmware_vm_guest_tools_running_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",tools_status="toolsOk",vm_name="DB3"} 1.0
+vmware_vm_guest_tools_running_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",tools_status="toolsOk",vm_name="vcenter1"} 1.0
+vmware_vm_guest_tools_running_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",tools_status="toolsOk",vm_name="SQL2"} 1.0
+vmware_vm_guest_tools_running_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",tools_status="toolsOk",vm_name="AD1"} 1.0
+vmware_vm_guest_tools_running_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",tools_status="toolsOk",vm_name="MS3"} 1.0
+vmware_vm_guest_tools_running_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",tools_status="toolsOk",vm_name="MS1"} 1.0
+vmware_vm_guest_tools_running_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",tools_status="toolsOk",vm_name="MS2"} 1.0
+vmware_vm_guest_tools_running_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",tools_status="toolsOk",vm_name="DB2"} 1.0
+# HELP vmware_vm_guest_tools_version VM tools version
+# TYPE vmware_vm_guest_tools_version gauge
+vmware_vm_guest_tools_version{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",tools_version="10309",vm_name="Web2"} 1.0
+vmware_vm_guest_tools_version{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",tools_version="10338",vm_name="SQLBackup1"} 1.0
+vmware_vm_guest_tools_version{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",tools_version="10309",vm_name="template"} 1.0
+vmware_vm_guest_tools_version{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",tools_version="10309",vm_name="Web4"} 1.0
+vmware_vm_guest_tools_version{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",tools_version="10309",vm_name="Web5"} 1.0
+vmware_vm_guest_tools_version{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",tools_version="2147483647",vm_name="FMC"} 1.0
+vmware_vm_guest_tools_version{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw6.host.vmware",tools_version="10338",vm_name="SQL1"} 1.0
+vmware_vm_guest_tools_version{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw5.host.vmware",tools_version="10338",vm_name="MIS1"} 1.0
+vmware_vm_guest_tools_version{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",tools_version="10338",vm_name="MIS2"} 1.0
+vmware_vm_guest_tools_version{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",tools_version="10338",vm_name="RDP1"} 1.0
+vmware_vm_guest_tools_version{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",tools_version="10338",vm_name="AD2"} 1.0
+vmware_vm_guest_tools_version{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",tools_version="10336",vm_name="dns01.localhost.localdomain"} 1.0
+vmware_vm_guest_tools_version{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",tools_version="10309",vm_name="RGS2"} 1.0
+vmware_vm_guest_tools_version{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",tools_version="10338",vm_name="Win2016"} 1.0
+vmware_vm_guest_tools_version{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",tools_version="10309",vm_name="DB1"} 1.0
+vmware_vm_guest_tools_version{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",tools_version="10309",vm_name="Admin1"} 1.0
+vmware_vm_guest_tools_version{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",tools_version="10309",vm_name="LDBL2"} 1.0
+vmware_vm_guest_tools_version{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",tools_version="10309",vm_name="Admin2"} 1.0
+vmware_vm_guest_tools_version{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",tools_version="0",vm_name="fusion.localhost.localdomain"} 1.0
+vmware_vm_guest_tools_version{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",tools_version="10309",vm_name="Web3"} 1.0
+vmware_vm_guest_tools_version{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",tools_version="10309",vm_name="LDBL1"} 1.0
+vmware_vm_guest_tools_version{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",tools_version="10338",vm_name="NAS1"} 1.0
+vmware_vm_guest_tools_version{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",tools_version="10309",vm_name="Web1"} 1.0
+vmware_vm_guest_tools_version{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",tools_version="10309",vm_name="RGS1"} 1.0
+vmware_vm_guest_tools_version{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",tools_version="10309",vm_name="DB3"} 1.0
+vmware_vm_guest_tools_version{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",tools_version="10304",vm_name="vcenter1"} 1.0
+vmware_vm_guest_tools_version{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",tools_version="10338",vm_name="SQL2"} 1.0
+vmware_vm_guest_tools_version{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",tools_version="10338",vm_name="AD1"} 1.0
+vmware_vm_guest_tools_version{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",tools_version="10309",vm_name="MS3"} 1.0
+vmware_vm_guest_tools_version{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",tools_version="10309",vm_name="MS1"} 1.0
+vmware_vm_guest_tools_version{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",tools_version="10309",vm_name="MS2"} 1.0
+vmware_vm_guest_tools_version{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",tools_version="10309",vm_name="DB2"} 1.0
+# HELP vmware_vm_guest_tools_version_status VM tools version status
+# TYPE vmware_vm_guest_tools_version_status gauge
+vmware_vm_guest_tools_version_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",tools_version_status="guestToolsUnmanaged",vm_name="Web2"} 1.0
+vmware_vm_guest_tools_version_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",tools_version_status="guestToolsCurrent",vm_name="SQLBackup1"} 1.0
+vmware_vm_guest_tools_version_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",tools_version_status="guestToolsUnmanaged",vm_name="template"} 1.0
+vmware_vm_guest_tools_version_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",tools_version_status="guestToolsUnmanaged",vm_name="Web4"} 1.0
+vmware_vm_guest_tools_version_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",tools_version_status="guestToolsUnmanaged",vm_name="Web5"} 1.0
+vmware_vm_guest_tools_version_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",tools_version_status="guestToolsUnmanaged",vm_name="FMC"} 1.0
+vmware_vm_guest_tools_version_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw6.host.vmware",tools_version_status="guestToolsCurrent",vm_name="SQL1"} 1.0
+vmware_vm_guest_tools_version_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw5.host.vmware",tools_version_status="guestToolsCurrent",vm_name="MIS1"} 1.0
+vmware_vm_guest_tools_version_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",tools_version_status="guestToolsCurrent",vm_name="MIS2"} 1.0
+vmware_vm_guest_tools_version_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",tools_version_status="guestToolsCurrent",vm_name="RDP1"} 1.0
+vmware_vm_guest_tools_version_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",tools_version_status="guestToolsCurrent",vm_name="AD2"} 1.0
+vmware_vm_guest_tools_version_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",tools_version_status="guestToolsUnmanaged",vm_name="dns01.localhost.localdomain"} 1.0
+vmware_vm_guest_tools_version_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",tools_version_status="guestToolsUnmanaged",vm_name="RGS2"} 1.0
+vmware_vm_guest_tools_version_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",tools_version_status="guestToolsCurrent",vm_name="Win2016"} 1.0
+vmware_vm_guest_tools_version_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",tools_version_status="guestToolsUnmanaged",vm_name="DB1"} 1.0
+vmware_vm_guest_tools_version_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",tools_version_status="guestToolsUnmanaged",vm_name="Admin1"} 1.0
+vmware_vm_guest_tools_version_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",tools_version_status="guestToolsUnmanaged",vm_name="LDBL2"} 1.0
+vmware_vm_guest_tools_version_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",tools_version_status="guestToolsUnmanaged",vm_name="Admin2"} 1.0
+vmware_vm_guest_tools_version_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",tools_version_status="guestToolsNotInstalled",vm_name="fusion.localhost.localdomain"} 1.0
+vmware_vm_guest_tools_version_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",tools_version_status="guestToolsUnmanaged",vm_name="Web3"} 1.0
+vmware_vm_guest_tools_version_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",tools_version_status="guestToolsUnmanaged",vm_name="LDBL1"} 1.0
+vmware_vm_guest_tools_version_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",tools_version_status="guestToolsCurrent",vm_name="NAS1"} 1.0
+vmware_vm_guest_tools_version_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",tools_version_status="guestToolsUnmanaged",vm_name="Web1"} 1.0
+vmware_vm_guest_tools_version_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",tools_version_status="guestToolsUnmanaged",vm_name="RGS1"} 1.0
+vmware_vm_guest_tools_version_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",tools_version_status="guestToolsUnmanaged",vm_name="DB3"} 1.0
+vmware_vm_guest_tools_version_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",tools_version_status="guestToolsUnmanaged",vm_name="vcenter1"} 1.0
+vmware_vm_guest_tools_version_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",tools_version_status="guestToolsCurrent",vm_name="SQL2"} 1.0
+vmware_vm_guest_tools_version_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",tools_version_status="guestToolsCurrent",vm_name="AD1"} 1.0
+vmware_vm_guest_tools_version_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",tools_version_status="guestToolsUnmanaged",vm_name="MS3"} 1.0
+vmware_vm_guest_tools_version_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",tools_version_status="guestToolsUnmanaged",vm_name="MS1"} 1.0
+vmware_vm_guest_tools_version_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",tools_version_status="guestToolsUnmanaged",vm_name="MS2"} 1.0
+vmware_vm_guest_tools_version_status{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",tools_version_status="guestToolsUnmanaged",vm_name="DB2"} 1.0
+# HELP vmware_datastore_capacity_size VMWare Datasore capacity in bytes
+# TYPE vmware_datastore_capacity_size gauge
+vmware_datastore_capacity_size{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_NApp1"} 59373627899904.0
+vmware_datastore_capacity_size{dc_name="Sample DataCenter",ds_cluster="",ds_name="VM01"} 4397778075648.0
+vmware_datastore_capacity_size{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_RDM"} 10468982784.0
+vmware_datastore_capacity_size{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_Logs"} 1099243192320.0
+vmware_datastore_capacity_size{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_WinOS"} 2198754820096.0
+vmware_datastore_capacity_size{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_LinuxOS"} 1648999006208.0
+vmware_datastore_capacity_size{dc_name="Sample DataCenter",ds_cluster="",ds_name="VM1"} 2198754820096.0
+vmware_datastore_capacity_size{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_LinuxLocal"} 536602476544.0
+vmware_datastore_capacity_size{dc_name="Sample DataCenter",ds_cluster="",ds_name="ISO"} 214479929344.0
+# HELP vmware_datastore_freespace_size VMWare Datastore freespace in bytes
+# TYPE vmware_datastore_freespace_size gauge
+vmware_datastore_freespace_size{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_NApp1"} 57015782158336.0
+vmware_datastore_freespace_size{dc_name="Sample DataCenter",ds_cluster="",ds_name="VM01"} 4210326241280.0
+vmware_datastore_freespace_size{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_RDM"} 8960081920.0
+vmware_datastore_freespace_size{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_Logs"} 1056814661632.0
+vmware_datastore_freespace_size{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_WinOS"} 1160925675520.0
+vmware_datastore_freespace_size{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_LinuxOS"} 662028943360.0
+vmware_datastore_freespace_size{dc_name="Sample DataCenter",ds_cluster="",ds_name="VM1"} 2072202182656.0
+vmware_datastore_freespace_size{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_LinuxLocal"} 300002836480.0
+vmware_datastore_freespace_size{dc_name="Sample DataCenter",ds_cluster="",ds_name="ISO"} 94466211840.0
+# HELP vmware_datastore_uncommited_size VMWare Datastore uncommitted in bytes
+# TYPE vmware_datastore_uncommited_size gauge
+vmware_datastore_uncommited_size{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_NApp1"} 32985348833280.0
+vmware_datastore_uncommited_size{dc_name="Sample DataCenter",ds_cluster="",ds_name="VM01"} 263500858420.0
+vmware_datastore_uncommited_size{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_RDM"} 59052.0
+vmware_datastore_uncommited_size{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_Logs"} 1072668082654.0
+vmware_datastore_uncommited_size{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_WinOS"} 231531107.0
+vmware_datastore_uncommited_size{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_LinuxOS"} 26005557928.0
+vmware_datastore_uncommited_size{dc_name="Sample DataCenter",ds_cluster="",ds_name="VM1"} 327585636535.0
+vmware_datastore_uncommited_size{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_LinuxLocal"} 150948813835.0
+vmware_datastore_uncommited_size{dc_name="Sample DataCenter",ds_cluster="",ds_name="ISO"} 778044415.0
+# HELP vmware_datastore_provisoned_size VMWare Datastore provisoned in bytes
+# TYPE vmware_datastore_provisoned_size gauge
+vmware_datastore_provisoned_size{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_NApp1"} 35343194574848.0
+vmware_datastore_provisoned_size{dc_name="Sample DataCenter",ds_cluster="",ds_name="VM01"} 450952692788.0
+vmware_datastore_provisoned_size{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_RDM"} 1508959916.0
+vmware_datastore_provisoned_size{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_Logs"} 1115096613342.0
+vmware_datastore_provisoned_size{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_WinOS"} 1038060675683.0
+vmware_datastore_provisoned_size{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_LinuxOS"} 1012975620776.0
+vmware_datastore_provisoned_size{dc_name="Sample DataCenter",ds_cluster="",ds_name="VM1"} 454138273975.0
+vmware_datastore_provisoned_size{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_LinuxLocal"} 387548453899.0
+vmware_datastore_provisoned_size{dc_name="Sample DataCenter",ds_cluster="",ds_name="ISO"} 120791761919.0
+# HELP vmware_datastore_hosts VMWare Hosts number using this datastore
+# TYPE vmware_datastore_hosts gauge
+vmware_datastore_hosts{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_NApp1"} 8.0
+vmware_datastore_hosts{dc_name="Sample DataCenter",ds_cluster="",ds_name="VM01"} 8.0
+vmware_datastore_hosts{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_RDM"} 8.0
+vmware_datastore_hosts{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_Logs"} 8.0
+vmware_datastore_hosts{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_WinOS"} 8.0
+vmware_datastore_hosts{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_LinuxOS"} 8.0
+vmware_datastore_hosts{dc_name="Sample DataCenter",ds_cluster="",ds_name="VM1"} 8.0
+vmware_datastore_hosts{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_LinuxLocal"} 8.0
+vmware_datastore_hosts{dc_name="Sample DataCenter",ds_cluster="",ds_name="ISO"} 8.0
+# HELP vmware_datastore_vms VMWare Virtual Machines count per datastore
+# TYPE vmware_datastore_vms gauge
+vmware_datastore_vms{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_NApp1"} 2.0
+vmware_datastore_vms{dc_name="Sample DataCenter",ds_cluster="",ds_name="VM01"} 3.0
+vmware_datastore_vms{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_RDM"} 4.0
+vmware_datastore_vms{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_Logs"} 1.0
+vmware_datastore_vms{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_WinOS"} 10.0
+vmware_datastore_vms{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_LinuxOS"} 18.0
+vmware_datastore_vms{dc_name="Sample DataCenter",ds_cluster="",ds_name="VM1"} 2.0
+vmware_datastore_vms{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_LinuxLocal"} 14.0
+vmware_datastore_vms{dc_name="Sample DataCenter",ds_cluster="",ds_name="ISO"} 3.0
+# HELP vmware_datastore_maintenance_mode VMWare datastore maintenance mode (normal / inMaintenance / enteringMaintenance)
+# TYPE vmware_datastore_maintenance_mode gauge
+vmware_datastore_maintenance_mode{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_NApp1",mode="normal"} 1.0
+vmware_datastore_maintenance_mode{dc_name="Sample DataCenter",ds_cluster="",ds_name="VM01",mode="normal"} 1.0
+vmware_datastore_maintenance_mode{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_RDM",mode="normal"} 1.0
+vmware_datastore_maintenance_mode{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_Logs",mode="normal"} 1.0
+vmware_datastore_maintenance_mode{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_WinOS",mode="normal"} 1.0
+vmware_datastore_maintenance_mode{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_LinuxOS",mode="normal"} 1.0
+vmware_datastore_maintenance_mode{dc_name="Sample DataCenter",ds_cluster="",ds_name="VM1",mode="normal"} 1.0
+vmware_datastore_maintenance_mode{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_LinuxLocal",mode="normal"} 1.0
+vmware_datastore_maintenance_mode{dc_name="Sample DataCenter",ds_cluster="",ds_name="ISO",mode="normal"} 1.0
+# HELP vmware_datastore_type VMWare datastore type (VMFS, NetworkFileSystem, NetworkFileSystem41, CIFS, VFAT, VSAN, VFFS)
+# TYPE vmware_datastore_type gauge
+vmware_datastore_type{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_NApp1",ds_type="NFS"} 1.0
+vmware_datastore_type{dc_name="Sample DataCenter",ds_cluster="",ds_name="VM01",ds_type="VMFS"} 1.0
+vmware_datastore_type{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_RDM",ds_type="VMFS"} 1.0
+vmware_datastore_type{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_Logs",ds_type="VMFS"} 1.0
+vmware_datastore_type{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_WinOS",ds_type="VMFS"} 1.0
+vmware_datastore_type{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_LinuxOS",ds_type="VMFS"} 1.0
+vmware_datastore_type{dc_name="Sample DataCenter",ds_cluster="",ds_name="VM1",ds_type="VMFS"} 1.0
+vmware_datastore_type{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_LinuxLocal",ds_type="VMFS"} 1.0
+vmware_datastore_type{dc_name="Sample DataCenter",ds_cluster="",ds_name="ISO",ds_type="VMFS"} 1.0
+# HELP vmware_datastore_accessible VMWare datastore accessible (true / false)
+# TYPE vmware_datastore_accessible gauge
+vmware_datastore_accessible{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_NApp1"} 1.0
+vmware_datastore_accessible{dc_name="Sample DataCenter",ds_cluster="",ds_name="VM01"} 1.0
+vmware_datastore_accessible{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_RDM"} 1.0
+vmware_datastore_accessible{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_Logs"} 1.0
+vmware_datastore_accessible{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_WinOS"} 1.0
+vmware_datastore_accessible{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_LinuxOS"} 1.0
+vmware_datastore_accessible{dc_name="Sample DataCenter",ds_cluster="",ds_name="VM1"} 1.0
+vmware_datastore_accessible{dc_name="Sample DataCenter",ds_cluster="",ds_name="PR_LinuxLocal"} 1.0
+vmware_datastore_accessible{dc_name="Sample DataCenter",ds_cluster="",ds_name="ISO"} 1.0
+# HELP vmware_host_power_state VMWare Host Power state (On / Off)
+# TYPE vmware_host_power_state gauge
+vmware_host_power_state{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware"} 1.0
+vmware_host_power_state{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware"} 1.0
+vmware_host_power_state{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware"} 1.0
+vmware_host_power_state{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware"} 1.0
+vmware_host_power_state{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw5.host.vmware"} 1.0
+vmware_host_power_state{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw6.host.vmware"} 1.0
+vmware_host_power_state{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware"} 1.0
+vmware_host_power_state{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware"} 1.0
+# HELP vmware_host_connection_state VMWare Host connection state (connected / disconnected / notResponding)
+# TYPE vmware_host_connection_state gauge
+vmware_host_connection_state{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",state="connected"} 1.0
+vmware_host_connection_state{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",state="connected"} 1.0
+vmware_host_connection_state{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",state="connected"} 1.0
+vmware_host_connection_state{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",state="connected"} 1.0
+vmware_host_connection_state{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw5.host.vmware",state="connected"} 1.0
+vmware_host_connection_state{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw6.host.vmware",state="connected"} 1.0
+vmware_host_connection_state{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",state="connected"} 1.0
+vmware_host_connection_state{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",state="connected"} 1.0
+# HELP vmware_host_maintenance_mode VMWare Host maintenance mode (true / false)
+# TYPE vmware_host_maintenance_mode gauge
+vmware_host_maintenance_mode{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware"} 0.0
+vmware_host_maintenance_mode{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware"} 0.0
+vmware_host_maintenance_mode{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware"} 0.0
+vmware_host_maintenance_mode{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware"} 0.0
+vmware_host_maintenance_mode{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw5.host.vmware"} 0.0
+vmware_host_maintenance_mode{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw6.host.vmware"} 0.0
+vmware_host_maintenance_mode{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware"} 0.0
+vmware_host_maintenance_mode{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware"} 0.0
+# HELP vmware_host_boot_timestamp_seconds VMWare Host boot time in seconds
+# TYPE vmware_host_boot_timestamp_seconds gauge
+vmware_host_boot_timestamp_seconds{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware"} 1555294646.778135
+vmware_host_boot_timestamp_seconds{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware"} 1555296942.806554
+vmware_host_boot_timestamp_seconds{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware"} 1555294638.023162
+vmware_host_boot_timestamp_seconds{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware"} 1555296853.167721
+vmware_host_boot_timestamp_seconds{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw5.host.vmware"} 1557370944.36412
+vmware_host_boot_timestamp_seconds{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw6.host.vmware"} 1557370944.368821
+vmware_host_boot_timestamp_seconds{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware"} 1557370946.081759
+vmware_host_boot_timestamp_seconds{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware"} 1557370945.660942
+# HELP vmware_host_cpu_usage VMWare Host CPU usage in Mhz
+# TYPE vmware_host_cpu_usage gauge
+vmware_host_cpu_usage{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware"} 5890.0
+vmware_host_cpu_usage{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware"} 2744.0
+vmware_host_cpu_usage{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware"} 3641.0
+vmware_host_cpu_usage{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware"} 2147.0
+vmware_host_cpu_usage{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw5.host.vmware"} 1280.0
+vmware_host_cpu_usage{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw6.host.vmware"} 1253.0
+vmware_host_cpu_usage{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware"} 3122.0
+vmware_host_cpu_usage{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware"} 2265.0
+# HELP vmware_host_cpu_max VMWare Host CPU max availability in Mhz
+# TYPE vmware_host_cpu_max gauge
+vmware_host_cpu_max{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware"} 61600.0
+vmware_host_cpu_max{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware"} 61600.0
+vmware_host_cpu_max{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware"} 61600.0
+vmware_host_cpu_max{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware"} 61600.0
+vmware_host_cpu_max{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw5.host.vmware"} 61600.0
+vmware_host_cpu_max{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw6.host.vmware"} 61600.0
+vmware_host_cpu_max{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware"} 61600.0
+vmware_host_cpu_max{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware"} 61600.0
+# HELP vmware_host_num_cpu VMWare Number of processors in the Host
+# TYPE vmware_host_num_cpu gauge
+vmware_host_num_cpu{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware"} 28.0
+vmware_host_num_cpu{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware"} 28.0
+vmware_host_num_cpu{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware"} 28.0
+vmware_host_num_cpu{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware"} 28.0
+vmware_host_num_cpu{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw5.host.vmware"} 28.0
+vmware_host_num_cpu{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw6.host.vmware"} 28.0
+vmware_host_num_cpu{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware"} 28.0
+vmware_host_num_cpu{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware"} 28.0
+# HELP vmware_host_memory_usage VMWare Host Memory usage in Mbytes
+# TYPE vmware_host_memory_usage gauge
+vmware_host_memory_usage{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware"} 307613.0
+vmware_host_memory_usage{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware"} 92812.0
+vmware_host_memory_usage{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware"} 55701.0
+vmware_host_memory_usage{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware"} 259184.0
+vmware_host_memory_usage{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw5.host.vmware"} 71340.0
+vmware_host_memory_usage{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw6.host.vmware"} 69369.0
+vmware_host_memory_usage{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware"} 67456.0
+vmware_host_memory_usage{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware"} 61189.0
+# HELP vmware_host_memory_max VMWare Host Memory Max availability in Mbytes
+# TYPE vmware_host_memory_max gauge
+vmware_host_memory_max{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware"} 391843.53515625
+vmware_host_memory_max{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware"} 391843.53515625
+vmware_host_memory_max{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware"} 391843.53515625
+vmware_host_memory_max{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware"} 391843.53515625
+vmware_host_memory_max{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw5.host.vmware"} 391843.53515625
+vmware_host_memory_max{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw6.host.vmware"} 391843.53515625
+vmware_host_memory_max{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware"} 391843.53515625
+vmware_host_memory_max{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware"} 391843.53515625
+# HELP vmware_host_product_info A metric with a constant "1" value labeled by version and build from os the host.
+# TYPE vmware_host_product_info gauge
+vmware_host_product_info{build="10302608",cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",version="6.7.0"} 1.0
+vmware_host_product_info{build="10302608",cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",version="6.7.0"} 1.0
+vmware_host_product_info{build="10302608",cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",version="6.7.0"} 1.0
+vmware_host_product_info{build="10302608",cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",version="6.7.0"} 1.0
+vmware_host_product_info{build="10302608",cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw5.host.vmware",version="6.7.0"} 1.0
+vmware_host_product_info{build="10302608",cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw6.host.vmware",version="6.7.0"} 1.0
+vmware_host_product_info{build="10302608",cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",version="6.7.0"} 1.0
+vmware_host_product_info{build="10302608",cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",version="6.7.0"} 1.0
+# HELP vmware_vm_snapshots VMWare current number of existing snapshots
+# TYPE vmware_vm_snapshots gauge
+# HELP vmware_vm_snapshot_timestamp_seconds VMWare Snapshot creation time in seconds
+# TYPE vmware_vm_snapshot_timestamp_seconds gauge
+# HELP vmware_vm_cpu_ready_summation vmware_vm_cpu_ready_summation
+# TYPE vmware_vm_cpu_ready_summation gauge
+vmware_vm_cpu_ready_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",vm_name="Web2"} 33.0
+vmware_vm_cpu_ready_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",vm_name="SQLBackup1"} 10.0
+vmware_vm_cpu_ready_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",vm_name="Web4"} 39.0
+vmware_vm_cpu_ready_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",vm_name="Web5"} 36.0
+vmware_vm_cpu_ready_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",vm_name="FMC"} 18.0
+vmware_vm_cpu_ready_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw6.host.vmware",vm_name="SQL1"} 11.0
+vmware_vm_cpu_ready_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw5.host.vmware",vm_name="MIS1"} 17.0
+vmware_vm_cpu_ready_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="MIS2"} 19.0
+vmware_vm_cpu_ready_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="RDP1"} 11.0
+vmware_vm_cpu_ready_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="AD2"} 9.0
+vmware_vm_cpu_ready_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="dns01.localhost.localdomain"} 5.0
+vmware_vm_cpu_ready_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="RGS2"} 20.0
+vmware_vm_cpu_ready_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="DB1"} 34.0
+vmware_vm_cpu_ready_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="Admin1"} 13.0
+vmware_vm_cpu_ready_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="LDBL2"} 35.0
+vmware_vm_cpu_ready_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="Admin2"} 12.0
+vmware_vm_cpu_ready_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="fusion.localhost.localdomain"} 5.0
+vmware_vm_cpu_ready_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="Web3"} 43.0
+vmware_vm_cpu_ready_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="LDBL1"} 75.0
+vmware_vm_cpu_ready_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="NAS1"} 17.0
+vmware_vm_cpu_ready_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="Web1"} 40.0
+vmware_vm_cpu_ready_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="RGS1"} 33.0
+vmware_vm_cpu_ready_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="DB3"} 11.0
+vmware_vm_cpu_ready_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="vcenter1"} 25.0
+vmware_vm_cpu_ready_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="SQL2"} 18.0
+vmware_vm_cpu_ready_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="AD1"} 12.0
+vmware_vm_cpu_ready_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="MS3"} 28.0
+vmware_vm_cpu_ready_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="MS1"} 66.0
+vmware_vm_cpu_ready_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="MS2"} 32.0
+vmware_vm_cpu_ready_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="DB2"} 39.0
+# HELP vmware_vm_cpu_maxlimited_summation vmware_vm_cpu_maxlimited_summation
+# TYPE vmware_vm_cpu_maxlimited_summation gauge
+vmware_vm_cpu_maxlimited_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",vm_name="Web2"} 0.0
+vmware_vm_cpu_maxlimited_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",vm_name="SQLBackup1"} 0.0
+vmware_vm_cpu_maxlimited_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",vm_name="Web4"} 0.0
+vmware_vm_cpu_maxlimited_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",vm_name="Web5"} 0.0
+vmware_vm_cpu_maxlimited_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",vm_name="FMC"} 0.0
+vmware_vm_cpu_maxlimited_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw6.host.vmware",vm_name="SQL1"} 0.0
+vmware_vm_cpu_maxlimited_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw5.host.vmware",vm_name="MIS1"} 0.0
+vmware_vm_cpu_maxlimited_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="MIS2"} 0.0
+vmware_vm_cpu_maxlimited_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="RDP1"} 0.0
+vmware_vm_cpu_maxlimited_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="AD2"} 0.0
+vmware_vm_cpu_maxlimited_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="dns01.localhost.localdomain"} 0.0
+vmware_vm_cpu_maxlimited_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="RGS2"} 0.0
+vmware_vm_cpu_maxlimited_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="DB1"} 0.0
+vmware_vm_cpu_maxlimited_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="Admin1"} 0.0
+vmware_vm_cpu_maxlimited_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="LDBL2"} 0.0
+vmware_vm_cpu_maxlimited_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="Admin2"} 0.0
+vmware_vm_cpu_maxlimited_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="fusion.localhost.localdomain"} 0.0
+vmware_vm_cpu_maxlimited_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="Web3"} 0.0
+vmware_vm_cpu_maxlimited_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="LDBL1"} 0.0
+vmware_vm_cpu_maxlimited_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="NAS1"} 0.0
+vmware_vm_cpu_maxlimited_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="Web1"} 0.0
+vmware_vm_cpu_maxlimited_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="RGS1"} 0.0
+vmware_vm_cpu_maxlimited_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="DB3"} 0.0
+vmware_vm_cpu_maxlimited_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="vcenter1"} 0.0
+vmware_vm_cpu_maxlimited_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="SQL2"} 0.0
+vmware_vm_cpu_maxlimited_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="AD1"} 0.0
+vmware_vm_cpu_maxlimited_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="MS3"} 0.0
+vmware_vm_cpu_maxlimited_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="MS1"} 0.0
+vmware_vm_cpu_maxlimited_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="MS2"} 0.0
+vmware_vm_cpu_maxlimited_summation{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="DB2"} 0.0
+# HELP vmware_vm_cpu_usage_average vmware_vm_cpu_usage_average
+# TYPE vmware_vm_cpu_usage_average gauge
+vmware_vm_cpu_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",vm_name="Web2"} 146.0
+vmware_vm_cpu_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",vm_name="SQLBackup1"} 156.0
+vmware_vm_cpu_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",vm_name="Web4"} 149.0
+vmware_vm_cpu_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",vm_name="Web5"} 116.0
+vmware_vm_cpu_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",vm_name="FMC"} 517.0
+vmware_vm_cpu_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw6.host.vmware",vm_name="SQL1"} 40.0
+vmware_vm_cpu_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw5.host.vmware",vm_name="MIS1"} 37.0
+vmware_vm_cpu_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="MIS2"} 2631.0
+vmware_vm_cpu_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="RDP1"} 35.0
+vmware_vm_cpu_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="AD2"} 40.0
+vmware_vm_cpu_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="dns01.localhost.localdomain"} 16.0
+vmware_vm_cpu_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="RGS2"} 44.0
+vmware_vm_cpu_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="DB1"} 192.0
+vmware_vm_cpu_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="Admin1"} 60.0
+vmware_vm_cpu_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="LDBL2"} 60.0
+vmware_vm_cpu_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="Admin2"} 639.0
+vmware_vm_cpu_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="fusion.localhost.localdomain"} 37.0
+vmware_vm_cpu_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="Web3"} 198.0
+vmware_vm_cpu_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="LDBL1"} 255.0
+vmware_vm_cpu_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="NAS1"} 30.0
+vmware_vm_cpu_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="Web1"} 247.0
+vmware_vm_cpu_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="RGS1"} 278.0
+vmware_vm_cpu_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="DB3"} 216.0
+vmware_vm_cpu_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="vcenter1"} 161.0
+vmware_vm_cpu_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="SQL2"} 385.0
+vmware_vm_cpu_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="AD1"} 53.0
+vmware_vm_cpu_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="MS3"} 1647.0
+vmware_vm_cpu_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="MS1"} 154.0
+vmware_vm_cpu_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="MS2"} 88.0
+vmware_vm_cpu_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="DB2"} 116.0
+# HELP vmware_vm_cpu_usagemhz_average vmware_vm_cpu_usagemhz_average
+# TYPE vmware_vm_cpu_usagemhz_average gauge
+vmware_vm_cpu_usagemhz_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",vm_name="Web2"} 513.0
+vmware_vm_cpu_usagemhz_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",vm_name="SQLBackup1"} 205.0
+vmware_vm_cpu_usagemhz_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",vm_name="Web4"} 459.0
+vmware_vm_cpu_usagemhz_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",vm_name="Web5"} 409.0
+vmware_vm_cpu_usagemhz_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",vm_name="FMC"} 911.0
+vmware_vm_cpu_usagemhz_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw6.host.vmware",vm_name="SQL1"} 53.0
+vmware_vm_cpu_usagemhz_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw5.host.vmware",vm_name="MIS1"} 49.0
+vmware_vm_cpu_usagemhz_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="MIS2"} 3473.0
+vmware_vm_cpu_usagemhz_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="RDP1"} 30.0
+vmware_vm_cpu_usagemhz_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="AD2"} 35.0
+vmware_vm_cpu_usagemhz_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="dns01.localhost.localdomain"} 3.0
+vmware_vm_cpu_usagemhz_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="RGS2"} 77.0
+vmware_vm_cpu_usagemhz_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="DB1"} 339.0
+vmware_vm_cpu_usagemhz_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="Admin1"} 79.0
+vmware_vm_cpu_usagemhz_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="LDBL2"} 80.0
+vmware_vm_cpu_usagemhz_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="Admin2"} 844.0
+vmware_vm_cpu_usagemhz_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="fusion.localhost.localdomain"} 16.0
+vmware_vm_cpu_usagemhz_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="Web3"} 697.0
+vmware_vm_cpu_usagemhz_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="LDBL1"} 336.0
+vmware_vm_cpu_usagemhz_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="NAS1"} 40.0
+vmware_vm_cpu_usagemhz_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="Web1"} 871.0
+vmware_vm_cpu_usagemhz_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="RGS1"} 489.0
+vmware_vm_cpu_usagemhz_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="DB3"} 381.0
+vmware_vm_cpu_usagemhz_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="vcenter1"} 142.0
+vmware_vm_cpu_usagemhz_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="SQL2"} 509.0
+vmware_vm_cpu_usagemhz_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="AD1"} 47.0
+vmware_vm_cpu_usagemhz_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="MS3"} 2900.0
+vmware_vm_cpu_usagemhz_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="MS1"} 271.0
+vmware_vm_cpu_usagemhz_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="MS2"} 155.0
+vmware_vm_cpu_usagemhz_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="DB2"} 204.0
+# HELP vmware_vm_disk_usage_average vmware_vm_disk_usage_average
+# TYPE vmware_vm_disk_usage_average gauge
+vmware_vm_disk_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",vm_name="Web2"} 4.0
+vmware_vm_disk_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",vm_name="SQLBackup1"} 5.0
+vmware_vm_disk_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",vm_name="Web4"} 10.0
+vmware_vm_disk_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",vm_name="Web5"} 5.0
+vmware_vm_disk_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",vm_name="FMC"} 479.0
+vmware_vm_disk_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw6.host.vmware",vm_name="SQL1"} 1.0
+vmware_vm_disk_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw5.host.vmware",vm_name="MIS1"} 1.0
+vmware_vm_disk_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="MIS2"} 317.0
+vmware_vm_disk_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="RDP1"} 32.0
+vmware_vm_disk_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="AD2"} 18.0
+vmware_vm_disk_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="dns01.localhost.localdomain"} 0.0
+vmware_vm_disk_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="RGS2"} 5.0
+vmware_vm_disk_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="DB1"} 256.0
+vmware_vm_disk_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="Admin1"} 0.0
+vmware_vm_disk_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="LDBL2"} 0.0
+vmware_vm_disk_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="Admin2"} 117.0
+vmware_vm_disk_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="fusion.localhost.localdomain"} 9.0
+vmware_vm_disk_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="Web3"} 13.0
+vmware_vm_disk_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="LDBL1"} 0.0
+vmware_vm_disk_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="NAS1"} 0.0
+vmware_vm_disk_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="Web1"} 13.0
+vmware_vm_disk_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="RGS1"} 37.0
+vmware_vm_disk_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="DB3"} 2.0
+vmware_vm_disk_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="vcenter1"} 67.0
+vmware_vm_disk_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="SQL2"} 135.0
+vmware_vm_disk_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="AD1"} 13.0
+vmware_vm_disk_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="MS3"} 9.0
+vmware_vm_disk_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="MS1"} 61.0
+vmware_vm_disk_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="MS2"} 4.0
+vmware_vm_disk_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="DB2"} 198.0
+# HELP vmware_vm_disk_read_average vmware_vm_disk_read_average
+# TYPE vmware_vm_disk_read_average gauge
+vmware_vm_disk_read_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",vm_name="Web2"} 0.0
+vmware_vm_disk_read_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",vm_name="SQLBackup1"} 0.0
+vmware_vm_disk_read_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",vm_name="Web4"} 0.0
+vmware_vm_disk_read_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",vm_name="Web5"} 0.0
+vmware_vm_disk_read_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",vm_name="FMC"} 0.0
+vmware_vm_disk_read_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw6.host.vmware",vm_name="SQL1"} 0.0
+vmware_vm_disk_read_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw5.host.vmware",vm_name="MIS1"} 0.0
+vmware_vm_disk_read_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="MIS2"} 48.0
+vmware_vm_disk_read_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="RDP1"} 0.0
+vmware_vm_disk_read_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="AD2"} 0.0
+vmware_vm_disk_read_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="dns01.localhost.localdomain"} 0.0
+vmware_vm_disk_read_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="RGS2"} 0.0
+vmware_vm_disk_read_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="DB1"} 0.0
+vmware_vm_disk_read_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="Admin1"} 0.0
+vmware_vm_disk_read_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="LDBL2"} 0.0
+vmware_vm_disk_read_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="Admin2"} 0.0
+vmware_vm_disk_read_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="fusion.localhost.localdomain"} 0.0
+vmware_vm_disk_read_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="Web3"} 0.0
+vmware_vm_disk_read_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="LDBL1"} 0.0
+vmware_vm_disk_read_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="NAS1"} 0.0
+vmware_vm_disk_read_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="Web1"} 0.0
+vmware_vm_disk_read_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="RGS1"} 0.0
+vmware_vm_disk_read_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="DB3"} 0.0
+vmware_vm_disk_read_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="vcenter1"} 4.0
+vmware_vm_disk_read_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="SQL2"} 0.0
+vmware_vm_disk_read_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="AD1"} 0.0
+vmware_vm_disk_read_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="MS3"} 0.0
+vmware_vm_disk_read_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="MS1"} 0.0
+vmware_vm_disk_read_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="MS2"} 0.0
+vmware_vm_disk_read_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="DB2"} 0.0
+# HELP vmware_vm_disk_write_average vmware_vm_disk_write_average
+# TYPE vmware_vm_disk_write_average gauge
+vmware_vm_disk_write_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",vm_name="Web2"} 4.0
+vmware_vm_disk_write_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",vm_name="SQLBackup1"} 5.0
+vmware_vm_disk_write_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",vm_name="Web4"} 10.0
+vmware_vm_disk_write_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",vm_name="Web5"} 5.0
+vmware_vm_disk_write_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",vm_name="FMC"} 479.0
+vmware_vm_disk_write_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw6.host.vmware",vm_name="SQL1"} 1.0
+vmware_vm_disk_write_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw5.host.vmware",vm_name="MIS1"} 1.0
+vmware_vm_disk_write_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="MIS2"} 269.0
+vmware_vm_disk_write_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="RDP1"} 32.0
+vmware_vm_disk_write_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="AD2"} 18.0
+vmware_vm_disk_write_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="dns01.localhost.localdomain"} 0.0
+vmware_vm_disk_write_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="RGS2"} 5.0
+vmware_vm_disk_write_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="DB1"} 256.0
+vmware_vm_disk_write_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="Admin1"} 0.0
+vmware_vm_disk_write_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="LDBL2"} 0.0
+vmware_vm_disk_write_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="Admin2"} 117.0
+vmware_vm_disk_write_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="fusion.localhost.localdomain"} 9.0
+vmware_vm_disk_write_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="Web3"} 13.0
+vmware_vm_disk_write_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="LDBL1"} 0.0
+vmware_vm_disk_write_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="NAS1"} 0.0
+vmware_vm_disk_write_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="Web1"} 13.0
+vmware_vm_disk_write_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="RGS1"} 37.0
+vmware_vm_disk_write_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="DB3"} 2.0
+vmware_vm_disk_write_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="vcenter1"} 63.0
+vmware_vm_disk_write_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="SQL2"} 135.0
+vmware_vm_disk_write_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="AD1"} 13.0
+vmware_vm_disk_write_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="MS3"} 9.0
+vmware_vm_disk_write_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="MS1"} 61.0
+vmware_vm_disk_write_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="MS2"} 4.0
+vmware_vm_disk_write_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="DB2"} 198.0
+# HELP vmware_vm_mem_usage_average vmware_vm_mem_usage_average
+# TYPE vmware_vm_mem_usage_average gauge
+vmware_vm_mem_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",vm_name="Web2"} 2899.0
+vmware_vm_mem_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",vm_name="SQLBackup1"} 199.0
+vmware_vm_mem_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",vm_name="Web4"} 2399.0
+vmware_vm_mem_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",vm_name="Web5"} 2099.0
+vmware_vm_mem_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",vm_name="FMC"} 1099.0
+vmware_vm_mem_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw6.host.vmware",vm_name="SQL1"} 99.0
+vmware_vm_mem_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw5.host.vmware",vm_name="MIS1"} 99.0
+vmware_vm_mem_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="MIS2"} 199.0
+vmware_vm_mem_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="RDP1"} 599.0
+vmware_vm_mem_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="AD2"} 1099.0
+vmware_vm_mem_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="dns01.localhost.localdomain"} 99.0
+vmware_vm_mem_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="RGS2"} 399.0
+vmware_vm_mem_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="DB1"} 599.0
+vmware_vm_mem_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="Admin1"} 199.0
+vmware_vm_mem_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="LDBL2"} 299.0
+vmware_vm_mem_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="Admin2"} 3099.0
+vmware_vm_mem_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="fusion.localhost.localdomain"} 99.0
+vmware_vm_mem_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="Web3"} 2299.0
+vmware_vm_mem_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="LDBL1"} 399.0
+vmware_vm_mem_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="NAS1"} 99.0
+vmware_vm_mem_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="Web1"} 2899.0
+vmware_vm_mem_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="RGS1"} 499.0
+vmware_vm_mem_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="DB3"} 99.0
+vmware_vm_mem_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="vcenter1"} 1899.0
+vmware_vm_mem_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="SQL2"} 99.0
+vmware_vm_mem_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="AD1"} 199.0
+vmware_vm_mem_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="MS3"} 299.0
+vmware_vm_mem_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="MS1"} 399.0
+vmware_vm_mem_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="MS2"} 199.0
+vmware_vm_mem_usage_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="DB2"} 399.0
+# HELP vmware_vm_net_received_average vmware_vm_net_received_average
+# TYPE vmware_vm_net_received_average gauge
+vmware_vm_net_received_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",vm_name="Web2"} 31.0
+vmware_vm_net_received_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",vm_name="SQLBackup1"} 77.0
+vmware_vm_net_received_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",vm_name="Web4"} 24.0
+vmware_vm_net_received_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",vm_name="Web5"} 34.0
+vmware_vm_net_received_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",vm_name="FMC"} 7.0
+vmware_vm_net_received_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw6.host.vmware",vm_name="SQL1"} 2.0
+vmware_vm_net_received_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw5.host.vmware",vm_name="MIS1"} 2.0
+vmware_vm_net_received_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="MIS2"} 78.0
+vmware_vm_net_received_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="RDP1"} 0.0
+vmware_vm_net_received_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="AD2"} 0.0
+vmware_vm_net_received_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="dns01.localhost.localdomain"} 0.0
+vmware_vm_net_received_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="RGS2"} 5.0
+vmware_vm_net_received_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="DB1"} 86.0
+vmware_vm_net_received_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="Admin1"} 1.0
+vmware_vm_net_received_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="LDBL2"} 15.0
+vmware_vm_net_received_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="Admin2"} 47.0
+vmware_vm_net_received_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="fusion.localhost.localdomain"} 0.0
+vmware_vm_net_received_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="Web3"} 42.0
+vmware_vm_net_received_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="LDBL1"} 713.0
+vmware_vm_net_received_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="NAS1"} 0.0
+vmware_vm_net_received_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="Web1"} 34.0
+vmware_vm_net_received_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="RGS1"} 92.0
+vmware_vm_net_received_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="DB3"} 32.0
+vmware_vm_net_received_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="vcenter1"} 8.0
+vmware_vm_net_received_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="SQL2"} 65.0
+vmware_vm_net_received_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="AD1"} 0.0
+vmware_vm_net_received_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="MS3"} 38.0
+vmware_vm_net_received_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="MS1"} 78.0
+vmware_vm_net_received_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="MS2"} 25.0
+vmware_vm_net_received_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="DB2"} 42.0
+# HELP vmware_vm_net_transmitted_average vmware_vm_net_transmitted_average
+# TYPE vmware_vm_net_transmitted_average gauge
+vmware_vm_net_transmitted_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",vm_name="Web2"} 37.0
+vmware_vm_net_transmitted_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw8.host.vmware",vm_name="SQLBackup1"} 24.0
+vmware_vm_net_transmitted_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",vm_name="Web4"} 33.0
+vmware_vm_net_transmitted_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",vm_name="Web5"} 34.0
+vmware_vm_net_transmitted_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw7.host.vmware",vm_name="FMC"} 0.0
+vmware_vm_net_transmitted_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw6.host.vmware",vm_name="SQL1"} 3.0
+vmware_vm_net_transmitted_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw5.host.vmware",vm_name="MIS1"} 4.0
+vmware_vm_net_transmitted_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="MIS2"} 25.0
+vmware_vm_net_transmitted_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="RDP1"} 0.0
+vmware_vm_net_transmitted_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="AD2"} 0.0
+vmware_vm_net_transmitted_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="dns01.localhost.localdomain"} 0.0
+vmware_vm_net_transmitted_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="RGS2"} 4.0
+vmware_vm_net_transmitted_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw4.host.vmware",vm_name="DB1"} 147.0
+vmware_vm_net_transmitted_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="Admin1"} 1.0
+vmware_vm_net_transmitted_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="LDBL2"} 12.0
+vmware_vm_net_transmitted_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="Admin2"} 21.0
+vmware_vm_net_transmitted_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="fusion.localhost.localdomain"} 0.0
+vmware_vm_net_transmitted_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="Web3"} 54.0
+vmware_vm_net_transmitted_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw3.host.vmware",vm_name="LDBL1"} 519.0
+vmware_vm_net_transmitted_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="NAS1"} 0.0
+vmware_vm_net_transmitted_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="Web1"} 1249.0
+vmware_vm_net_transmitted_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="RGS1"} 64.0
+vmware_vm_net_transmitted_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw1.host.vmware",vm_name="DB3"} 24.0
+vmware_vm_net_transmitted_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="vcenter1"} 23.0
+vmware_vm_net_transmitted_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="SQL2"} 170.0
+vmware_vm_net_transmitted_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="AD1"} 0.0
+vmware_vm_net_transmitted_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="MS3"} 173.0
+vmware_vm_net_transmitted_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="MS1"} 60.0
+vmware_vm_net_transmitted_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="MS2"} 20.0
+vmware_vm_net_transmitted_average{cluster_name="Sample Cluster",dc_name="Sample DataCenter",host_name="prvmw2.host.vmware",vm_name="DB2"} 20.0
