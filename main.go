@@ -13,6 +13,7 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
+// Configuration TODO Comment
 type Configuration struct {
 	Host     string
 	User     string

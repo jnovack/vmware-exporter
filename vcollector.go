@@ -1,14 +1,14 @@
 package main
 
 import (
-	log "github.com/Sirupsen/logrus"
-	"github.com/prometheus/client_golang/prometheus"
 	"sync"
 	"time"
+
+	log "github.com/Sirupsen/logrus"
+	"github.com/prometheus/client_golang/prometheus"
 )
 
 const xver = "1.0"
-
 
 type vCollector struct {
 	desc string
@@ -49,8 +49,8 @@ func (c *vCollector) Collect(ch chan<- prometheus.Metric) {
 	// Datastore Metrics
 	go func() {
 		defer wg.Done()
-		defer timeTrack(time.Now(), "DSMetrics")
-		cm := DSMetrics()
+		defer timeTrack(time.Now(), "DataStoreMetrics")
+		cm := DataStoreMetrics()
 		for _, m := range cm {
 
 			ch <- prometheus.MustNewConstMetric(
@@ -127,7 +127,7 @@ func (c *vCollector) Collect(ch chan<- prometheus.Metric) {
 		go func() {
 			defer wg.Done()
 			defer timeTrack(time.Now(), "VMMetrics")
-			cm := VmMetrics()
+			cm := VMMetrics()
 			for _, m := range cm {
 				ch <- prometheus.MustNewConstMetric(
 					prometheus.NewDesc(m.name, m.help, []string{}, m.labels),
@@ -157,14 +157,16 @@ func (c *vCollector) Collect(ch chan<- prometheus.Metric) {
 	wg.Wait()
 }
 
+// NewvCollector TODO Comment
 func NewvCollector() *vCollector {
 	return &vCollector{
 		desc: "vmware Exporter",
 	}
 }
 
-func GetClusterMetricMock() []vMetric {
-	ms := []vMetric{
+// GetClusterMetricMock TODO Comment
+func GetClusterMetricMock() []VMetric {
+	ms := []VMetric{
 		{name: "cluster_mem_ballooned", help: "Usage for a", value: 10, labels: map[string]string{"cluster": "apa", "host": "04"}},
 		{name: "cluster_mem_compressed", help: "Usage for a", value: 10, labels: map[string]string{"cluster": "apa", "host": "04"}},
 		{name: "cluster_mem_consumedOverhead", help: "Usage for a", value: 10, labels: map[string]string{}},
