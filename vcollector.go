@@ -82,6 +82,7 @@ func (c *vCollector) Collect(ch chan<- prometheus.Metric) {
 		}
 	}()
 
+	/*
 	// Cluster Counters
 	go func() {
 		defer wg.Done()
@@ -95,6 +96,7 @@ func (c *vCollector) Collect(ch chan<- prometheus.Metric) {
 			)
 		}
 	}()
+	*/
 
 	// Host Metrics
 	go func() {

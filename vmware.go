@@ -11,7 +11,6 @@ import (
 	"github.com/vmware/govmomi"
 	"github.com/vmware/govmomi/find"
 	"github.com/vmware/govmomi/object"
-	"github.com/vmware/govmomi/performance"
 	"github.com/vmware/govmomi/property"
 	"github.com/vmware/govmomi/view"
 	"github.com/vmware/govmomi/vim25"
@@ -227,6 +226,7 @@ func ClusterMetrics() []VMetric {
 	return metrics
 }
 
+/*
 // ClusterCounters TODO Comment
 func ClusterCounters() []VMetric {
 	log.SetReportCaller(true)
@@ -296,6 +296,27 @@ func ClusterCounters() []VMetric {
 			log.Fatal(err)
 		}
 
+		// vsphere_cluster_vmop_numChangeDS{cluster="ucs"} 1
+		// vsphere_cluster_vmop_numChangeHo{cluster="ucs"} 8
+		// vsphere_cluster_vmop_numChangeHostDS{cluster="ucs"} 0
+		// vsphere_cluster_vmop_numClon{cluster="ucs"} 0
+		// vsphere_cluster_vmop_numCr{cluster="ucs"} 3
+		// vsphere_cluster_vmop_numDeploy{cluster="ucs"} 0
+		// vsphere_cluster_vmop_numDestroy{cluster="ucs"} 4
+		// vsphere_cluster_vmop_numPoweroff{cluster="ucs"} 3
+		// vsphere_cluster_vmop_numPoweron{cluster="ucs"} 11
+		// vsphere_cluster_vmop_numR{cluster="ucs"} 1
+		// vsphere_cluster_vmop_numRebootGu{cluster="ucs"} 0
+		// vsphere_cluster_vmop_numReconfigur{cluster="ucs"} 100
+		// vsphere_cluster_vmop_numRegister{cluster="ucs"} 0
+		// vsphere_cluster_vmop_numSVMotion{cluster="ucs"} 3
+		// vsphere_cluster_vmop_numShutdownGu{cluster="ucs"} 1
+		// vsphere_cluster_vmop_numStandbyGu{cluster="ucs"} 0
+		// vsphere_cluster_vmop_numSuspend{cluster="ucs"} 0
+		// vsphere_cluster_vmop_numUnregister{cluster="ucs"} 0
+		// vsphere_cluster_vmop_numVMotion{cluster="ucs"} 10
+		// vsphere_cluster_vmop_numXVMotion{cluster="ucs"} 0
+
 		for _, base := range response.Returnval {
 			metric := base.(*types.PerfEntityMetric)
 			for _, baseSeries := range metric.Value {
@@ -310,6 +331,7 @@ func ClusterCounters() []VMetric {
 	}
 	return metrics
 }
+*/
 
 // HostMetrics Collects Hypervisor metrics
 func HostMetrics() []VMetric {
