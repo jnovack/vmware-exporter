@@ -590,24 +590,16 @@ func VMMetrics() []VMetric {
 
 	for _, vm := range vms {
 
-		// VM Memory
-		freeMemory := (int64(vm.Summary.Config.MemorySizeMB) * 1024 * 1024) - (int64(vm.Summary.QuickStats.GuestMemoryUsage) * 1024 * 1024)
-		BalloonedMemory := int64(vm.Summary.QuickStats.BalloonedMemory) * 1024 * 1024
-		GuestMemoryUsage := int64(vm.Summary.QuickStats.GuestMemoryUsage) * 1024 * 1024
-		VMMemory := int64(vm.Config.Hardware.MemoryMB) * 1024 * 1024
+		// Calculations
+		freeMemory := (int64(vm.Summary.Config.MemorySizeMB)) - (int64(vm.Summary.QuickStats.GuestMemoryUsage))
 
-		metrics = append(metrics, VMetric{name: "vsphere_vm_mem_total", help: "VM Memory total, Byte", value: float64(VMMemory), labels: map[string]string{"vmname": vm.Name}})
-		metrics = append(metrics, VMetric{name: "vsphere_vm_mem_free", help: "VM Memory total, Byte", value: float64(freeMemory), labels: map[string]string{"vmname": vm.Name}})
-		metrics = append(metrics, VMetric{name: "vsphere_vm_mem_usage", help: "VM Memory usage, Byte", value: float64(GuestMemoryUsage), labels: map[string]string{"vmname": vm.Name}})
-		metrics = append(metrics, VMetric{name: "vsphere_vm_mem_balloonede", help: "VM Memory Ballooned, Byte", value: float64(BalloonedMemory), labels: map[string]string{"vmname": vm.Name}})
+		// Add Metrics
+		metrics = append(metrics, VMetric{name: "vsphere_vm_mem_total", help: "Memory size of the virtual machine, in MB.", value: float64(vm.Config.Hardware.MemoryMB), labels: map[string]string{"vm_name": vm.Name}})
+		metrics = append(metrics, VMetric{name: "vsphere_vm_mem_free", help: "Guest memory free statistics, in MB. This is also known as free guest memory. The number can be between 0 and the configured memory size of the virtual machine. Valid while the virtual machine is running.", value: float64(freeMemory), labels: map[string]string{"vm_name": vm.Name}})
+		metrics = append(metrics, VMetric{name: "vsphere_vm_mem_usage", help: "Guest memory utilization statistics, in MB. This is also known as active guest memory. The number can be between 0 and the configured memory size of the virtual machine. Valid while the virtual machine is running.", value: float64(vm.Summary.QuickStats.GuestMemoryUsage), labels: map[string]string{"vm_name": vm.Name}})
 
-		metrics = append(metrics, VMetric{name: "vsphere_vm_cpu_usage", help: "VM CPU Usage, MHz", value: float64(vm.Summary.QuickStats.OverallCpuUsage), labels: map[string]string{"vmname": vm.Name}})
-		metrics = append(metrics, VMetric{name: "vsphere_vm_cpu_demand", help: "VM CPU Demand, MHz", value: float64(vm.Summary.QuickStats.OverallCpuDemand), labels: map[string]string{"vmname": vm.Name}})
-		//metrics = append(metrics, VMetric{name: "vsphere_vm_cpu_total", help: "VM CPU Demand, MHz", value: float64(vm.Config), labels: map[string]string{"vmname": vm.Name}})
-		/*
-			perfMetrics := PerfQuery(ctx,c,[]string{"cpu.ready.summation", "cpu.usage.none"},vm.GetManagedEntity(),metricMap,idToName)
-			metrics = append(metrics, VMetric{name: "vsphere_vm_cpu_ready", help: "VM CPU % Ready", value: float64(perfMetrics["cpu.ready.summation"]), labels: map[string]string{"vmname": vm.Name}})
-		*/
+		metrics = append(metrics, VMetric{name: "vsphere_vm_cpu_usage", help: "Basic CPU performance statistics, in MHz. Valid while the virtual machine is running.", value: float64(vm.Summary.QuickStats.OverallCpuUsage), labels: map[string]string{"vm_name": vm.Name}})
+		metrics = append(metrics, VMetric{name: "vsphere_vm_cpu_count", help: "Number of processors in the virtual machine.", value: float64(vm.Summary.Config.NumCpu), labels: map[string]string{"vm_name": vm.Name}})
 
 	}
 
