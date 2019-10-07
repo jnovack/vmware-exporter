@@ -14,9 +14,15 @@ type vCollector struct {
 	desc string
 }
 
-func timeTrack(start time.Time, name string) {
+func timeTrack(ch chan<- prometheus.Metric, start time.Time, name string) {
 	elapsed := time.Since(start)
-	log.Printf("%s took %s", name, elapsed)
+	log.Printf("%s took %.3fs", name, float64(elapsed.Milliseconds())/1000)
+
+	ch <- prometheus.MustNewConstMetric(
+		prometheus.NewDesc("go_task_time", "Go task elasped time", []string{}, prometheus.Labels{"task": name, "application": "vmware_exporter"}),
+		prometheus.GaugeValue,
+		float64(elapsed.Milliseconds())/1000,
+	)
 }
 
 func (c *vCollector) Describe(ch chan<- *prometheus.Desc) {
@@ -41,7 +47,7 @@ func (c *vCollector) Collect(ch chan<- prometheus.Metric) {
 	}
 
 	ch <- prometheus.MustNewConstMetric(
-		prometheus.NewDesc("vmware_exporter_version", "go-vmware-export Version", []string{}, prometheus.Labels{"version": xver}),
+		prometheus.NewDesc("vmware_exporter", "github.com/jnovack/vmware_exporter", []string{}, prometheus.Labels{"version": xver}),
 		prometheus.GaugeValue,
 		1,
 	)
@@ -49,7 +55,7 @@ func (c *vCollector) Collect(ch chan<- prometheus.Metric) {
 	// Datastore Metrics
 	go func() {
 		defer wg.Done()
-		defer timeTrack(time.Now(), "DataStoreMetrics")
+		defer timeTrack(ch, time.Now(), "DataStoreMetrics")
 		cm := DataStoreMetrics()
 		for _, m := range cm {
 
@@ -65,7 +71,7 @@ func (c *vCollector) Collect(ch chan<- prometheus.Metric) {
 	// Cluster Metrics
 	go func() {
 		defer wg.Done()
-		defer timeTrack(time.Now(), "ClusterMetrics")
+		defer timeTrack(ch, time.Now(), "ClusterMetrics")
 		cm := ClusterMetrics()
 		for _, m := range cm {
 			ch <- prometheus.MustNewConstMetric(
@@ -79,7 +85,7 @@ func (c *vCollector) Collect(ch chan<- prometheus.Metric) {
 	// Cluster Counters
 	go func() {
 		defer wg.Done()
-		defer timeTrack(time.Now(), "ClusterCounters")
+		defer timeTrack(ch, time.Now(), "ClusterCounters")
 		cm := ClusterCounters()
 		for _, m := range cm {
 			ch <- prometheus.MustNewConstMetric(
@@ -93,7 +99,7 @@ func (c *vCollector) Collect(ch chan<- prometheus.Metric) {
 	// Host Metrics
 	go func() {
 		defer wg.Done()
-		defer timeTrack(time.Now(), "HostMetrics")
+		defer timeTrack(ch, time.Now(), "HostMetrics")
 		cm := HostMetrics()
 		for _, m := range cm {
 			ch <- prometheus.MustNewConstMetric(
@@ -109,7 +115,7 @@ func (c *vCollector) Collect(ch chan<- prometheus.Metric) {
 	// Host Counters
 	go func() {
 		defer wg.Done()
-		defer timeTrack(time.Now(), "HostCounters")
+		defer timeTrack(ch, time.Now(), "HostCounters")
 		cm := HostCounters()
 		for _, m := range cm {
 			ch <- prometheus.MustNewConstMetric(
@@ -126,7 +132,7 @@ func (c *vCollector) Collect(ch chan<- prometheus.Metric) {
 	if cfg.vmStats == true {
 		go func() {
 			defer wg.Done()
-			defer timeTrack(time.Now(), "VMMetrics")
+			defer timeTrack(ch, time.Now(), "VMMetrics")
 			cm := VMMetrics()
 			for _, m := range cm {
 				ch <- prometheus.MustNewConstMetric(
@@ -142,7 +148,7 @@ func (c *vCollector) Collect(ch chan<- prometheus.Metric) {
 	// HBA Status
 	go func() {
 		defer wg.Done()
-		defer timeTrack(time.Now(), "HostHBAStatus")
+		defer timeTrack(ch, time.Now(), "HostHBAStatus")
 		cm := HostHBAStatus()
 		for _, m := range cm {
 			ch <- prometheus.MustNewConstMetric(
