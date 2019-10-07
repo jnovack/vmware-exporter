@@ -31,15 +31,17 @@ func main() {
 	flag.Parse()
 
 	http.Handle("/metrics", promhttp.Handler())
-	http.HandleFunc("/", redirect)
-
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte(`<html>
+			<head><title>VMware Exporter</title></head>
+			<body>
+			<h1>VMware Exporter</h1>
+			<p><a href="/metrics">Metrics</a></p>
+			</body>
+			</html>`))
+	})
 	log.Info("Serving metrics on " + strconv.FormatInt(int64(*port), 10))
 	log.Fatal(http.ListenAndServe(":"+strconv.FormatInt(int64(*port), 10), nil))
-}
-
-// Redirect
-func redirect(w http.ResponseWriter, r *http.Request) {
-	http.Redirect(w, r, "/metrics", 301)
 }
 
 func init() {
