@@ -83,19 +83,19 @@ func (c *vCollector) Collect(ch chan<- prometheus.Metric) {
 	}()
 
 	/*
-	// Cluster Counters
-	go func() {
-		defer wg.Done()
-		defer timeTrack(ch, time.Now(), "ClusterCounters")
-		cm := ClusterCounters()
-		for _, m := range cm {
-			ch <- prometheus.MustNewConstMetric(
-				prometheus.NewDesc(m.name, m.help, []string{}, m.labels),
-				prometheus.CounterValue,
-				float64(m.value),
-			)
-		}
-	}()
+		// Cluster Counters
+		go func() {
+			defer wg.Done()
+			defer timeTrack(ch, time.Now(), "ClusterCounters")
+			cm := ClusterCounters()
+			for _, m := range cm {
+				ch <- prometheus.MustNewConstMetric(
+					prometheus.NewDesc(m.name, m.help, []string{}, m.labels),
+					prometheus.CounterValue,
+					float64(m.value),
+				)
+			}
+		}()
 	*/
 
 	// Host Metrics
