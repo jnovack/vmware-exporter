@@ -574,7 +574,7 @@ func VMMetrics() []VMetric {
 
 	var vms []mo.VirtualMachine
 
-	err = v.Retrieve(ctx, []string{"VirtualMachine"}, []string{"summary", "config", "name"}, &vms)
+	err = v.Retrieve(ctx, []string{"VirtualMachine"}, []string{"summary", "config", "name", "runtime"}, &vms)
 	if err != nil {
 		log.Error(err.Error())
 	}
@@ -589,17 +589,24 @@ func VMMetrics() []VMetric {
 	var metrics []VMetric
 
 	for _, vm := range vms {
+		hst, err := HostFromRef(c, vm.Runtime.Host.Reference())
+		if err != nil {
+			log.Error(err.Error())
+			return nil
+		}
+		hostname := hst.Name()
+		hostname = strings.ToLower(hostname)
 
 		// Calculations
 		freeMemory := (int64(vm.Summary.Config.MemorySizeMB)) - (int64(vm.Summary.QuickStats.GuestMemoryUsage))
 
 		// Add Metrics
-		metrics = append(metrics, VMetric{name: "vsphere_vm_mem_total", help: "Memory size of the virtual machine, in MB.", value: float64(vm.Config.Hardware.MemoryMB), labels: map[string]string{"vm_name": vm.Name}})
-		metrics = append(metrics, VMetric{name: "vsphere_vm_mem_free", help: "Guest memory free statistics, in MB. This is also known as free guest memory. The number can be between 0 and the configured memory size of the virtual machine. Valid while the virtual machine is running.", value: float64(freeMemory), labels: map[string]string{"vm_name": vm.Name}})
-		metrics = append(metrics, VMetric{name: "vsphere_vm_mem_usage", help: "Guest memory utilization statistics, in MB. This is also known as active guest memory. The number can be between 0 and the configured memory size of the virtual machine. Valid while the virtual machine is running.", value: float64(vm.Summary.QuickStats.GuestMemoryUsage), labels: map[string]string{"vm_name": vm.Name}})
+		metrics = append(metrics, VMetric{name: "vsphere_vm_mem_total", help: "Memory size of the virtual machine, in MB.", value: float64(vm.Config.Hardware.MemoryMB), labels: map[string]string{"vm_name": vm.Name, "host_name": hostname}})
+		metrics = append(metrics, VMetric{name: "vsphere_vm_mem_free", help: "Guest memory free statistics, in MB. This is also known as free guest memory. The number can be between 0 and the configured memory size of the virtual machine. Valid while the virtual machine is running.", value: float64(freeMemory), labels: map[string]string{"vm_name": vm.Name, "host_name": hostname}})
+		metrics = append(metrics, VMetric{name: "vsphere_vm_mem_usage", help: "Guest memory utilization statistics, in MB. This is also known as active guest memory. The number can be between 0 and the configured memory size of the virtual machine. Valid while the virtual machine is running.", value: float64(vm.Summary.QuickStats.GuestMemoryUsage), labels: map[string]string{"vm_name": vm.Name, "host_name": hostname}})
 
-		metrics = append(metrics, VMetric{name: "vsphere_vm_cpu_usage", help: "Basic CPU performance statistics, in MHz. Valid while the virtual machine is running.", value: float64(vm.Summary.QuickStats.OverallCpuUsage), labels: map[string]string{"vm_name": vm.Name}})
-		metrics = append(metrics, VMetric{name: "vsphere_vm_cpu_count", help: "Number of processors in the virtual machine.", value: float64(vm.Summary.Config.NumCpu), labels: map[string]string{"vm_name": vm.Name}})
+		metrics = append(metrics, VMetric{name: "vsphere_vm_cpu_usage", help: "Basic CPU performance statistics, in MHz. Valid while the virtual machine is running.", value: float64(vm.Summary.QuickStats.OverallCpuUsage), labels: map[string]string{"vm_name": vm.Name, "host_name": hostname}})
+		metrics = append(metrics, VMetric{name: "vsphere_vm_cpu_count", help: "Number of processors in the virtual machine.", value: float64(vm.Summary.Config.NumCpu), labels: map[string]string{"vm_name": vm.Name, "host_name": hostname}})
 
 	}
 
@@ -658,6 +665,19 @@ func ClusterFromRef(client *govmomi.Client, ref types.ManagedObjectReference) (*
 		return nil, err
 	}
 	return obj.(*object.ClusterComputeResource), nil
+}
+
+// HostFromRef returns a Host object from a Managed Object
+func HostFromRef(client *govmomi.Client, ref types.ManagedObjectReference) (*object.HostSystem, error) {
+	finder := find.NewFinder(client.Client, false)
+
+	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+	defer cancel()
+	obj, err := finder.ObjectReference(ctx, ref)
+	if err != nil {
+		return nil, err
+	}
+	return obj.(*object.HostSystem), nil
 }
 
 // GetMetricMap TODO Comment
