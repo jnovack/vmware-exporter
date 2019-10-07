@@ -1,4 +1,4 @@
-# vmvware-exporter
+# vmware-exporter
 
 ## Credits
 
