@@ -574,6 +574,7 @@ func VMMetrics() []VMetric {
 
 	var vms []mo.VirtualMachine
 
+	// https://pubs.vmware.com/vi3/sdk/ReferenceGuide/vim.VirtualMachine.html#field_detail
 	err = v.Retrieve(ctx, []string{"VirtualMachine"}, []string{"summary", "config", "name", "runtime", "guestHeartbeatStatus"}, &vms)
 	if err != nil {
 		log.Error(err.Error())
