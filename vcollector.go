@@ -52,11 +52,11 @@ func (c *vCollector) Collect(ch chan<- prometheus.Metric) {
 		1,
 	)
 
-	// Datastore Metrics
+	// Datacenter Metrics
 	go func() {
 		defer wg.Done()
-		defer timeTrack(ch, time.Now(), "DataStoreMetrics")
-		cm := DataStoreMetrics()
+		defer timeTrack(ch, time.Now(), "DatacenterMetrics")
+		cm := DatacenterMetrics()
 		for _, m := range cm {
 
 			ch <- prometheus.MustNewConstMetric(
@@ -67,6 +67,24 @@ func (c *vCollector) Collect(ch chan<- prometheus.Metric) {
 		}
 
 	}()
+
+	/*
+		// Datastore Metrics
+		go func() {
+			defer wg.Done()
+			defer timeTrack(ch, time.Now(), "DataStoreMetrics")
+			cm := DataStoreMetrics()
+			for _, m := range cm {
+
+				ch <- prometheus.MustNewConstMetric(
+					prometheus.NewDesc(m.name, m.help, []string{}, m.labels),
+					prometheus.GaugeValue,
+					float64(m.value),
+				)
+			}
+
+		}()
+	*/
 
 	// Cluster Metrics
 	go func() {

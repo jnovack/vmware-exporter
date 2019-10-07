@@ -40,8 +40,8 @@ func NewClient(ctx context.Context) (*govmomi.Client, error) {
 	return govmomi.NewClient(ctx, u, true)
 }
 
-// DataStoreMetrics TODO Comment
-func DataStoreMetrics() []VMetric {
+// DatacenterMetrics TODO Comment
+func DatacenterMetrics() []VMetric {
 	log.SetReportCaller(true)
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
@@ -55,7 +55,49 @@ func DataStoreMetrics() []VMetric {
 
 	m := view.NewManager(c.Client)
 
-	vmgr, err := m.CreateContainerView(ctx, c.ServiceContent.RootFolder, []string{"ClusterComputeResource"}, true)
+	view, err := m.CreateContainerView(ctx, c.ServiceContent.RootFolder, []string{"Datacenter"}, true)
+	if err != nil {
+		log.Error(err.Error())
+	}
+
+	defer view.Destroy(ctx)
+
+	var metrics []VMetric
+	var arrDC []mo.Datacenter
+
+	err = view.Retrieve(ctx, []string{"Datacenter"}, []string{"name", "datastore", "network"}, &arrDC)
+	if err != nil {
+		log.Error(err.Error())
+	}
+
+	for _, objDC := range arrDC {
+		// for each Datacenter
+
+		stats := DataStoreMetrics(objDC)
+		for _, s := range stats {
+			metrics = append(metrics, s)
+		}
+	}
+
+	return metrics
+}
+
+// DataStoreMetrics TODO Comment
+func DataStoreMetrics(objDC mo.Datacenter) []VMetric {
+	log.SetReportCaller(true)
+	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
+	defer cancel()
+
+	c, err := NewClient(ctx)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	defer c.Logout(ctx)
+
+	m := view.NewManager(c.Client)
+
+	vmgr, err := m.CreateContainerView(ctx, objDC.Reference(), []string{"ClusterComputeResource"}, true)
 	if err != nil {
 		log.Error(err.Error())
 
@@ -90,11 +132,11 @@ func DataStoreMetrics() []VMetric {
 				dsUncommitted := ds.Summary.Uncommitted / 1024 / 1024 / 1024
 				dsName := ds.Summary.Name
 
-				metrics = append(metrics, VMetric{name: "vsphere_datastore_capacity_size", help: "Datastore Total Size", value: float64(dsCapacity), labels: map[string]string{"datastore": dsName, "cluster": cname}})
-				metrics = append(metrics, VMetric{name: "vsphere_datastore_capacity_free", help: "Datastore Size Free", value: float64(dsFreeSpace), labels: map[string]string{"datastore": dsName, "cluster": cname}})
-				metrics = append(metrics, VMetric{name: "vsphere_datastore_capacity_used", help: "Datastore Size Used", value: float64(dsUsed), labels: map[string]string{"datastore": dsName, "cluster": cname}})
-				metrics = append(metrics, VMetric{name: "vsphere_datastore_capacity_uncommitted", help: "Datastore Size Uncommitted", value: float64(dsUncommitted), labels: map[string]string{"datastore": dsName, "cluster": cname}})
-				metrics = append(metrics, VMetric{name: "vsphere_datastore_capacity_pused", help: "Datastore Size", value: dsPercentUsed, labels: map[string]string{"datastore": dsName, "cluster": cname}})
+				metrics = append(metrics, VMetric{name: "vsphere_datastore_capacity_size", help: "Datastore Total Size", value: float64(dsCapacity), labels: map[string]string{"datastore": dsName, "cluster": cname, "datacenter_name": objDC.Name}})
+				metrics = append(metrics, VMetric{name: "vsphere_datastore_capacity_free", help: "Datastore Size Free", value: float64(dsFreeSpace), labels: map[string]string{"datastore": dsName, "cluster": cname, "datacenter_name": objDC.Name}})
+				metrics = append(metrics, VMetric{name: "vsphere_datastore_capacity_used", help: "Datastore Size Used", value: float64(dsUsed), labels: map[string]string{"datastore": dsName, "cluster": cname, "datacenter_name": objDC.Name}})
+				metrics = append(metrics, VMetric{name: "vsphere_datastore_capacity_uncommitted", help: "Datastore Size Uncommitted", value: float64(dsUncommitted), labels: map[string]string{"datastore": dsName, "cluster": cname, "datacenter_name": objDC.Name}})
+				metrics = append(metrics, VMetric{name: "vsphere_datastore_capacity_pused", help: "Datastore Size", value: dsPercentUsed, labels: map[string]string{"datastore": dsName, "cluster": cname, "datacenter_name": objDC.Name}})
 			}
 
 		}
