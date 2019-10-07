@@ -196,29 +196,6 @@ func ClusterMetrics() []VMetric {
 			// Misc
 			metrics = append(metrics, VMetric{name: "vsphere_cluster_numHosts", help: "Number of Hypervisors in cluster", value: float64(qs.NumHosts), labels: map[string]string{"cluster": cname}})
 
-			// Virtual Servers, powered on vs created in cluster
-			v, err := m.CreateContainerView(ctx, cl.Reference(), []string{"VirtualMachine"}, true)
-			if err != nil {
-				log.Error(err.Error())
-			}
-
-			var vms []mo.VirtualMachine
-
-			err = v.RetrieveWithFilter(ctx, []string{"VirtualMachine"}, []string{"summary", "parent"}, &vms, property.Filter{"runtime.powerState": "poweredOn"})
-			if err != nil {
-				log.Error(err.Error())
-			}
-			poweredOn := len(vms)
-
-			err = v.Retrieve(ctx, []string{"VirtualMachine"}, []string{"summary", "parent"}, &vms)
-			if err != nil {
-				log.Error(err.Error())
-			}
-			total := len(vms)
-
-			metrics = append(metrics, VMetric{name: "vsphere_cluster_vm_poweredon", help: "Number of vms running in cluster", value: float64(poweredOn), labels: map[string]string{"cluster": cname}})
-			metrics = append(metrics, VMetric{name: "vsphere_cluster_vm_total", help: "Number of vms in cluster", value: float64(total), labels: map[string]string{"cluster": cname}})
-
 		}
 
 	}
