@@ -609,6 +609,16 @@ func VMMetrics() []VMetric {
 		case "red":
 			status = -2
 		}
+
+		powerState := 0
+
+		switch string(vm.Runtime.PowerState) {
+		case "poweredOn":
+			powerState = 1
+		case "suspended":
+			powerState = -1
+		}
+
 		// Add Metrics
 		metrics = append(metrics, VMetric{name: "vsphere_vm_mem_total", help: "Memory size of the virtual machine, in MB.", value: float64(vm.Config.Hardware.MemoryMB), labels: map[string]string{"vm_name": vm.Name, "host_name": hostname}})
 		metrics = append(metrics, VMetric{name: "vsphere_vm_mem_free", help: "Guest memory free statistics, in MB. This is also known as free guest memory. The number can be between 0 and the configured memory size of the virtual machine. Valid while the virtual machine is running.", value: float64(freeMemory), labels: map[string]string{"vm_name": vm.Name, "host_name": hostname}})
@@ -618,6 +628,8 @@ func VMMetrics() []VMetric {
 		metrics = append(metrics, VMetric{name: "vsphere_vm_cpu_count", help: "Number of processors in the virtual machine.", value: float64(vm.Summary.Config.NumCpu), labels: map[string]string{"vm_name": vm.Name, "host_name": hostname}})
 
 		metrics = append(metrics, VMetric{name: "vsphere_vm_heartbeat", help: "Overall alarm status on this node from VMware Tools.", value: float64(status), labels: map[string]string{"vm_name": vm.Name, "host_name": hostname}})
+		metrics = append(metrics, VMetric{name: "vsphere_vm_powerstate", help: "The current power state of the virtual machine.", value: float64(powerState), labels: map[string]string{"vm_name": vm.Name, "host_name": hostname}})
+
 	}
 
 	return metrics
