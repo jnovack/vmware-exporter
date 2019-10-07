@@ -41,9 +41,9 @@ func (c *vCollector) Collect(ch chan<- prometheus.Metric) {
 
 	wg := sync.WaitGroup{}
 	if cfg.vmStats == true {
-		wg.Add(7)
-	} else {
 		wg.Add(6)
+	} else {
+		wg.Add(5)
 	}
 
 	ch <- prometheus.MustNewConstMetric(
