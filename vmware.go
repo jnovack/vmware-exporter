@@ -574,7 +574,7 @@ func VMMetrics() []VMetric {
 
 	var vms []mo.VirtualMachine
 
-	err = v.Retrieve(ctx, []string{"VirtualMachine"}, []string{"summary", "config", "name", "runtime"}, &vms)
+	err = v.Retrieve(ctx, []string{"VirtualMachine"}, []string{"summary", "config", "name", "runtime", "guestHeartbeatStatus"}, &vms)
 	if err != nil {
 		log.Error(err.Error())
 	}
@@ -600,6 +600,15 @@ func VMMetrics() []VMetric {
 		// Calculations
 		freeMemory := (int64(vm.Summary.Config.MemorySizeMB)) - (int64(vm.Summary.QuickStats.GuestMemoryUsage))
 
+		status := 0
+		switch string(vm.GuestHeartbeatStatus) {
+		case "green":
+			status = 1
+		case "yellow":
+			status = -1
+		case "red":
+			status = -2
+		}
 		// Add Metrics
 		metrics = append(metrics, VMetric{name: "vsphere_vm_mem_total", help: "Memory size of the virtual machine, in MB.", value: float64(vm.Config.Hardware.MemoryMB), labels: map[string]string{"vm_name": vm.Name, "host_name": hostname}})
 		metrics = append(metrics, VMetric{name: "vsphere_vm_mem_free", help: "Guest memory free statistics, in MB. This is also known as free guest memory. The number can be between 0 and the configured memory size of the virtual machine. Valid while the virtual machine is running.", value: float64(freeMemory), labels: map[string]string{"vm_name": vm.Name, "host_name": hostname}})
@@ -608,6 +617,7 @@ func VMMetrics() []VMetric {
 		metrics = append(metrics, VMetric{name: "vsphere_vm_cpu_usage", help: "Basic CPU performance statistics, in MHz. Valid while the virtual machine is running.", value: float64(vm.Summary.QuickStats.OverallCpuUsage), labels: map[string]string{"vm_name": vm.Name, "host_name": hostname}})
 		metrics = append(metrics, VMetric{name: "vsphere_vm_cpu_count", help: "Number of processors in the virtual machine.", value: float64(vm.Summary.Config.NumCpu), labels: map[string]string{"vm_name": vm.Name, "host_name": hostname}})
 
+		metrics = append(metrics, VMetric{name: "vsphere_vm_heartbeat", help: "Overall alarm status on this node from VMware Tools.", value: float64(status), labels: map[string]string{"vm_name": vm.Name, "host_name": hostname}})
 	}
 
 	return metrics
