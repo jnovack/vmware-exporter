@@ -601,14 +601,14 @@ func VMMetrics() []VMetric {
 		// Calculations
 		freeMemory := (int64(vm.Summary.Config.MemorySizeMB)) - (int64(vm.Summary.QuickStats.GuestMemoryUsage))
 
-		status := 0
+		status := -1
 		switch string(vm.GuestHeartbeatStatus) {
 		case "green":
-			status = 1
+			status = 0
 		case "yellow":
-			status = -1
+			status = 1
 		case "red":
-			status = -2
+			status = 2
 		}
 
 		powerState := 0
