@@ -7,10 +7,10 @@ import (
 	"strconv"
 	"time"
 
-	log "github.com/sirupsen/logrus"
 	"github.com/magiconair/properties"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
+	log "github.com/sirupsen/logrus"
 )
 
 // Configuration TODO Comment
@@ -27,7 +27,7 @@ var cfg Configuration
 var defaultTimeout time.Duration
 
 func main() {
-	port := flag.Int("port", 9094, "Port to attach exporter")
+	port := flag.Int("port", 9094, "port to bind exporter")
 	flag.Parse()
 
 	http.Handle("/metrics", promhttp.Handler())

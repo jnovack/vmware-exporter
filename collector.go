@@ -22,6 +22,7 @@ import (
 	"github.com/vmware/govmomi/vim25/types"
 )
 
+// TODO Change to prometheus/common/version
 const xver = "1.0"
 
 // Collector TODO Comment
@@ -113,22 +114,22 @@ func (c *Collector) Collect(ch chan<- prometheus.Metric) {
 			}()
 	*/
 	/*
-	// Host Metrics
-	wg.Add(1)
-	go func() {
-		defer wg.Done()
-		defer timeTrack(ch, time.Now(), "HostMetrics")
-		cm := HostMetrics()
-		for _, m := range cm {
-			ch <- prometheus.MustNewConstMetric(
-				prometheus.NewDesc(m.name, m.help, []string{"cluster", "host"}, nil),
-				prometheus.GaugeValue,
-				float64(m.value),
-				m.labels["cluster"],
-				m.labels["host"],
-			)
-		}
-	}()
+		// Host Metrics
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			defer timeTrack(ch, time.Now(), "HostMetrics")
+			cm := HostMetrics()
+			for _, m := range cm {
+				ch <- prometheus.MustNewConstMetric(
+					prometheus.NewDesc(m.name, m.help, []string{"cluster", "host"}, nil),
+					prometheus.GaugeValue,
+					float64(m.value),
+					m.labels["cluster"],
+					m.labels["host"],
+				)
+			}
+		}()
 	*/
 	/*
 		// Host Counters
@@ -451,123 +452,16 @@ func ClusterMetrics(ch chan<- prometheus.Metric, objDC mo.Datacenter) []VMetric 
 				stats := HostMetrics(ch, objCLS)
 				for _, s := range stats {
 					metrics = append(metrics, s)
-		}
+				}
 			}(ch, objCLS)
 
-	}
+		}
 	}
 
 	waitGroupCLS.Wait()
 
 	return metrics
 }
-
-/*
-// ClusterCounters TODO Comment
-func ClusterCounters() []VMetric {
-	log.SetReportCaller(true)
-	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
-	defer cancel()
-
-	c, err := NewClient(ctx)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	defer c.Logout(ctx)
-
-	m := view.NewManager(c.Client)
-
-	v, err := m.CreateContainerView(ctx, c.ServiceContent.RootFolder, []string{"ClusterComputeResource"}, true)
-	if err != nil {
-		log.Error(err.Error())
-
-	}
-
-	defer v.Destroy(ctx)
-
-	var lst []mo.ClusterComputeResource
-	err = v.Retrieve(ctx, []string{"ClusterComputeResource"}, []string{"name"}, &lst)
-	if err != nil {
-		log.Error(err.Error())
-
-	}
-
-	pm := performance.NewManager(c.Client)
-	mlist, err := pm.CounterInfoByKey(ctx)
-	if err != nil {
-		log.Error(err.Error())
-
-	}
-
-	var metrics []VMetric
-
-	for _, cls := range lst {
-		cname := cls.Name
-		cname = strings.ToLower(cname)
-
-		am, _ := pm.AvailableMetric(ctx, cls.Reference(), 300)
-
-		var pqList []types.PerfMetricId
-		for _, v := range am {
-
-			if strings.Contains(mlist[v.CounterId].Name(), "vmop") {
-				pqList = append(pqList, v)
-			}
-		}
-
-		querySpec := types.PerfQuerySpec{
-			Entity:     cls.Reference(),
-			MetricId:   pqList,
-			MaxSample:  1,
-			IntervalId: 300,
-		}
-		query := types.QueryPerf{
-			This:      pm.Reference(),
-			QuerySpec: []types.PerfQuerySpec{querySpec},
-		}
-
-		response, err := methods.QueryPerf(ctx, c, &query)
-		if err != nil {
-			log.Fatal(err)
-		}
-
-		// vsphere_cluster_vmop_numChangeDS{cluster="ucs"} 1
-		// vsphere_cluster_vmop_numChangeHo{cluster="ucs"} 8
-		// vsphere_cluster_vmop_numChangeHostDS{cluster="ucs"} 0
-		// vsphere_cluster_vmop_numClon{cluster="ucs"} 0
-		// vsphere_cluster_vmop_numCr{cluster="ucs"} 3
-		// vsphere_cluster_vmop_numDeploy{cluster="ucs"} 0
-		// vsphere_cluster_vmop_numDestroy{cluster="ucs"} 4
-		// vsphere_cluster_vmop_numPoweroff{cluster="ucs"} 3
-		// vsphere_cluster_vmop_numPoweron{cluster="ucs"} 11
-		// vsphere_cluster_vmop_numR{cluster="ucs"} 1
-		// vsphere_cluster_vmop_numRebootGu{cluster="ucs"} 0
-		// vsphere_cluster_vmop_numReconfigur{cluster="ucs"} 100
-		// vsphere_cluster_vmop_numRegister{cluster="ucs"} 0
-		// vsphere_cluster_vmop_numSVMotion{cluster="ucs"} 3
-		// vsphere_cluster_vmop_numShutdownGu{cluster="ucs"} 1
-		// vsphere_cluster_vmop_numStandbyGu{cluster="ucs"} 0
-		// vsphere_cluster_vmop_numSuspend{cluster="ucs"} 0
-		// vsphere_cluster_vmop_numUnregister{cluster="ucs"} 0
-		// vsphere_cluster_vmop_numVMotion{cluster="ucs"} 10
-		// vsphere_cluster_vmop_numXVMotion{cluster="ucs"} 0
-
-		for _, base := range response.Returnval {
-			metric := base.(*types.PerfEntityMetric)
-			for _, baseSeries := range metric.Value {
-				series := baseSeries.(*types.PerfMetricIntSeries)
-				name := strings.TrimLeft(mlist[series.Id.CounterId].Name(), "vmop.")
-				name = strings.TrimRight(name, ".latest")
-				metrics = append(metrics, VMetric{name: "vsphere_cluster_vmop_" + name, help: "vmops counter ", value: float64(series.Value[0]), labels: map[string]string{"cluster": cname}})
-
-			}
-		}
-
-	}
-	return metrics
-}
-*/
 
 // HostMetrics Collects Hypervisor metrics
 func HostMetrics(ch chan<- prometheus.Metric, objCLS mo.ClusterComputeResource) []VMetric {
@@ -633,110 +527,6 @@ func HostMetrics(ch chan<- prometheus.Metric, objCLS mo.ClusterComputeResource) 
 
 	return metrics
 }
-
-/*
-// HostCounters Collects Hypervisor counters
-func HostCounters() []VMetric {
-	log.SetReportCaller(true)
-	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
-	defer cancel()
-
-	c, err := NewClient(ctx)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	defer c.Logout(ctx)
-
-	m := view.NewManager(c.Client)
-
-	view, err := m.CreateContainerView(ctx, c.ServiceContent.RootFolder, []string{"HostSystem"}, true)
-	if err != nil {
-		log.Error(err.Error() + ": HostCounters")
-	}
-
-	defer view.Destroy(ctx)
-
-	var hosts []mo.HostSystem
-	err = view.Retrieve(ctx, []string{"HostSystem"}, []string{"name", "parent", "summary"}, &hosts)
-	if err != nil {
-		log.Error(err.Error() + ": HostCounters")
-	}
-
-	var metrics []VMetric
-
-	for _, hs := range hosts {
-		// Get name of cluster the host is part of
-		cls, err := ClusterFromRef(c, hs.Parent.Reference())
-		if err != nil {
-			log.Error(err.Error())
-			return nil
-		}
-		cname := cls.Name()
-		cname = strings.ToLower(cname)
-		name := hs.Summary.Config.Name
-
-		vMgr := view.NewManager(c.Client)
-		vmView, err := vMgr.CreateContainerView(ctx, hs.Reference(), []string{"VirtualMachine"}, true)
-		if err != nil {
-			log.Error(err.Error() + " " + hs.Name)
-		}
-
-		var vms []mo.VirtualMachine
-
-		err2 := vmView.RetrieveWithFilter(ctx, []string{"VirtualMachine"}, []string{"name", "runtime"}, &vms, property.Filter{"runtime.powerState": "poweredOn"})
-		if err2 != nil {
-			//	log.Error(err2.Error() +": HostCounters - poweron")
-		}
-
-		poweredOn := len(vms)
-
-		err = vmView.Retrieve(ctx, []string{"VirtualMachine"}, []string{"name", "summary.config", "runtime.powerState"}, &vms)
-		if err != nil {
-			log.Error(err.Error() + " : " + "in retrieving vms")
-		}
-
-		total := len(vms)
-
-		metrics = append(metrics, VMetric{name: "vsphere_host_vm_poweron", help: "Number of vms running on host", value: float64(poweredOn), labels: map[string]string{"host": name, "cluster": cname}})
-		metrics = append(metrics, VMetric{name: "vsphere_host_vm_total", help: "Number of vms registered on host", value: float64(total), labels: map[string]string{"host": name, "cluster": cname}})
-
-		var vMem int64
-		var vCPU int64
-		var vCPUOn int64
-		var vMemOn int64
-		vCPU = 0
-		vMem = 0
-		vCPUOn = 0
-		vMemOn = 0
-
-		for _, vm := range vms {
-
-			vCPU = vCPU + int64(vm.Summary.Config.NumCpu)
-			vMem = vMem + int64(vm.Summary.Config.MemorySizeMB/1024)
-
-			pwr := string(vm.Runtime.PowerState)
-			//fmt.Println(pwr)
-			if pwr == "poweredOn" {
-				vCPUOn = vCPUOn + int64(vm.Summary.Config.NumCpu)
-				vMemOn = vMemOn + int64(vm.Summary.Config.MemorySizeMB/1024)
-			}
-		}
-
-		metrics = append(metrics, VMetric{name: "vsphere_host_vcpu_all", help: "Number of vcpu configured on host", value: float64(vCPU), labels: map[string]string{"host": name, "cluster": cname}})
-		metrics = append(metrics, VMetric{name: "vsphere_host_vmem_all", help: "Total vmem configured on host", value: float64(vMem), labels: map[string]string{"host": name, "cluster": cname}})
-		metrics = append(metrics, VMetric{name: "vsphere_host_vcpu_on", help: "Number of vcpu configured and running on host", value: float64(vCPUOn), labels: map[string]string{"host": name, "cluster": cname}})
-		metrics = append(metrics, VMetric{name: "vsphere_host_vmem_on", help: "Total vmem configured and running on host", value: float64(vMemOn), labels: map[string]string{"host": name, "cluster": cname}})
-
-		cores := hs.Summary.Hardware.NumCpuCores
-		metrics = append(metrics, VMetric{name: "vsphere_host_cores", help: "Number of physical cores available on host", value: float64(cores), labels: map[string]string{"host": name, "cluster": cname}})
-
-		vmView.Destroy(ctx)
-	}
-
-	return metrics
-}
-*/
 
 // HostHBAStatus Report status of the HBA attached to a hypervisor to be able to monitor if a hba goes offline
 func HostHBAStatus() []VMetric {
@@ -1035,3 +825,214 @@ func PerfQuery(ctx context.Context, c *govmomi.Client, metrics []string, entity 
 	}
 	return data
 }
+
+/*
+// ClusterCounters TODO Comment
+func ClusterCounters() []VMetric {
+	log.SetReportCaller(true)
+	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
+	defer cancel()
+
+	c, err := NewClient(ctx)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	defer c.Logout(ctx)
+
+	m := view.NewManager(c.Client)
+
+	v, err := m.CreateContainerView(ctx, c.ServiceContent.RootFolder, []string{"ClusterComputeResource"}, true)
+	if err != nil {
+		log.Error(err.Error())
+
+	}
+
+	defer v.Destroy(ctx)
+
+	var lst []mo.ClusterComputeResource
+	err = v.Retrieve(ctx, []string{"ClusterComputeResource"}, []string{"name"}, &lst)
+	if err != nil {
+		log.Error(err.Error())
+
+	}
+
+	pm := performance.NewManager(c.Client)
+	mlist, err := pm.CounterInfoByKey(ctx)
+	if err != nil {
+		log.Error(err.Error())
+
+	}
+
+	var metrics []VMetric
+
+	for _, cls := range lst {
+		cname := cls.Name
+		cname = strings.ToLower(cname)
+
+		am, _ := pm.AvailableMetric(ctx, cls.Reference(), 300)
+
+		var pqList []types.PerfMetricId
+		for _, v := range am {
+
+			if strings.Contains(mlist[v.CounterId].Name(), "vmop") {
+				pqList = append(pqList, v)
+			}
+		}
+
+		querySpec := types.PerfQuerySpec{
+			Entity:     cls.Reference(),
+			MetricId:   pqList,
+			MaxSample:  1,
+			IntervalId: 300,
+		}
+		query := types.QueryPerf{
+			This:      pm.Reference(),
+			QuerySpec: []types.PerfQuerySpec{querySpec},
+		}
+
+		response, err := methods.QueryPerf(ctx, c, &query)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		// vsphere_cluster_vmop_numChangeDS{cluster="ucs"} 1
+		// vsphere_cluster_vmop_numChangeHo{cluster="ucs"} 8
+		// vsphere_cluster_vmop_numChangeHostDS{cluster="ucs"} 0
+		// vsphere_cluster_vmop_numClon{cluster="ucs"} 0
+		// vsphere_cluster_vmop_numCr{cluster="ucs"} 3
+		// vsphere_cluster_vmop_numDeploy{cluster="ucs"} 0
+		// vsphere_cluster_vmop_numDestroy{cluster="ucs"} 4
+		// vsphere_cluster_vmop_numPoweroff{cluster="ucs"} 3
+		// vsphere_cluster_vmop_numPoweron{cluster="ucs"} 11
+		// vsphere_cluster_vmop_numR{cluster="ucs"} 1
+		// vsphere_cluster_vmop_numRebootGu{cluster="ucs"} 0
+		// vsphere_cluster_vmop_numReconfigur{cluster="ucs"} 100
+		// vsphere_cluster_vmop_numRegister{cluster="ucs"} 0
+		// vsphere_cluster_vmop_numSVMotion{cluster="ucs"} 3
+		// vsphere_cluster_vmop_numShutdownGu{cluster="ucs"} 1
+		// vsphere_cluster_vmop_numStandbyGu{cluster="ucs"} 0
+		// vsphere_cluster_vmop_numSuspend{cluster="ucs"} 0
+		// vsphere_cluster_vmop_numUnregister{cluster="ucs"} 0
+		// vsphere_cluster_vmop_numVMotion{cluster="ucs"} 10
+		// vsphere_cluster_vmop_numXVMotion{cluster="ucs"} 0
+
+		for _, base := range response.Returnval {
+			metric := base.(*types.PerfEntityMetric)
+			for _, baseSeries := range metric.Value {
+				series := baseSeries.(*types.PerfMetricIntSeries)
+				name := strings.TrimLeft(mlist[series.Id.CounterId].Name(), "vmop.")
+				name = strings.TrimRight(name, ".latest")
+				metrics = append(metrics, VMetric{name: "vsphere_cluster_vmop_" + name, help: "vmops counter ", value: float64(series.Value[0]), labels: map[string]string{"cluster": cname}})
+
+			}
+		}
+
+	}
+	return metrics
+}
+*/
+
+/*
+// HostCounters Collects Hypervisor counters
+func HostCounters() []VMetric {
+	log.SetReportCaller(true)
+	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
+	defer cancel()
+
+	c, err := NewClient(ctx)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	defer c.Logout(ctx)
+
+	m := view.NewManager(c.Client)
+
+	view, err := m.CreateContainerView(ctx, c.ServiceContent.RootFolder, []string{"HostSystem"}, true)
+	if err != nil {
+		log.Error(err.Error() + ": HostCounters")
+	}
+
+	defer view.Destroy(ctx)
+
+	var hosts []mo.HostSystem
+	err = view.Retrieve(ctx, []string{"HostSystem"}, []string{"name", "parent", "summary"}, &hosts)
+	if err != nil {
+		log.Error(err.Error() + ": HostCounters")
+	}
+
+	var metrics []VMetric
+
+	for _, hs := range hosts {
+		// Get name of cluster the host is part of
+		cls, err := ClusterFromRef(c, hs.Parent.Reference())
+		if err != nil {
+			log.Error(err.Error())
+			return nil
+		}
+		cname := cls.Name()
+		cname = strings.ToLower(cname)
+		name := hs.Summary.Config.Name
+
+		vMgr := view.NewManager(c.Client)
+		vmView, err := vMgr.CreateContainerView(ctx, hs.Reference(), []string{"VirtualMachine"}, true)
+		if err != nil {
+			log.Error(err.Error() + " " + hs.Name)
+		}
+
+		var vms []mo.VirtualMachine
+
+		err2 := vmView.RetrieveWithFilter(ctx, []string{"VirtualMachine"}, []string{"name", "runtime"}, &vms, property.Filter{"runtime.powerState": "poweredOn"})
+		if err2 != nil {
+			//	log.Error(err2.Error() +": HostCounters - poweron")
+		}
+
+		poweredOn := len(vms)
+
+		err = vmView.Retrieve(ctx, []string{"VirtualMachine"}, []string{"name", "summary.config", "runtime.powerState"}, &vms)
+		if err != nil {
+			log.Error(err.Error() + " : " + "in retrieving vms")
+		}
+
+		total := len(vms)
+
+		metrics = append(metrics, VMetric{name: "vsphere_host_vm_poweron", help: "Number of vms running on host", value: float64(poweredOn), labels: map[string]string{"host": name, "cluster": cname}})
+		metrics = append(metrics, VMetric{name: "vsphere_host_vm_total", help: "Number of vms registered on host", value: float64(total), labels: map[string]string{"host": name, "cluster": cname}})
+
+		var vMem int64
+		var vCPU int64
+		var vCPUOn int64
+		var vMemOn int64
+		vCPU = 0
+		vMem = 0
+		vCPUOn = 0
+		vMemOn = 0
+
+		for _, vm := range vms {
+
+			vCPU = vCPU + int64(vm.Summary.Config.NumCpu)
+			vMem = vMem + int64(vm.Summary.Config.MemorySizeMB/1024)
+
+			pwr := string(vm.Runtime.PowerState)
+			//fmt.Println(pwr)
+			if pwr == "poweredOn" {
+				vCPUOn = vCPUOn + int64(vm.Summary.Config.NumCpu)
+				vMemOn = vMemOn + int64(vm.Summary.Config.MemorySizeMB/1024)
+			}
+		}
+
+		metrics = append(metrics, VMetric{name: "vsphere_host_vcpu_all", help: "Number of vcpu configured on host", value: float64(vCPU), labels: map[string]string{"host": name, "cluster": cname}})
+		metrics = append(metrics, VMetric{name: "vsphere_host_vmem_all", help: "Total vmem configured on host", value: float64(vMem), labels: map[string]string{"host": name, "cluster": cname}})
+		metrics = append(metrics, VMetric{name: "vsphere_host_vcpu_on", help: "Number of vcpu configured and running on host", value: float64(vCPUOn), labels: map[string]string{"host": name, "cluster": cname}})
+		metrics = append(metrics, VMetric{name: "vsphere_host_vmem_on", help: "Total vmem configured and running on host", value: float64(vMemOn), labels: map[string]string{"host": name, "cluster": cname}})
+
+		cores := hs.Summary.Hardware.NumCpuCores
+		metrics = append(metrics, VMetric{name: "vsphere_host_cores", help: "Number of physical cores available on host", value: float64(cores), labels: map[string]string{"host": name, "cluster": cname}})
+
+		vmView.Destroy(ctx)
+	}
+
+	return metrics
+}
+*/
