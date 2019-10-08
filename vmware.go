@@ -159,15 +159,15 @@ func ClusterMetrics() []VMetric {
 
 	m := view.NewManager(c.Client)
 
-	v, err := m.CreateContainerView(ctx, c.ServiceContent.RootFolder, []string{"ResourcePool"}, true)
+	view, err := m.CreateContainerView(ctx, objDC.Reference(), []string{"ResourcePool"}, true)
 	if err != nil {
 		log.Error(err.Error())
 	}
 
-	defer v.Destroy(ctx)
+	defer view.Destroy(ctx)
 
 	var pools []mo.ResourcePool
-	err = v.RetrieveWithFilter(ctx, []string{"ResourcePool"}, []string{"summary", "name", "parent", "config"}, &pools, property.Filter{"name": "Resources"})
+	err = view.RetrieveWithFilter(ctx, []string{"ResourcePool"}, []string{"summary", "name", "parent", "config"}, &pools, property.Filter{"name": "Resources"})
 	if err != nil {
 		log.Error(err.Error())
 		//return err
@@ -360,15 +360,15 @@ func HostMetrics() []VMetric {
 
 	m := view.NewManager(c.Client)
 
-	v, err := m.CreateContainerView(ctx, c.ServiceContent.RootFolder, []string{"HostSystem"}, true)
+	view, err := m.CreateContainerView(ctx, c.ServiceContent.RootFolder, []string{"HostSystem"}, true)
 	if err != nil {
 		log.Error(err.Error())
 	}
 
-	defer v.Destroy(ctx)
+	defer view.Destroy(ctx)
 
 	var hosts []mo.HostSystem
-	err = v.Retrieve(ctx, []string{"HostSystem"}, []string{"summary", "parent", "vm"}, &hosts)
+	err = view.Retrieve(ctx, []string{"HostSystem"}, []string{"summary", "parent", "vm"}, &hosts)
 	if err != nil {
 		log.Error(err.Error())
 	}
@@ -425,15 +425,15 @@ func HostCounters() []VMetric {
 
 	m := view.NewManager(c.Client)
 
-	v, err := m.CreateContainerView(ctx, c.ServiceContent.RootFolder, []string{"HostSystem"}, true)
+	view, err := m.CreateContainerView(ctx, c.ServiceContent.RootFolder, []string{"HostSystem"}, true)
 	if err != nil {
 		log.Error(err.Error() + ": HostCounters")
 	}
 
-	defer v.Destroy(ctx)
+	defer view.Destroy(ctx)
 
 	var hosts []mo.HostSystem
-	err = v.Retrieve(ctx, []string{"HostSystem"}, []string{"name", "parent", "summary"}, &hosts)
+	err = view.Retrieve(ctx, []string{"HostSystem"}, []string{"name", "parent", "summary"}, &hosts)
 	if err != nil {
 		log.Error(err.Error() + ": HostCounters")
 	}
@@ -527,15 +527,15 @@ func HostHBAStatus() []VMetric {
 
 	m := view.NewManager(c.Client)
 
-	v, err := m.CreateContainerView(ctx, c.ServiceContent.RootFolder, []string{"HostSystem"}, true)
+	view, err := m.CreateContainerView(ctx, c.ServiceContent.RootFolder, []string{"HostSystem"}, true)
 	if err != nil {
 		log.Error(err.Error())
 	}
 
-	defer v.Destroy(ctx)
+	defer view.Destroy(ctx)
 
 	var hosts []mo.HostSystem
-	err = v.Retrieve(ctx, []string{"HostSystem"}, []string{"name", "parent"}, &hosts)
+	err = view.Retrieve(ctx, []string{"HostSystem"}, []string{"name", "parent"}, &hosts)
 	if err != nil {
 		log.Error(err.Error())
 	}
@@ -599,17 +599,17 @@ func VMMetrics() []VMetric {
 
 	m := view.NewManager(c.Client)
 
-	v, err := m.CreateContainerView(ctx, c.ServiceContent.RootFolder, []string{"VirtualMachine"}, true)
+	view, err := m.CreateContainerView(ctx, c.ServiceContent.RootFolder, []string{"VirtualMachine"}, true)
 	if err != nil {
 		log.Error(err.Error())
 	}
 
-	defer v.Destroy(ctx)
+	defer view.Destroy(ctx)
 
 	var vms []mo.VirtualMachine
 
 	// https://pubs.vmware.com/vi3/sdk/ReferenceGuide/vim.VirtualMachine.html#field_detail
-	err = v.Retrieve(ctx, []string{"VirtualMachine"}, []string{"summary", "config", "name", "runtime", "guestHeartbeatStatus"}, &vms)
+	err = view.Retrieve(ctx, []string{"VirtualMachine"}, []string{"summary", "config", "name", "runtime", "guestHeartbeatStatus"}, &vms)
 	if err != nil {
 		log.Error(err.Error())
 	}
@@ -671,18 +671,17 @@ func VMMetrics() []VMetric {
 
 // GetClusters TODO Comment
 func GetClusters(ctx context.Context, c *govmomi.Client, lst *[]mo.ClusterComputeResource) error {
-
 	m := view.NewManager(c.Client)
 
-	v, err := m.CreateContainerView(ctx, c.ServiceContent.RootFolder, []string{"ClusterComputeResource"}, true)
+	view, err := m.CreateContainerView(ctx, c.ServiceContent.RootFolder, []string{"ClusterComputeResource"}, true)
 	if err != nil {
 		log.Error(err.Error())
 		return err
 	}
 
-	defer v.Destroy(ctx)
+	defer view.Destroy(ctx)
 
-	err = v.Retrieve(ctx, []string{"ClusterComputeResource"}, []string{"name", "summary"}, lst)
+	err = view.Retrieve(ctx, []string{"ClusterComputeResource"}, []string{"name", "summary"}, lst)
 	if err != nil {
 		log.Error(err.Error())
 		return err
