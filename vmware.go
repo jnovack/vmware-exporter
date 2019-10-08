@@ -111,7 +111,6 @@ func DataStoreMetrics(objDC mo.Datacenter) []VMetric {
 	err = vmgr.Retrieve(ctx, []string{"ClusterComputeResource"}, []string{"name", "datastore"}, &lst)
 	if err != nil {
 		log.Error(err.Error())
-
 	}
 	for _, cls := range lst {
 
@@ -124,19 +123,13 @@ func DataStoreMetrics(objDC mo.Datacenter) []VMetric {
 
 		for _, ds := range dsl {
 			if ds.Summary.Accessible {
-
-				dsCapacity := ds.Summary.Capacity / 1024 / 1024 / 1024
-				dsFreeSpace := ds.Summary.FreeSpace / 1024 / 1024 / 1024
+				dsCapacity := ds.Summary.Capacity
+				dsFreeSpace := ds.Summary.FreeSpace
 				dsUsed := dsCapacity - dsFreeSpace
-				dsPercentUsed := math.Round((float64(dsUsed) / float64(dsCapacity)) * 100)
-				dsUncommitted := ds.Summary.Uncommitted / 1024 / 1024 / 1024
-				dsName := ds.Summary.Name
 
-				metrics = append(metrics, VMetric{name: "vsphere_datastore_capacity_size", help: "Datastore Total Size", value: float64(dsCapacity), labels: map[string]string{"datastore": dsName, "cluster": cname, "datacenter_name": objDC.Name}})
-				metrics = append(metrics, VMetric{name: "vsphere_datastore_capacity_free", help: "Datastore Size Free", value: float64(dsFreeSpace), labels: map[string]string{"datastore": dsName, "cluster": cname, "datacenter_name": objDC.Name}})
-				metrics = append(metrics, VMetric{name: "vsphere_datastore_capacity_used", help: "Datastore Size Used", value: float64(dsUsed), labels: map[string]string{"datastore": dsName, "cluster": cname, "datacenter_name": objDC.Name}})
-				metrics = append(metrics, VMetric{name: "vsphere_datastore_capacity_uncommitted", help: "Datastore Size Uncommitted", value: float64(dsUncommitted), labels: map[string]string{"datastore": dsName, "cluster": cname, "datacenter_name": objDC.Name}})
-				metrics = append(metrics, VMetric{name: "vsphere_datastore_capacity_pused", help: "Datastore Size", value: dsPercentUsed, labels: map[string]string{"datastore": dsName, "cluster": cname, "datacenter_name": objDC.Name}})
+				metrics = append(metrics, VMetric{name: "vsphere_datastore_size", help: "Maximum capacity of this datastore, in bytes.", value: float64(dsCapacity), labels: map[string]string{"datastore": ds.Summary.Name, "cluster": cname, "datacenter": objDC.Name}})
+				metrics = append(metrics, VMetric{name: "vsphere_datastore_free", help: "Available space of this datastore, in bytes.", value: float64(dsFreeSpace), labels: map[string]string{"datastore": ds.Summary.Name, "cluster": cname, "datacenter": objDC.Name}})
+				metrics = append(metrics, VMetric{name: "vsphere_datastore_used", help: "Used space of this datastore, in bytes.", value: float64(dsUsed), labels: map[string]string{"datastore": ds.Summary.Name, "cluster": cname, "datacenter": objDC.Name}})
 			}
 
 		}
