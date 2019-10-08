@@ -10,7 +10,8 @@ import (
 
 const xver = "1.0"
 
-type vCollector struct {
+// Collector TODO Comment
+type Collector struct {
 	desc string
 }
 
@@ -25,7 +26,8 @@ func timeTrack(ch chan<- prometheus.Metric, start time.Time, name string) {
 	)
 }
 
-func (c *vCollector) Describe(ch chan<- *prometheus.Desc) {
+// Describe sends the super-set of all possible descriptors of metrics collected by this Collector.
+func (c *Collector) Describe(ch chan<- *prometheus.Desc) {
 
 	metrics := make(chan prometheus.Metric)
 	go func() {
@@ -37,7 +39,8 @@ func (c *vCollector) Describe(ch chan<- *prometheus.Desc) {
 	}
 }
 
-func (c *vCollector) Collect(ch chan<- prometheus.Metric) {
+// Collect is called by the Prometheus registry when collecting metrics.
+func (c *Collector) Collect(ch chan<- prometheus.Metric) {
 
 	wg := sync.WaitGroup{}
 	if cfg.vmStats == true {
@@ -165,9 +168,9 @@ func (c *vCollector) Collect(ch chan<- prometheus.Metric) {
 	wg.Wait()
 }
 
-// NewvCollector TODO Comment
-func NewvCollector() *vCollector {
-	return &vCollector{
+// NewCollector TODO Comment
+func NewCollector() *Collector {
+	return &Collector{
 		desc: "vmware Exporter",
 	}
 }

@@ -69,5 +69,5 @@ func init() {
 		cfg = Configuration{Host: p.MustGetString("host"), User: p.MustGetString("user"), Password: p.MustGetString("password"), Debug: p.MustGetBool("debug"), vmStats: p.MustGetBool("vmstats")}
 	}
 
-	prometheus.MustRegister(NewvCollector())
+	prometheus.MustRegister(NewCollector())
 }
