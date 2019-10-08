@@ -2,11 +2,14 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"math"
 	"net/url"
 	"strings"
+	"sync"
 	"time"
 
+	"github.com/prometheus/client_golang/prometheus"
 	log "github.com/sirupsen/logrus"
 	"github.com/vmware/govmomi"
 	"github.com/vmware/govmomi/find"
@@ -18,6 +21,195 @@ import (
 	"github.com/vmware/govmomi/vim25/mo"
 	"github.com/vmware/govmomi/vim25/types"
 )
+
+const xver = "1.0"
+
+// Collector TODO Comment
+type Collector struct {
+	desc string
+}
+
+func timeTrack(ch chan<- prometheus.Metric, start time.Time, name string) {
+	elapsed := time.Since(start)
+	log.Printf("%s took %.3fs", name, float64(elapsed.Milliseconds())/1000)
+
+	ch <- prometheus.MustNewConstMetric(
+		prometheus.NewDesc("go_task_time", "Go task elasped time", []string{}, prometheus.Labels{"task": name, "application": "vmware_exporter"}),
+		prometheus.GaugeValue,
+		float64(elapsed.Milliseconds())/1000,
+	)
+}
+
+// Describe sends the super-set of all possible descriptors of metrics collected by this Collector.
+func (c *Collector) Describe(ch chan<- *prometheus.Desc) {
+
+	metrics := make(chan prometheus.Metric)
+	go func() {
+		c.Collect(metrics)
+		close(metrics)
+	}()
+	for m := range metrics {
+		ch <- m.Desc()
+	}
+}
+
+// Collect is called by the Prometheus registry when collecting metrics.
+func (c *Collector) Collect(ch chan<- prometheus.Metric) {
+
+	wg := sync.WaitGroup{}
+
+	ch <- prometheus.MustNewConstMetric(
+		prometheus.NewDesc("vmware_exporter", "github.com/jnovack/vmware_exporter", []string{}, prometheus.Labels{"version": xver}),
+		prometheus.GaugeValue,
+		1,
+	)
+
+	// Datacenter Metrics
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		defer timeTrack(ch, time.Now(), "DatacenterMetrics")
+		cm := DatacenterMetrics(ch)
+		for _, m := range cm {
+
+			ch <- prometheus.MustNewConstMetric(
+				prometheus.NewDesc(m.name, m.help, []string{}, m.labels),
+				prometheus.GaugeValue,
+				float64(m.value),
+			)
+		}
+
+	}()
+
+	/*
+		// Cluster Metrics
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			defer timeTrack(ch, time.Now(), "ClusterMetrics")
+			cm := ClusterMetrics()
+			for _, m := range cm {
+				ch <- prometheus.MustNewConstMetric(
+					prometheus.NewDesc(m.name, m.help, []string{}, m.labels),
+					prometheus.GaugeValue,
+					float64(m.value),
+				)
+			}
+		}()
+
+			// Cluster Counters
+			wg.Add(1)
+			go func() {
+				defer wg.Done()
+				defer timeTrack(ch, time.Now(), "ClusterCounters")
+				cm := ClusterCounters()
+				for _, m := range cm {
+					ch <- prometheus.MustNewConstMetric(
+						prometheus.NewDesc(m.name, m.help, []string{}, m.labels),
+						prometheus.CounterValue,
+						float64(m.value),
+					)
+				}
+			}()
+	*/
+
+	// Host Metrics
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		defer timeTrack(ch, time.Now(), "HostMetrics")
+		cm := HostMetrics()
+		for _, m := range cm {
+			ch <- prometheus.MustNewConstMetric(
+				prometheus.NewDesc(m.name, m.help, []string{"cluster", "host"}, nil),
+				prometheus.GaugeValue,
+				float64(m.value),
+				m.labels["cluster"],
+				m.labels["host"],
+			)
+		}
+	}()
+
+	/*
+		// Host Counters
+			wg.Add(1)
+		go func() {
+			defer wg.Done()
+			defer timeTrack(ch, time.Now(), "HostCounters")
+			cm := HostCounters()
+			for _, m := range cm {
+				ch <- prometheus.MustNewConstMetric(
+					prometheus.NewDesc(m.name, m.help, []string{"cluster", "host"}, nil),
+					prometheus.GaugeValue,
+					float64(m.value),
+					m.labels["cluster"],
+					m.labels["host"],
+				)
+			}
+		}()
+	*/
+	// VM Metrics
+	if cfg.vmStats == true {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			defer timeTrack(ch, time.Now(), "VMMetrics")
+			cm := VMMetrics()
+			for _, m := range cm {
+				ch <- prometheus.MustNewConstMetric(
+					prometheus.NewDesc(m.name, m.help, []string{}, m.labels),
+					prometheus.GaugeValue,
+					float64(m.value),
+				)
+			}
+
+		}()
+	}
+
+	// HBA Status
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		defer timeTrack(ch, time.Now(), "HostHBAStatus")
+		cm := HostHBAStatus()
+		for _, m := range cm {
+			ch <- prometheus.MustNewConstMetric(
+				prometheus.NewDesc(m.name, m.help, []string{}, m.labels),
+				prometheus.GaugeValue,
+				float64(m.value),
+			)
+		}
+
+	}()
+
+	wg.Wait()
+}
+
+// NewCollector TODO Comment
+func NewCollector() *Collector {
+	return &Collector{
+		desc: "vmware Exporter",
+	}
+}
+
+// GetClusterMetricMock TODO Comment
+func GetClusterMetricMock() []VMetric {
+	ms := []VMetric{
+		{name: "cluster_mem_ballooned", help: "Usage for a", value: 10, labels: map[string]string{"cluster": "apa", "host": "04"}},
+		{name: "cluster_mem_compressed", help: "Usage for a", value: 10, labels: map[string]string{"cluster": "apa", "host": "04"}},
+		{name: "cluster_mem_consumedOverhead", help: "Usage for a", value: 10, labels: map[string]string{}},
+		{name: "cluster_mem_distributedMemoryEntitlement", help: "Usage for a", value: 10, labels: map[string]string{}},
+		{name: "cluster_mem_guest", help: "Usage for a", value: 10, labels: map[string]string{}},
+		{name: "cluster_mem_usage", help: "Usage for a", value: 10, labels: map[string]string{}},
+		{name: "cluster_mem_overhead", help: "Usage for a", value: 10, labels: map[string]string{}},
+		{name: "cluster_mem_private", help: "Usage for a", value: 10, labels: map[string]string{}},
+		{name: "cluster_mem_staticMemoryEntitlement", help: "Usage for a", value: 10, labels: map[string]string{}},
+		{name: "cluster_mem_limit", help: "Usage for a", value: 10, labels: map[string]string{}},
+	}
+	return ms
+}
+
+/// VMWARE.GO
 
 // VMetric TODO Comment
 type VMetric struct {
@@ -41,7 +233,7 @@ func NewClient(ctx context.Context) (*govmomi.Client, error) {
 }
 
 // DatacenterMetrics TODO Comment
-func DatacenterMetrics() []VMetric {
+func DatacenterMetrics(ch chan<- prometheus.Metric) []VMetric {
 	log.SetReportCaller(true)
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
@@ -70,20 +262,41 @@ func DatacenterMetrics() []VMetric {
 		log.Error(err.Error())
 	}
 
-	for _, objDC := range arrDC {
-		// for each Datacenter
+	waitGroupDC := sync.WaitGroup{}
 
-		stats := DataStoreMetrics(objDC)
-		for _, s := range stats {
-			metrics = append(metrics, s)
-		}
+	for _, objDC := range arrDC {
+
+		waitGroupDC.Add(1)
+		go func(objDC mo.Datacenter) {
+			defer waitGroupDC.Done()
+			defer timeTrack(ch, time.Now(), fmt.Sprintf("DatastoreMetrics - %s", objDC.Name))
+
+			stats := DatastoreMetrics(objDC)
+			for _, s := range stats {
+				metrics = append(metrics, s)
+			}
+		}(objDC)
+
+		waitGroupDC.Add(1)
+		go func(objDC mo.Datacenter) {
+			defer waitGroupDC.Done()
+			defer timeTrack(ch, time.Now(), fmt.Sprintf("ClusterMetrics - %s", objDC.Name))
+
+			stats := ClusterMetrics(objDC)
+			for _, s := range stats {
+				metrics = append(metrics, s)
+			}
+		}(objDC)
+
 	}
+
+	waitGroupDC.Wait()
 
 	return metrics
 }
 
-// DataStoreMetrics TODO Comment
-func DataStoreMetrics(objDC mo.Datacenter) []VMetric {
+// DatastoreMetrics TODO Comment
+func DatastoreMetrics(objDC mo.Datacenter) []VMetric {
 	log.SetReportCaller(true)
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
@@ -139,7 +352,7 @@ func DataStoreMetrics(objDC mo.Datacenter) []VMetric {
 }
 
 // ClusterMetrics TODO Comment
-func ClusterMetrics() []VMetric {
+func ClusterMetrics(objDC mo.Datacenter) []VMetric {
 	log.SetReportCaller(true)
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
@@ -410,6 +623,7 @@ func HostMetrics() []VMetric {
 	return metrics
 }
 
+/*
 // HostCounters Collects Hypervisor counters
 func HostCounters() []VMetric {
 	log.SetReportCaller(true)
@@ -511,6 +725,7 @@ func HostCounters() []VMetric {
 
 	return metrics
 }
+*/
 
 // HostHBAStatus Report status of the HBA attached to a hypervisor to be able to monitor if a hba goes offline
 func HostHBAStatus() []VMetric {
