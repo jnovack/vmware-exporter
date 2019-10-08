@@ -624,7 +624,7 @@ func VMMetrics() []VMetric {
 	var metrics []VMetric
 
 	for _, vm := range vms {
-		// Labels - host_name, cluster_name
+		// Labels - host, cluster
 		host, cluster, err := GetVMLineage(ctx, c, vm.Runtime.Host.Reference())
 		if err != nil {
 			log.Error(err.Error())
@@ -654,15 +654,15 @@ func VMMetrics() []VMetric {
 		}
 
 		// Add Metrics
-		metrics = append(metrics, VMetric{name: "vsphere_vm_mem_total", help: "Memory size of the virtual machine, in MB.", value: float64(vm.Config.Hardware.MemoryMB), labels: map[string]string{"vm_name": vm.Name, "host_name": host.Name, "cluster_name": cluster.Name}})
-		metrics = append(metrics, VMetric{name: "vsphere_vm_mem_free", help: "Guest memory free statistics, in MB. This is also known as free guest memory. The number can be between 0 and the configured memory size of the virtual machine. Valid while the virtual machine is running.", value: float64(freeMemory), labels: map[string]string{"vm_name": vm.Name, "host_name": host.Name, "cluster_name": cluster.Name}})
-		metrics = append(metrics, VMetric{name: "vsphere_vm_mem_usage", help: "Guest memory utilization statistics, in MB. This is also known as active guest memory. The number can be between 0 and the configured memory size of the virtual machine. Valid while the virtual machine is running.", value: float64(vm.Summary.QuickStats.GuestMemoryUsage), labels: map[string]string{"vm_name": vm.Name, "host_name": host.Name, "cluster_name": cluster.Name}})
+		metrics = append(metrics, VMetric{name: "vsphere_vm_mem_total", help: "Memory size of the virtual machine, in MB.", value: float64(vm.Config.Hardware.MemoryMB), labels: map[string]string{"vm": vm.Name, "host": host.Name, "cluster": cluster.Name}})
+		metrics = append(metrics, VMetric{name: "vsphere_vm_mem_free", help: "Guest memory free statistics, in MB. This is also known as free guest memory. The number can be between 0 and the configured memory size of the virtual machine. Valid while the virtual machine is running.", value: float64(freeMemory), labels: map[string]string{"vm": vm.Name, "host": host.Name, "cluster": cluster.Name}})
+		metrics = append(metrics, VMetric{name: "vsphere_vm_mem_usage", help: "Guest memory utilization statistics, in MB. This is also known as active guest memory. The number can be between 0 and the configured memory size of the virtual machine. Valid while the virtual machine is running.", value: float64(vm.Summary.QuickStats.GuestMemoryUsage), labels: map[string]string{"vm": vm.Name, "host": host.Name, "cluster": cluster.Name}})
 
-		metrics = append(metrics, VMetric{name: "vsphere_vm_cpu_usage", help: "Basic CPU performance statistics, in MHz. Valid while the virtual machine is running.", value: float64(vm.Summary.QuickStats.OverallCpuUsage), labels: map[string]string{"vm_name": vm.Name, "host_name": host.Name, "cluster_name": cluster.Name}})
-		metrics = append(metrics, VMetric{name: "vsphere_vm_cpu_count", help: "Number of processors in the virtual machine.", value: float64(vm.Summary.Config.NumCpu), labels: map[string]string{"vm_name": vm.Name, "host_name": host.Name, "cluster_name": cluster.Name}})
+		metrics = append(metrics, VMetric{name: "vsphere_vm_cpu_usage", help: "Basic CPU performance statistics, in MHz. Valid while the virtual machine is running.", value: float64(vm.Summary.QuickStats.OverallCpuUsage), labels: map[string]string{"vm": vm.Name, "host": host.Name, "cluster": cluster.Name}})
+		metrics = append(metrics, VMetric{name: "vsphere_vm_cpu_count", help: "Number of processors in the virtual machine.", value: float64(vm.Summary.Config.NumCpu), labels: map[string]string{"vm": vm.Name, "host": host.Name, "cluster": cluster.Name}})
 
-		metrics = append(metrics, VMetric{name: "vsphere_vm_heartbeat", help: "Overall alarm status on this node from VMware Tools.", value: float64(status), labels: map[string]string{"vm_name": vm.Name, "host_name": host.Name, "cluster_name": cluster.Name}})
-		metrics = append(metrics, VMetric{name: "vsphere_vm_powerstate", help: "The current power state of the virtual machine.", value: float64(powerState), labels: map[string]string{"vm_name": vm.Name, "host_name": host.Name, "cluster_name": cluster.Name}})
+		metrics = append(metrics, VMetric{name: "vsphere_vm_heartbeat", help: "Overall alarm status on this node from VMware Tools.", value: float64(status), labels: map[string]string{"vm": vm.Name, "host": host.Name, "cluster": cluster.Name}})
+		metrics = append(metrics, VMetric{name: "vsphere_vm_powerstate", help: "The current power state of the virtual machine.", value: float64(powerState), labels: map[string]string{"vm": vm.Name, "host": host.Name, "cluster": cluster.Name}})
 
 	}
 
