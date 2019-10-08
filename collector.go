@@ -82,73 +82,6 @@ func (c *Collector) Collect(ch chan<- prometheus.Metric) {
 
 	}()
 
-	/*
-		// Cluster Metrics
-		wg.Add(1)
-		go func() {
-			defer wg.Done()
-			defer timeTrack(ch, time.Now(), "ClusterMetrics")
-			cm := ClusterMetrics()
-			for _, m := range cm {
-				ch <- prometheus.MustNewConstMetric(
-					prometheus.NewDesc(m.name, m.help, []string{}, m.labels),
-					prometheus.GaugeValue,
-					float64(m.value),
-				)
-			}
-		}()
-
-			// Cluster Counters
-			wg.Add(1)
-			go func() {
-				defer wg.Done()
-				defer timeTrack(ch, time.Now(), "ClusterCounters")
-				cm := ClusterCounters()
-				for _, m := range cm {
-					ch <- prometheus.MustNewConstMetric(
-						prometheus.NewDesc(m.name, m.help, []string{}, m.labels),
-						prometheus.CounterValue,
-						float64(m.value),
-					)
-				}
-			}()
-	*/
-	/*
-		// Host Metrics
-		wg.Add(1)
-		go func() {
-			defer wg.Done()
-			defer timeTrack(ch, time.Now(), "HostMetrics")
-			cm := HostMetrics()
-			for _, m := range cm {
-				ch <- prometheus.MustNewConstMetric(
-					prometheus.NewDesc(m.name, m.help, []string{"cluster", "host"}, nil),
-					prometheus.GaugeValue,
-					float64(m.value),
-					m.labels["cluster"],
-					m.labels["host"],
-				)
-			}
-		}()
-	*/
-	/*
-		// Host Counters
-			wg.Add(1)
-		go func() {
-			defer wg.Done()
-			defer timeTrack(ch, time.Now(), "HostCounters")
-			cm := HostCounters()
-			for _, m := range cm {
-				ch <- prometheus.MustNewConstMetric(
-					prometheus.NewDesc(m.name, m.help, []string{"cluster", "host"}, nil),
-					prometheus.GaugeValue,
-					float64(m.value),
-					m.labels["cluster"],
-					m.labels["host"],
-				)
-			}
-		}()
-	*/
 	// VM Metrics
 	if cfg.vmStats == true {
 		wg.Add(1)
@@ -192,25 +125,6 @@ func NewCollector() *Collector {
 		desc: "vmware Exporter",
 	}
 }
-
-// GetClusterMetricMock TODO Comment
-func GetClusterMetricMock() []VMetric {
-	ms := []VMetric{
-		{name: "cluster_mem_ballooned", help: "Usage for a", value: 10, labels: map[string]string{"cluster": "apa", "host": "04"}},
-		{name: "cluster_mem_compressed", help: "Usage for a", value: 10, labels: map[string]string{"cluster": "apa", "host": "04"}},
-		{name: "cluster_mem_consumedOverhead", help: "Usage for a", value: 10, labels: map[string]string{}},
-		{name: "cluster_mem_distributedMemoryEntitlement", help: "Usage for a", value: 10, labels: map[string]string{}},
-		{name: "cluster_mem_guest", help: "Usage for a", value: 10, labels: map[string]string{}},
-		{name: "cluster_mem_usage", help: "Usage for a", value: 10, labels: map[string]string{}},
-		{name: "cluster_mem_overhead", help: "Usage for a", value: 10, labels: map[string]string{}},
-		{name: "cluster_mem_private", help: "Usage for a", value: 10, labels: map[string]string{}},
-		{name: "cluster_mem_staticMemoryEntitlement", help: "Usage for a", value: 10, labels: map[string]string{}},
-		{name: "cluster_mem_limit", help: "Usage for a", value: 10, labels: map[string]string{}},
-	}
-	return ms
-}
-
-/// VMWARE.GO
 
 // VMetric TODO Comment
 type VMetric struct {
@@ -751,12 +665,6 @@ func GetVMLineage(ctx context.Context, client *govmomi.Client, host types.Manage
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	// var datacenterEntity mo.ManagedEntity
-	// err = client.RetrieveOne(ctx, clusterEntity.Parent.Reference(), []string{"name", "parent"}, &datacenterEntity)
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
 
 	return hostEntity, clusterEntity, nil
 }
