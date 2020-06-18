@@ -3,8 +3,13 @@ package main
 import (
 	"context"
 	"fmt"
-	log "github.com/Sirupsen/logrus"
+	"net/url"
+	"os"
+	"strings"
+	"time"
+
 	"github.com/magiconair/properties"
+	log "github.com/sirupsen/logrus"
 	"github.com/vmware/govmomi"
 	"github.com/vmware/govmomi/performance"
 	"github.com/vmware/govmomi/property"
@@ -13,10 +18,6 @@ import (
 	"github.com/vmware/govmomi/vim25/methods"
 	"github.com/vmware/govmomi/vim25/mo"
 	"github.com/vmware/govmomi/vim25/types"
-	"net/url"
-	"os"
-	"strings"
-	"time"
 )
 
 type TestConfiguration struct {
@@ -66,7 +67,6 @@ func NewTestClient(ctx context.Context) (*govmomi.Client, error) {
 	return govmomi.NewClient(ctx, u, true)
 }
 
-
 func GetClusters(ctx context.Context, c *govmomi.Client, lst *[]mo.ClusterComputeResource) error {
 
 	m := view.NewManager(c.Client)
@@ -87,7 +87,6 @@ func GetClusters(ctx context.Context, c *govmomi.Client, lst *[]mo.ClusterComput
 
 	return nil
 }
-
 
 func ClusterTestPerf() {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
@@ -118,7 +117,7 @@ func ClusterTestPerf() {
 	}
 
 	pm := performance.NewManager(c.Client)
-	mlist,err := pm.CounterInfoByKey(ctx)
+	mlist, err := pm.CounterInfoByKey(ctx)
 	if err != nil {
 		log.Error(err.Error())
 
@@ -126,15 +125,14 @@ func ClusterTestPerf() {
 
 	for _, cls := range lst {
 
-
 		fmt.Println(cls.Name)
-		am,_ := pm.AvailableMetric(ctx,cls.Reference(),300)
+		am, _ := pm.AvailableMetric(ctx, cls.Reference(), 300)
 
 		var pqList []types.PerfMetricId
-		for _,v := range am {
+		for _, v := range am {
 
-			if strings.Contains(mlist[v.CounterId].Name(),"vmop"){
-				pqList = append(pqList,v)
+			if strings.Contains(mlist[v.CounterId].Name(), "vmop") {
+				pqList = append(pqList, v)
 			}
 		}
 
@@ -158,8 +156,8 @@ func ClusterTestPerf() {
 			metric := base.(*types.PerfEntityMetric)
 			for _, baseSeries := range metric.Value {
 				series := baseSeries.(*types.PerfMetricIntSeries)
-				name := strings.TrimLeft(mlist[series.Id.CounterId].Name(),"vmop.")
-				name = strings.TrimRight(name,".latest")
+				name := strings.TrimLeft(mlist[series.Id.CounterId].Name(), "vmop.")
+				name = strings.TrimRight(name, ".latest")
 				fmt.Print(name + ": ")
 				//fmt.Print(mlist[series.Id.CounterId].Name() + ": ")
 				fmt.Println(series.Value[0])
@@ -291,5 +289,3 @@ func PerfQuery(ctx context.Context, c *govmomi.Client, metrics []string, entity 
 	}
 	return data
 }
-
-
