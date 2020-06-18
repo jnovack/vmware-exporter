@@ -2,9 +2,11 @@ package main
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"math"
 	"net/url"
+	"reflect"
 	"strings"
 	"sync"
 	"time"
@@ -649,7 +651,14 @@ func ClusterFromRef(client *govmomi.Client, ref types.ManagedObjectReference) (*
 	if err != nil {
 		return nil, err
 	}
-	return obj.(*object.ClusterComputeResource), nil
+	typeObj := reflect.TypeOf(obj)
+	switch typeObj.String() {
+	case "*object.ClusterComputeResource":
+		return obj.(*object.ClusterComputeResource), nil
+	case "*object.ComputeResource":
+		return nil, errors.New("ClusterFromRef is connected locally to a EXSi host, not a vSphere")
+	}
+	return nil, errors.New("ClusterFromRef returned an unknown type, please create an issue")
 }
 
 // GetVMLineage gets the parent and grandparent ManagedEntity objects
