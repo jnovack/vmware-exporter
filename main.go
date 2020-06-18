@@ -40,11 +40,18 @@ func main() {
 			</body>
 			</html>`))
 	})
+
 	log.Info("Serving metrics on " + strconv.FormatInt(int64(*port), 10))
 	log.Fatal(http.ListenAndServe(":"+strconv.FormatInt(int64(*port), 10), nil))
 }
 
 func init() {
+
+	// Output to stdout instead of the default stderr
+	log.SetOutput(os.Stdout)
+
+	// Only log the warning severity or above.
+	log.SetLevel(log.WarnLevel)
 
 	defaultTimeout = 30 * time.Second
 

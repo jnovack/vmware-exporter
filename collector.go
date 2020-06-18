@@ -32,7 +32,7 @@ type Collector struct {
 
 func timeTrack(ch chan<- prometheus.Metric, start time.Time, name string) {
 	elapsed := time.Since(start)
-	log.Printf("%s took %.3fs", name, float64(elapsed.Milliseconds())/1000)
+	log.Debugf("%s took %.3fs", name, float64(elapsed.Milliseconds())/1000)
 
 	ch <- prometheus.MustNewConstMetric(
 		prometheus.NewDesc("go_task_time", "Go task elasped time", []string{}, prometheus.Labels{"task": name, "application": "vmware_exporter"}),
@@ -308,7 +308,7 @@ func ClusterMetrics(ch chan<- prometheus.Metric, objDC mo.Datacenter) []VMetric 
 			// Get Cluster name from Resource Pool Parent
 			cluster, err := ClusterFromID(c, pool.Parent.Value)
 			if err != nil {
-				log.Error(err.Error())
+				log.Info(err.Error())
 				return nil
 			}
 
@@ -476,7 +476,7 @@ func HostHBAStatus() []VMetric {
 		// Get name of cluster the host is part of
 		cls, err := ClusterFromRef(c, host.Parent.Reference())
 		if err != nil {
-			log.Error(err.Error())
+			log.Info(err.Error())
 			return nil
 		}
 		cname := cls.Name()
