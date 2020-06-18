@@ -1,0 +1,1 @@
+* [Metric Parity with Telegraf](https://github.com/influxdata/telegraf/blob/master/plugins/inputs/vsphere/METRICS.md)
