@@ -35,31 +35,33 @@ ARG GO_LDFLAGS="-w -s \
 COPY . .
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags "${GO_LDFLAGS}" -o /go/bin/${APPLICATION} .
 
-#######################################################################
+###############################################################################
+# final stage
 FROM scratch
+COPY --from=build /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
+COPY --from=build /etc/passwd /etc/passwd
+COPY --from=build /etc/group /etc/group
+USER appuser:appuser
 
-WORKDIR /app
-
+ARG APPLICATION="go-executable"
 ARG BUILD_RFC3339="1970-01-01T00:00:00Z"
 ARG COMMIT="local"
 ARG VERSION="dirty"
 
-# Port as decided by prometheus exporters list
-EXPOSE 9094
-
-LABEL org.opencontainers.image.ref.name="jnovack/vmware-exporter" \
+LABEL org.opencontainers.image.ref.name="jnovack/${APPLICATION}" \
       org.opencontainers.image.created=$BUILD_RFC3339 \
       org.opencontainers.image.authors="Justin J. Novack <jnovack@gmail.com>" \
-      org.opencontainers.image.documentation="https://github.com/jnovack/vmware-exporter/README.md" \
-      org.opencontainers.image.description="Minimalist vmware-exporter for ESXi hosts or vCenter deployments." \
+      org.opencontainers.image.documentation="https://github.com/jnovack/${APPLICATION}/README.md" \
+      org.opencontainers.image.description="" \
       org.opencontainers.image.licenses="MIT" \
-      org.opencontainers.image.source="https://github.com/jnovack/vmware-exporter" \
+      org.opencontainers.image.source="https://github.com/jnovack/${APPLICATION}" \
       org.opencontainers.image.revision=$COMMIT \
       org.opencontainers.image.version=$VERSION \
-      org.opencontainers.image.url="https://hub.docker.com/r/jnovack/vmware-exporter/"
+      org.opencontainers.image.url="https://hub.docker.com/r/jnovack/${APPLICATION}/"
 
+EXPOSE 9344
 
-COPY --from=builder /go/bin/vmware-exporter .
 COPY config.properties .
+COPY --from=build /go/bin/${APPLICATION} /app
 
-CMD ["./vmware-exporter"]
+ENTRYPOINT ["/app"]
