@@ -319,7 +319,7 @@ func ClusterMetrics(ch chan<- prometheus.Metric, objDC mo.Datacenter) []VMetric 
 			// Get Cluster name from Resource Pool Parent
 			cluster, err := ClusterFromID(c, pool.Parent.Value)
 			if err != nil {
-				log.Info().Str("msg", err.Error()).Msgf("%s is connected locally to a EXSi host, not a vSphere cluster", *hostname)
+				log.Debug().Str("msg", err.Error()).Msgf("%s is connected locally to a EXSi host, not a vSphere cluster", *hostname)
 				return nil
 			}
 
@@ -482,14 +482,15 @@ func HostHBAStatus() []VMetric {
 	var metrics []VMetric
 
 	for _, host := range hosts {
+		var cname string
 		// Get name of cluster the host is part of
 		cls, err := ClusterFromRef(c, host.Parent.Reference())
 		if err != nil {
-			log.Info().Str("msg", err.Error()).Msgf("%s is connected locally to a EXSi host, not a vSphere cluster", *hostname)
-			return nil
+			log.Debug().Str("msg", err.Error()).Msgf("%s is connected locally to a EXSi host, not a vSphere cluster", *hostname)
+			cname = *hostname
+		} else {
+			cname = strings.ToLower(cls.Name())
 		}
-		cname := cls.Name()
-		cname = strings.ToLower(cname)
 
 		hcm := object.NewHostConfigManager(c.Client, host.Reference())
 		ss, err := hcm.StorageSystem(ctx)
