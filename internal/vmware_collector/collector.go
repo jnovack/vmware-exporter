@@ -11,6 +11,8 @@ import (
 	"sync"
 	"time"
 
+	build "github.com/jnovack/go-version"
+	"github.com/namsral/flag"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/rs/zerolog/log"
 	"github.com/vmware/govmomi"
@@ -24,14 +26,19 @@ import (
 	"github.com/vmware/govmomi/vim25/types"
 )
 
-// TODO Change to prometheus/common/version
-const xver = "1.0"
-
 // Collector TODO Comment
 type Collector struct {
 	desc string
 }
 
+var (
+	defaultTimeout = 10 * time.Second
+	hostname       = flag.String("hostname", "127.0.0.1", "hostname where ESXi or vCenter server is running")
+	username       = flag.String("username", "root", "username for authentication (required)")
+	password       = flag.String("password", "hunter2", "password for authentication (required)")
+	vmDebug        = flag.Bool("vmdebug", true, "debug vmware collector")
+	vmStats        = flag.Bool("vmstats", true, "collect statistics from VMs")
+)
 
 func init() {
 	log.Logger = log.With().Caller().Logger()
@@ -67,7 +74,7 @@ func (c *Collector) Collect(ch chan<- prometheus.Metric) {
 	wg := sync.WaitGroup{}
 
 	ch <- prometheus.MustNewConstMetric(
-		prometheus.NewDesc("vmware_exporter", "github.com/jnovack/vmware_exporter", []string{}, prometheus.Labels{"version": xver}),
+		prometheus.NewDesc("vmware_exporter", "github.com/jnovack/vmware_exporter", []string{}, prometheus.Labels{"version": build.Version}),
 		prometheus.GaugeValue,
 		1,
 	)
@@ -90,7 +97,7 @@ func (c *Collector) Collect(ch chan<- prometheus.Metric) {
 	}()
 
 	// VM Metrics
-	if cfg.vmStats == true {
+	if *vmStats == true {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
@@ -144,10 +151,11 @@ type VMetric struct {
 // NewClient Connect to vCenter
 func NewClient(ctx context.Context) (*govmomi.Client, error) {
 
-	u, err := url.Parse("https://" + cfg.Host + vim25.Path)
+	u, err := url.Parse("https://" + *hostname + vim25.Path)
 	if err != nil {
 		log.Fatal().Err(err).Msg("A fatal error occurred.")
 	}
+	u.User = url.UserPassword(*username, *password)
 	log.Debug().Msg("Connecting to " + u.String())
 
 	return govmomi.NewClient(ctx, u, true)

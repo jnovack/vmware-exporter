@@ -1,46 +1,34 @@
 package main
 
 import (
-	"flag"
 	"net/http"
 	"os"
 	"strconv"
 	"time"
 
-	_ "github.com/jnovack/go-version"
-	"github.com/magiconair/properties"
+	build "github.com/jnovack/go-version"
+	vmwareCollector "github.com/jnovack/vmware-exporter/internal/vmware_collector"
+	"github.com/mattn/go-isatty"
+	"github.com/namsral/flag"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 )
 
-// Configuration TODO Comment
-type Configuration struct {
-	Host     string
-	User     string
-	Password string
-	Debug    bool
-	vmStats  bool
-}
-
-var cfg Configuration
-
-var defaultTimeout time.Duration
+var port = flag.Int("port", 9094, "port to bind exporter")
 
 func main() {
-	port := flag.Int("port", 9094, "port to bind exporter")
-	flag.Parse()
+
+	prometheus.MustRegister(vmwareCollector.NewCollector())
 
 	http.Handle("/metrics", promhttp.Handler())
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte(`<html>
-			<head><title>VMware Exporter</title></head>
-			<body>
-			<h1>VMware Exporter</h1>
-			<p><a href="/metrics">Metrics</a></p>
-			</body>
-			</html>`))
+		w.Write([]byte(`<html><head><title>VMware Exporter</title></head>
+			<body><h1>VMware Exporter</h1><h4>` +
+			build.Application + ` ` + build.Version +
+			`</h4><p><a href="/metrics">Metrics</a></p>
+			</body></html>`))
 	})
 
 	log.Info().Msgf("Serving metrics on " + strconv.FormatInt(int64(*port), 10))
@@ -48,35 +36,17 @@ func main() {
 }
 
 func init() {
-
-	// Output to stdout instead of the default stderr
-	log.SetOutput(os.Stdout)
-
-	// Only log the warning severity or above.
-	log.SetLevel(log.WarnLevel)
-
-	defaultTimeout = 30 * time.Second
-
-	// Get config details
-	if os.Getenv("HOST") != "" && os.Getenv("USERID") != "" && os.Getenv("PASSWORD") != "" {
-		if os.Getenv("DEBUG") == "True" {
-			cfg = Configuration{Host: os.Getenv("HOST"), User: os.Getenv("USERID"), Password: os.Getenv("PASSWORD"), Debug: true}
-		} else {
-			cfg = Configuration{Host: os.Getenv("HOST"), User: os.Getenv("USERID"), Password: os.Getenv("PASSWORD"), Debug: false}
+	if isatty.IsTerminal(os.Stdout.Fd()) {
+		// Format using ConsoleWriter if running straight
+		zerolog.TimestampFunc = func() time.Time {
+			return time.Now().In(time.Local)
 		}
-		if os.Getenv("VMSTATS") == "False" {
-			cfg = Configuration{Host: os.Getenv("HOST"), User: os.Getenv("USERID"), Password: os.Getenv("PASSWORD"), Debug: true, vmStats: false}
-		} else {
-			cfg = Configuration{Host: os.Getenv("HOST"), User: os.Getenv("USERID"), Password: os.Getenv("PASSWORD"), Debug: false, vmStats: true}
-		}
-
+		log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr, TimeFormat: time.RFC3339})
 	} else {
-		p := properties.MustLoadFiles([]string{
-			"config.properties",
-		}, properties.UTF8, true)
-
-		cfg = Configuration{Host: p.MustGetString("host"), User: p.MustGetString("user"), Password: p.MustGetString("password"), Debug: p.MustGetBool("debug"), vmStats: p.MustGetBool("vmstats")}
+		// Format using JSON if running as a service (or container)
+		zerolog.TimeFieldFormat = zerolog.TimeFormatUnix
 	}
+	zerolog.SetGlobalLevel(zerolog.InfoLevel)
 
-	prometheus.MustRegister(NewCollector())
+	flag.Parse()
 }
