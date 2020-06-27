@@ -1,2 +1,5 @@
-config.properties
-vmware-exporter
+**/.env
+**/.vscode
+**/bin
+**/docker-compose.override.yml
+**/qemu**
