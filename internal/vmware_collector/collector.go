@@ -12,7 +12,7 @@ import (
 	"time"
 
 	"github.com/prometheus/client_golang/prometheus"
-	log "github.com/sirupsen/logrus"
+	"github.com/rs/zerolog/log"
 	"github.com/vmware/govmomi"
 	"github.com/vmware/govmomi/find"
 	"github.com/vmware/govmomi/object"
@@ -32,9 +32,14 @@ type Collector struct {
 	desc string
 }
 
+
+func init() {
+	log.Logger = log.With().Caller().Logger()
+}
+
 func timeTrack(ch chan<- prometheus.Metric, start time.Time, name string) {
 	elapsed := time.Since(start)
-	log.Debugf("%s took %.3fs", name, float64(elapsed.Milliseconds())/1000)
+	log.Debug().Msgf("%s took %.3fs", name, float64(elapsed.Milliseconds())/1000)
 
 	ch <- prometheus.MustNewConstMetric(
 		prometheus.NewDesc("go_task_time", "Go task elasped time", []string{}, prometheus.Labels{"task": name, "application": "vmware_exporter"}),
@@ -141,23 +146,21 @@ func NewClient(ctx context.Context) (*govmomi.Client, error) {
 
 	u, err := url.Parse("https://" + cfg.Host + vim25.Path)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal().Err(err).Msg("A fatal error occurred.")
 	}
-	u.User = url.UserPassword(cfg.User, cfg.Password)
-	log.Debug("Connecting to " + u.String())
+	log.Debug().Msg("Connecting to " + u.String())
 
 	return govmomi.NewClient(ctx, u, true)
 }
 
 // DatacenterMetrics TODO Comment
 func DatacenterMetrics(ch chan<- prometheus.Metric) []VMetric {
-	log.SetReportCaller(true)
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
 
 	c, err := NewClient(ctx)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal().Err(err).Msg("A fatal error occurred.")
 	}
 
 	defer c.Logout(ctx)
@@ -166,7 +169,7 @@ func DatacenterMetrics(ch chan<- prometheus.Metric) []VMetric {
 
 	view, err := m.CreateContainerView(ctx, c.ServiceContent.RootFolder, []string{"Datacenter"}, true)
 	if err != nil {
-		log.Error(err.Error())
+		log.Error().Err(err).Msg("An error occurred.")
 	}
 
 	defer view.Destroy(ctx)
@@ -176,7 +179,7 @@ func DatacenterMetrics(ch chan<- prometheus.Metric) []VMetric {
 
 	err = view.Retrieve(ctx, []string{"Datacenter"}, []string{"name", "datastore", "network"}, &arrDC)
 	if err != nil {
-		log.Error(err.Error())
+		log.Error().Err(err).Msg("An error occurred.")
 	}
 
 	waitGroupDC := sync.WaitGroup{}
@@ -214,13 +217,12 @@ func DatacenterMetrics(ch chan<- prometheus.Metric) []VMetric {
 
 // DatastoreMetrics TODO Comment
 func DatastoreMetrics(objDC mo.Datacenter) []VMetric {
-	log.SetReportCaller(true)
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
 
 	c, err := NewClient(ctx)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal().Err(err).Msg("A fatal error occurred.")
 	}
 
 	defer c.Logout(ctx)
@@ -229,7 +231,7 @@ func DatastoreMetrics(objDC mo.Datacenter) []VMetric {
 
 	vmgr, err := m.CreateContainerView(ctx, objDC.Reference(), []string{"ClusterComputeResource"}, true)
 	if err != nil {
-		log.Error(err.Error())
+		log.Error().Err(err).Msg("An error occurred.")
 
 	}
 
@@ -240,7 +242,7 @@ func DatastoreMetrics(objDC mo.Datacenter) []VMetric {
 	var lst []mo.ClusterComputeResource
 	err = vmgr.Retrieve(ctx, []string{"ClusterComputeResource"}, []string{"name", "datastore"}, &lst)
 	if err != nil {
-		log.Error(err.Error())
+		log.Error().Err(err).Msg("An error occurred.")
 	}
 	for _, cls := range lst {
 
@@ -270,13 +272,12 @@ func DatastoreMetrics(objDC mo.Datacenter) []VMetric {
 
 // ClusterMetrics TODO Comment
 func ClusterMetrics(ch chan<- prometheus.Metric, objDC mo.Datacenter) []VMetric {
-	log.SetReportCaller(true)
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
 
 	c, err := NewClient(ctx)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal().Err(err).Msg("A fatal error occurred.")
 	}
 
 	defer c.Logout(ctx)
@@ -284,14 +285,14 @@ func ClusterMetrics(ch chan<- prometheus.Metric, objDC mo.Datacenter) []VMetric 
 	var arrCLS []mo.ClusterComputeResource
 	e2 := GetClusters(ctx, c, &arrCLS)
 	if e2 != nil {
-		log.Error(e2.Error())
+		log.Error().Err(e2).Msg("An error occurred.")
 	}
 
 	m := view.NewManager(c.Client)
 
 	view, err := m.CreateContainerView(ctx, objDC.Reference(), []string{"ResourcePool"}, true)
 	if err != nil {
-		log.Error(err.Error())
+		log.Error().Err(err).Msg("An error occurred.")
 	}
 
 	defer view.Destroy(ctx)
@@ -299,7 +300,7 @@ func ClusterMetrics(ch chan<- prometheus.Metric, objDC mo.Datacenter) []VMetric 
 	var pools []mo.ResourcePool
 	err = view.RetrieveWithFilter(ctx, []string{"ResourcePool"}, []string{"summary", "name", "parent", "config"}, &pools, property.Filter{"name": "Resources"})
 	if err != nil {
-		log.Error(err.Error())
+		log.Error().Err(err).Msg("An error occurred.")
 		//return err
 	}
 
@@ -310,7 +311,7 @@ func ClusterMetrics(ch chan<- prometheus.Metric, objDC mo.Datacenter) []VMetric 
 			// Get Cluster name from Resource Pool Parent
 			cluster, err := ClusterFromID(c, pool.Parent.Value)
 			if err != nil {
-				log.Info(err.Error())
+				log.Info().Str("msg", err.Error()).Msgf("%s is connected locally to a EXSi host, not a vSphere cluster", *hostname)
 				return nil
 			}
 
@@ -381,13 +382,12 @@ func ClusterMetrics(ch chan<- prometheus.Metric, objDC mo.Datacenter) []VMetric 
 
 // HostMetrics Collects Hypervisor metrics
 func HostMetrics(ch chan<- prometheus.Metric, objCLS mo.ClusterComputeResource) []VMetric {
-	log.SetReportCaller(true)
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
 
 	c, err := NewClient(ctx)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal().Err(err).Msg("A fatal error occurred.")
 	}
 
 	defer c.Logout(ctx)
@@ -396,7 +396,7 @@ func HostMetrics(ch chan<- prometheus.Metric, objCLS mo.ClusterComputeResource) 
 
 	view, err := m.CreateContainerView(ctx, objCLS.Reference(), []string{"HostSystem"}, true)
 	if err != nil {
-		log.Error(err.Error())
+		log.Error().Err(err).Msg("An error occurred.")
 	}
 
 	defer view.Destroy(ctx)
@@ -404,7 +404,7 @@ func HostMetrics(ch chan<- prometheus.Metric, objCLS mo.ClusterComputeResource) 
 	var hosts []mo.HostSystem
 	err = view.Retrieve(ctx, []string{"HostSystem"}, []string{"summary", "parent", "vm"}, &hosts)
 	if err != nil {
-		log.Error(err.Error())
+		log.Error().Err(err).Msg("An error occurred.")
 	}
 
 	var metrics []VMetric
@@ -413,7 +413,7 @@ func HostMetrics(ch chan<- prometheus.Metric, objCLS mo.ClusterComputeResource) 
 		// Get name of cluster the host is part of
 		cls, err := ClusterFromRef(c, hs.Parent.Reference())
 		if err != nil {
-			log.Error(err.Error())
+			log.Error().Err(err).Msg("An error occurred.")
 			return nil
 		}
 		cname := cls.Name()
@@ -446,13 +446,12 @@ func HostMetrics(ch chan<- prometheus.Metric, objCLS mo.ClusterComputeResource) 
 
 // HostHBAStatus Report status of the HBA attached to a hypervisor to be able to monitor if a hba goes offline
 func HostHBAStatus() []VMetric {
-	log.SetReportCaller(true)
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
 
 	c, err := NewClient(ctx)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal().Err(err).Msg("Unable to connect to server.")
 	}
 
 	defer c.Logout(ctx)
@@ -461,7 +460,7 @@ func HostHBAStatus() []VMetric {
 
 	view, err := m.CreateContainerView(ctx, c.ServiceContent.RootFolder, []string{"HostSystem"}, true)
 	if err != nil {
-		log.Error(err.Error())
+		log.Error().Err(err).Msg("An error occurred.")
 	}
 
 	defer view.Destroy(ctx)
@@ -469,7 +468,7 @@ func HostHBAStatus() []VMetric {
 	var hosts []mo.HostSystem
 	err = view.Retrieve(ctx, []string{"HostSystem"}, []string{"name", "parent"}, &hosts)
 	if err != nil {
-		log.Error(err.Error())
+		log.Error().Err(err).Msg("An error occurred.")
 	}
 
 	var metrics []VMetric
@@ -478,7 +477,7 @@ func HostHBAStatus() []VMetric {
 		// Get name of cluster the host is part of
 		cls, err := ClusterFromRef(c, host.Parent.Reference())
 		if err != nil {
-			log.Info(err.Error())
+			log.Info().Str("msg", err.Error()).Msgf("%s is connected locally to a EXSi host, not a vSphere cluster", *hostname)
 			return nil
 		}
 		cname := cls.Name()
@@ -487,7 +486,7 @@ func HostHBAStatus() []VMetric {
 		hcm := object.NewHostConfigManager(c.Client, host.Reference())
 		ss, err := hcm.StorageSystem(ctx)
 		if err != nil {
-			log.Error(err.Error())
+			log.Error().Err(err).Msg("An error occurred.")
 		}
 
 		var hss mo.HostStorageSystem
@@ -518,13 +517,12 @@ func HostHBAStatus() []VMetric {
 
 // VMMetrics TODO Comment
 func VMMetrics() []VMetric {
-	log.SetReportCaller(true)
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 
 	c, err := NewClient(ctx)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal().Err(err).Msg("A fatal error occurred.")
 	}
 
 	defer c.Logout(ctx)
@@ -533,7 +531,7 @@ func VMMetrics() []VMetric {
 
 	view, err := m.CreateContainerView(ctx, c.ServiceContent.RootFolder, []string{"VirtualMachine"}, true)
 	if err != nil {
-		log.Error(err.Error())
+		log.Error().Err(err).Msg("An error occurred.")
 	}
 
 	defer view.Destroy(ctx)
@@ -543,7 +541,7 @@ func VMMetrics() []VMetric {
 	// https://pubs.vmware.com/vi3/sdk/ReferenceGuide/vim.VirtualMachine.html#field_detail
 	err = view.Retrieve(ctx, []string{"VirtualMachine"}, []string{"summary", "config", "name", "runtime", "guestHeartbeatStatus"}, &vms)
 	if err != nil {
-		log.Error(err.Error())
+		log.Error().Err(err).Msg("An error occurred.")
 	}
 
 	metricMap := GetMetricMap(ctx, c)
@@ -559,7 +557,7 @@ func VMMetrics() []VMetric {
 		// Labels - host, cluster
 		host, cluster, err := GetVMLineage(ctx, c, vm.Runtime.Host.Reference())
 		if err != nil {
-			log.Error(err.Error())
+			log.Error().Err(err).Msg("An error occurred.")
 			return nil
 		}
 
@@ -607,7 +605,7 @@ func GetClusters(ctx context.Context, c *govmomi.Client, lst *[]mo.ClusterComput
 
 	view, err := m.CreateContainerView(ctx, c.ServiceContent.RootFolder, []string{"ClusterComputeResource"}, true)
 	if err != nil {
-		log.Error(err.Error())
+		log.Error().Err(err).Msg("An error occurred.")
 		return err
 	}
 
@@ -615,7 +613,7 @@ func GetClusters(ctx context.Context, c *govmomi.Client, lst *[]mo.ClusterComput
 
 	err = view.Retrieve(ctx, []string{"ClusterComputeResource"}, []string{"name", "summary"}, lst)
 	if err != nil {
-		log.Error(err.Error())
+		log.Error().Err(err).Msg("An error occurred.")
 		return err
 	}
 
@@ -666,13 +664,13 @@ func GetVMLineage(ctx context.Context, client *govmomi.Client, host types.Manage
 	var hostEntity mo.ManagedEntity
 	err := client.RetrieveOne(ctx, host.Reference(), []string{"name", "parent"}, &hostEntity)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal().Err(err).Msg("A fatal error occurred.")
 	}
 
 	var clusterEntity mo.ManagedEntity
 	err = client.RetrieveOne(ctx, hostEntity.Parent.Reference(), []string{"name", "parent"}, &clusterEntity)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal().Err(err).Msg("A fatal error occurred.")
 	}
 
 	return hostEntity, clusterEntity, nil
@@ -684,7 +682,7 @@ func GetMetricMap(ctx context.Context, client *govmomi.Client) (MetricMap map[st
 	var pM mo.PerformanceManager
 	err := client.RetrieveOne(ctx, *client.ServiceContent.PerfManager, nil, &pM)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal().Err(err).Msg("A fatal error occurred.")
 	}
 
 	metricMap := make(map[string]int32)
@@ -702,7 +700,7 @@ func PerfQuery(ctx context.Context, c *govmomi.Client, metrics []string, entity 
 	var pM mo.PerformanceManager
 	err := c.RetrieveOne(ctx, *c.ServiceContent.PerfManager, nil, &pM)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal().Err(err).Msg("A fatal error occurred.")
 	}
 
 	var pmidList []types.PerfMetricId
@@ -724,7 +722,7 @@ func PerfQuery(ctx context.Context, c *govmomi.Client, metrics []string, entity 
 
 	response, err := methods.QueryPerf(ctx, c, &query)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal().Err(err).Msg("A fatal error occurred.")
 	}
 
 	data := make(map[string]int64)
@@ -746,13 +744,12 @@ func PerfQuery(ctx context.Context, c *govmomi.Client, metrics []string, entity 
 /*
 // ClusterCounters TODO Comment
 func ClusterCounters() []VMetric {
-	log.SetReportCaller(true)
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
 
 	c, err := NewClient(ctx)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal().Err(err).Msg("A fatal error occurred.")
 	}
 
 	defer c.Logout(ctx)
@@ -761,7 +758,7 @@ func ClusterCounters() []VMetric {
 
 	v, err := m.CreateContainerView(ctx, c.ServiceContent.RootFolder, []string{"ClusterComputeResource"}, true)
 	if err != nil {
-		log.Error(err.Error())
+		log.Error().Err(err).Msg("An error occurred.")
 
 	}
 
@@ -770,14 +767,14 @@ func ClusterCounters() []VMetric {
 	var lst []mo.ClusterComputeResource
 	err = v.Retrieve(ctx, []string{"ClusterComputeResource"}, []string{"name"}, &lst)
 	if err != nil {
-		log.Error(err.Error())
+		log.Error().Err(err).Msg("An error occurred.")
 
 	}
 
 	pm := performance.NewManager(c.Client)
 	mlist, err := pm.CounterInfoByKey(ctx)
 	if err != nil {
-		log.Error(err.Error())
+		log.Error().Err(err).Msg("An error occurred.")
 
 	}
 
@@ -810,7 +807,7 @@ func ClusterCounters() []VMetric {
 
 		response, err := methods.QueryPerf(ctx, c, &query)
 		if err != nil {
-			log.Fatal(err)
+			log.Fatal().Err(err).Msg("A fatal error occurred.")
 		}
 
 		// vmware_cluster_vmop_numChangeDS{cluster="ucs"} 1
@@ -853,13 +850,12 @@ func ClusterCounters() []VMetric {
 /*
 // HostCounters Collects Hypervisor counters
 func HostCounters() []VMetric {
-	log.SetReportCaller(true)
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
 
 	c, err := NewClient(ctx)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal().Err(err).Msg("A fatal error occurred.")
 	}
 
 	defer c.Logout(ctx)
@@ -868,7 +864,7 @@ func HostCounters() []VMetric {
 
 	view, err := m.CreateContainerView(ctx, c.ServiceContent.RootFolder, []string{"HostSystem"}, true)
 	if err != nil {
-		log.Error(err.Error() + ": HostCounters")
+		log.Error().Err(err + ": HostCounters").Msg("An error occurred.")
 	}
 
 	defer view.Destroy(ctx)
@@ -876,7 +872,7 @@ func HostCounters() []VMetric {
 	var hosts []mo.HostSystem
 	err = view.Retrieve(ctx, []string{"HostSystem"}, []string{"name", "parent", "summary"}, &hosts)
 	if err != nil {
-		log.Error(err.Error() + ": HostCounters")
+		log.Error().Err(err + ": HostCounters").Msg("An error occurred.")
 	}
 
 	var metrics []VMetric
@@ -885,7 +881,7 @@ func HostCounters() []VMetric {
 		// Get name of cluster the host is part of
 		cls, err := ClusterFromRef(c, hs.Parent.Reference())
 		if err != nil {
-			log.Error(err.Error())
+			log.Error().Err(err).Msg("An error occurred.")
 			return nil
 		}
 		cname := cls.Name()
@@ -895,21 +891,21 @@ func HostCounters() []VMetric {
 		vMgr := view.NewManager(c.Client)
 		vmView, err := vMgr.CreateContainerView(ctx, hs.Reference(), []string{"VirtualMachine"}, true)
 		if err != nil {
-			log.Error(err.Error() + " " + hs.Name)
+			log.Error().Err(err + " " + hs.Name).Msg("An error occurred.")
 		}
 
 		var vms []mo.VirtualMachine
 
 		err2 := vmView.RetrieveWithFilter(ctx, []string{"VirtualMachine"}, []string{"name", "runtime"}, &vms, property.Filter{"runtime.powerState": "poweredOn"})
 		if err2 != nil {
-			//	log.Error(err2.Error() +": HostCounters - poweron")
+			//	log.Error().Err(err2.Error() +": HostCounters - poweron").Msg("An error occurred.")
 		}
 
 		poweredOn := len(vms)
 
 		err = vmView.Retrieve(ctx, []string{"VirtualMachine"}, []string{"name", "summary.config", "runtime.powerState"}, &vms)
 		if err != nil {
-			log.Error(err.Error() + " : " + "in retrieving vms")
+			log.Error().Err(err + " : " + "in retrieving vms").Msg("An error occurred.")
 		}
 
 		total := len(vms)

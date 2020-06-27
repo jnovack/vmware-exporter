@@ -11,7 +11,8 @@ import (
 	"github.com/magiconair/properties"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
-	log "github.com/sirupsen/logrus"
+	"github.com/rs/zerolog"
+	"github.com/rs/zerolog/log"
 )
 
 // Configuration TODO Comment
@@ -42,8 +43,8 @@ func main() {
 			</html>`))
 	})
 
-	log.Info("Serving metrics on " + strconv.FormatInt(int64(*port), 10))
-	log.Fatal(http.ListenAndServe(":"+strconv.FormatInt(int64(*port), 10), nil))
+	log.Info().Msgf("Serving metrics on " + strconv.FormatInt(int64(*port), 10))
+	http.ListenAndServe(":"+strconv.FormatInt(int64(*port), 10), nil)
 }
 
 func init() {
