@@ -33,7 +33,7 @@ ARG GO_LDFLAGS="-w -s \
 
 # Build
 COPY . .
-RUN CGO_ENABLED=0 GOOS=linux go build -ldflags "${GO_LDFLAGS}" -o /go/bin/${APPLICATION} cmd/${APPLICATION}/*
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -ldflags "${GO_LDFLAGS}" -o /go/bin/${APPLICATION} cmd/${APPLICATION}/*
 
 ###############################################################################
 # final stage
