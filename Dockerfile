@@ -1,4 +1,4 @@
-FROM golang:1.14 as builder
+FROM golang:1.14 as build
 WORKDIR /go/src/app
 
 # Create appuser.
@@ -14,7 +14,7 @@ RUN adduser \
     --uid "${UID}" \
     "${USER}"
 
-RUN apk add --no-cache git ca-certificates
+RUN apt-get update && apt-get install -y ca-certificates
 
 COPY go.mod .
 COPY go.sum .
@@ -25,11 +25,11 @@ ARG BUILD_RFC3339="1970-01-01T00:00:00Z"
 ARG COMMIT="local"
 ARG VERSION="dirty"
 ARG GO_LDFLAGS="-w -s \
-        -X github.com/jnovack/go-version.Application=${APPLICATION} \
-        -X github.com/jnovack/go-version.BuildDate=${BUILD_RFC3339} \
-        -X github.com/jnovack/go-version.Revision=${COMMIT} \
-        -X github.com/jnovack/go-version.Version=${VERSION} \
-        -extldflags '-static'"
+    -X github.com/jnovack/go-version.Application=${APPLICATION} \
+    -X github.com/jnovack/go-version.BuildDate=${BUILD_RFC3339} \
+    -X github.com/jnovack/go-version.Revision=${COMMIT} \
+    -X github.com/jnovack/go-version.Version=${VERSION} \
+    -extldflags '-static'"
 
 # Build
 COPY . .
@@ -46,22 +46,23 @@ USER appuser:appuser
 ARG APPLICATION="go-executable"
 ARG BUILD_RFC3339="1970-01-01T00:00:00Z"
 ARG COMMIT="local"
+ARG DESCRIPTION="no description"
+ARG PACKAGE="user/repo"
 ARG VERSION="dirty"
 
-LABEL org.opencontainers.image.ref.name="jnovack/${APPLICATION}" \
-      org.opencontainers.image.created=$BUILD_RFC3339 \
-      org.opencontainers.image.authors="Justin J. Novack <jnovack@gmail.com>" \
-      org.opencontainers.image.documentation="https://github.com/jnovack/${APPLICATION}/README.md" \
-      org.opencontainers.image.description="" \
-      org.opencontainers.image.licenses="MIT" \
-      org.opencontainers.image.source="https://github.com/jnovack/${APPLICATION}" \
-      org.opencontainers.image.revision=$COMMIT \
-      org.opencontainers.image.version=$VERSION \
-      org.opencontainers.image.url="https://hub.docker.com/r/jnovack/${APPLICATION}/"
+LABEL org.opencontainers.image.ref.name="${PACKAGE}" \
+    org.opencontainers.image.created=$BUILD_RFC3339 \
+    org.opencontainers.image.authors="Justin J. Novack <jnovack@gmail.com>" \
+    org.opencontainers.image.documentation="https://github.com/${PACKAGE}/README.md" \
+    org.opencontainers.image.description="${DESCRIPTION}" \
+    org.opencontainers.image.licenses="MIT" \
+    org.opencontainers.image.source="https://github.com/${PACKAGE}" \
+    org.opencontainers.image.revision=$COMMIT \
+    org.opencontainers.image.version=$VERSION \
+    org.opencontainers.image.url="https://hub.docker.com/r/${PACKAGE}/"
 
 EXPOSE 9344
 
-COPY config.properties .
 COPY --from=build /go/bin/${APPLICATION} /app
 
 ENTRYPOINT ["/app"]
