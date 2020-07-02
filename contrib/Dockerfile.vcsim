@@ -1,0 +1,5 @@
+FROM golang:1.14 as build
+EXPOSE 8989
+WORKDIR /go/src/app
+RUN CGO_ENABLED=0 go get -u github.com/vmware/govmomi/vcsim
+ENTRYPOINT ["/go/bin/vcsim", "-l", "0.0.0.0:8989"]

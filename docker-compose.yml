@@ -1,11 +1,29 @@
-version: "3.3"
+version: '2.4'
+
 services:
-  go-vm:
-    image: go-vm:latest
-    restart: always
+  vcsim:
+    image: vcsim
+    build:
+      context: ./contrib/
+      dockerfile: Dockerfile.vcsim
+    command: ["-api-version", "7.0", "-dc", "1", "-folder", "1", "-ds", "4", "-pool", "2", "-app", "1"]
+
+  exporter:
+    image: vmware-exporter
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        APPLICATION: "vmware-exporter"
+        BUILD_RFC3339: "1970-01-01T00:00:00Z"
+        COMMIT: "local"
+        VERSION: "dirty"
+    depends_on:
+      - vcsim
     environment:
-      HOST: "vcenter.domain.tld"
-        USERID: "username"
-        PASSWORD: "password"
+      HOSTNAME: "vcsim:8989"
+      USERNAME: "username"
+      PASSWORD: "password"
+      VCSIM: "true"
     ports:
-      - "9094:9094"
+      - 9094:9094

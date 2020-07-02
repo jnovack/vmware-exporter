@@ -39,6 +39,7 @@ var (
 	username       = flag.String("username", "root", "username for authentication (required)")
 	password       = flag.String("password", "hunter2", "password for authentication (required)")
 	passwordFile   = flag.String("password_file", "", "full path to the 'password' file (e.g. /run/secrets/password)")
+	vcsim          = flag.Bool("vcsim", false, "Test environment")
 	vmDebug        = flag.Bool("vmdebug", true, "debug vmware collector")
 	vmStats        = flag.Bool("vmstats", true, "collect statistics from VMs")
 )
@@ -117,21 +118,24 @@ func (c *Collector) Collect(ch chan<- prometheus.Metric) {
 		}()
 	}
 
-	// HBA Status
-	wg.Add(1)
-	go func() {
-		defer wg.Done()
-		defer timeTrack(ch, time.Now(), "HostHBAStatus")
-		cm := HostHBAStatus()
-		for _, m := range cm {
-			ch <- prometheus.MustNewConstMetric(
-				prometheus.NewDesc(m.name, m.help, []string{}, m.labels),
-				prometheus.GaugeValue,
-				float64(m.value),
-			)
-		}
+	// vcsim does not have any HBAs, and the query causes a panic.
+	if *vcsim != true {
+		// HBA Status
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			defer timeTrack(ch, time.Now(), "HostHBAStatus")
+			cm := HostHBAStatus()
+			for _, m := range cm {
+				ch <- prometheus.MustNewConstMetric(
+					prometheus.NewDesc(m.name, m.help, []string{}, m.labels),
+					prometheus.GaugeValue,
+					float64(m.value),
+				)
+			}
 
-	}()
+		}()
+	}
 
 	wg.Wait()
 }

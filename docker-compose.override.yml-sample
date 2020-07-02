@@ -1,0 +1,8 @@
+version: '2.4'
+
+services:
+  exporter:
+    environment:
+        HOSTNAME: "localhost:8989"
+        USERNAME: "username"
+        PASSWORD: "password"
