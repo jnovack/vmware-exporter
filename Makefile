@@ -3,6 +3,10 @@ APPLICATION := $(shell basename `pwd`)
 BUILD_RFC3339 := $(shell date -u +"%Y-%m-%dT%H:%M:%S+00:00")
 COMMIT := $(shell git rev-parse HEAD)
 VERSION := $(shell git describe --tags)
+DESCRIPTION := $(shell curl -s https://api.github.com/repos/${PACKAGE} \
+    | grep '"description".*' \
+    | head -n 1 \
+    | cut -d '"' -f 4)
 
 GO_LDFLAGS := "-w -s \
 	-X github.com/jnovack/go-version.Package=${PACKAGE} \
@@ -16,6 +20,7 @@ DOCKER_BUILD_ARGS := \
 	--build-arg PACKAGE=${PACKAGE} \
 	--build-arg APPLICATION=${APPLICATION} \
 	--build-arg BUILD_RFC3339=v${BUILD_RFC3339} \
+	--build-arg DESCRIPTION="${DESCRIPTION}" \
 	--build-arg COMMIT=${COMMIT} \
 	--build-arg VERSION=${VERSION} \
 	--progress auto
