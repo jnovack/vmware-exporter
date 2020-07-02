@@ -6,11 +6,13 @@ import (
 	"fmt"
 	"math"
 	"net/url"
+	"path/filepath"
 	"reflect"
 	"strings"
 	"sync"
 	"time"
 
+	secrets "github.com/ijustfool/docker-secrets"
 	build "github.com/jnovack/go-version"
 	"github.com/namsral/flag"
 	"github.com/prometheus/client_golang/prometheus"
@@ -36,6 +38,7 @@ var (
 	hostname       = flag.String("hostname", "127.0.0.1", "hostname where ESXi or vCenter server is running")
 	username       = flag.String("username", "root", "username for authentication (required)")
 	password       = flag.String("password", "hunter2", "password for authentication (required)")
+	passwordFile   = flag.String("password_file", "", "full path to the 'password' file (e.g. /run/secrets/password)")
 	vmDebug        = flag.Bool("vmdebug", true, "debug vmware collector")
 	vmStats        = flag.Bool("vmstats", true, "collect statistics from VMs")
 )
@@ -151,10 +154,23 @@ type VMetric struct {
 // NewClient Connect to vCenter
 func NewClient(ctx context.Context) (*govmomi.Client, error) {
 
+	if *passwordFile != "" {
+		dockerSecrets, err := secrets.NewDockerSecrets(filepath.Dir(*passwordFile))
+		if err != nil {
+			log.Fatal().Err(err).Msg("Could not open 'password_file'")
+		}
+		secret, err := dockerSecrets.Get("password")
+		if err != nil {
+			log.Fatal().Err(err).Msg("Could not retrieve password")
+		}
+		*password = secret
+	}
+
 	u, err := url.Parse("https://" + *hostname + vim25.Path)
 	if err != nil {
-		log.Fatal().Err(err).Msg("A fatal error occurred.")
+		log.Fatal().Err(err).Msg("A fatal error occurred parsing the host")
 	}
+
 	u.User = url.UserPassword(*username, *password)
 	log.Debug().Msg("Connecting to " + u.String())
 

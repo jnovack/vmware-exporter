@@ -3,6 +3,7 @@ module github.com/jnovack/vmware-exporter
 go 1.14
 
 require (
+	github.com/ijustfool/docker-secrets v0.0.0-20191021062307-b25ea5007562
 	github.com/jnovack/go-version v1.0.0
 	github.com/magiconair/properties v1.8.1
 	github.com/mattn/go-isatty v0.0.12
