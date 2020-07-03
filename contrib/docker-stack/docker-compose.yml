@@ -1,12 +1,16 @@
 version: "3.3"
+
 services:
-  go-vm:
-    image: go-vm:latest
+  vmware-exporter:
+    image: jnovack/vmware-exporter:latest
     restart: always
     environment:
-      HOST: "vcenter.domain.tld"
-      USERID: "username"
-      PASSWORD: "password"
+      HOSTNAME: "vcenter.domain.tld"
+      USERNAME: "username"
+      PASSWORD: "hunter2"
+#      PASSWORD_FILE: "/run/secrets/password"
+#    secrets:
+#      - password
     ports:
       - "9272:9272"
 
@@ -23,3 +27,7 @@ grafana:
     restart: always
     ports:
       - "3030:3000"
+
+#secrets:
+#  password:
+#    external: true

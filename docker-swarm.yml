@@ -5,9 +5,9 @@ services:
     image: vmware-exporter:latest
     restart: always
     environment:
-      - "HOSTNAME=vcenter.domain.tld"
-      - "USERNAME=username"
-      - "PASSWORD_FILE=/run/secrets/password"
+      HOSTNAME: "vcenter.domain.tld"
+      USERNAME: "username"
+      PASSWORD_FILE: "/run/secrets/password"
     secrets:
       - password
 
