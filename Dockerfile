@@ -61,7 +61,7 @@ LABEL org.opencontainers.image.ref.name="${PACKAGE}" \
     org.opencontainers.image.version=$VERSION \
     org.opencontainers.image.url="https://hub.docker.com/r/${PACKAGE}/"
 
-EXPOSE 9344
+EXPOSE 9272
 
 COPY --from=build /go/bin/${APPLICATION} /app
 

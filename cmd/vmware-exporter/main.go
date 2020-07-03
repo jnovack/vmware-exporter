@@ -16,7 +16,7 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
-var port = flag.Int("port", 9094, "port to bind exporter")
+var port = flag.Int("port", 9272, "port to bind exporter")
 
 func main() {
 

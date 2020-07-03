@@ -8,7 +8,7 @@ services:
       USERID: "username"
       PASSWORD: "password"
     ports:
-      - "9094:9094"
+      - "9272:9272"
 
 prometheus:
     image: prom/prometheus:latest

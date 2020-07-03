@@ -27,4 +27,4 @@ scrape_configs:
     scheme: http
     static_configs:
       - targets:
-          - go-vm:9094
+          - vmware-exporter:9272
