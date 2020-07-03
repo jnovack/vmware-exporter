@@ -1,5 +1,45 @@
 FROM golang:1.14 as build
-EXPOSE 8989
 WORKDIR /go/src/app
+
+# Create appuser.
+# See https://stackoverflow.com/a/55757473/12429735RUN
+ENV USER=appuser
+ENV UID=10001
+RUN adduser \
+    --disabled-password \
+    --gecos "" \
+    --home "/nonexistent" \
+    --shell "/sbin/nologin" \
+    --no-create-home \
+    --uid "${UID}" \
+    "${USER}"
+
+RUN apt-get update && apt-get install -y ca-certificates
+
+# Build
 RUN CGO_ENABLED=0 go get -u github.com/vmware/govmomi/vcsim
-ENTRYPOINT ["/go/bin/vcsim", "-l", "0.0.0.0:8989"]
+
+###############################################################################
+# final stage
+FROM scratch
+COPY --from=build /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
+COPY --from=build /etc/passwd /etc/passwd
+COPY --from=build /etc/group /etc/group
+USER appuser:appuser
+
+ARG DESCRIPTION="vCenter and ESXi API based simulator"
+ARG PACKAGE="vmware/govmomi/vcsim"
+
+LABEL org.opencontainers.image.ref.name="${PACKAGE}" \
+    org.opencontainers.image.documentation="https://github.com/${PACKAGE}/README.md" \
+    org.opencontainers.image.description="${DESCRIPTION}" \
+    org.opencontainers.image.source="https://github.com/${PACKAGE}"
+
+ENV TMPDIR=/tmp
+COPY --chown=appuser --from=build /tmp /tmp
+
+EXPOSE 8989
+
+COPY --from=build /go/bin/vcsim /vcsim
+
+ENTRYPOINT ["/vcsim", "-l", "0.0.0.0:8989"]
