@@ -60,14 +60,14 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "vsphere_cluster_cpu_usage{cluster=\"$cluster\"}/vsphere_cluster_cpu_effective{cluster=\"$cluster\"}*100",
+          "expr": "vmware_cluster_cpu_usage{cluster=\"$cluster\"}/vmware_cluster_cpu_effective{cluster=\"$cluster\"}*100",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "CPU",
           "refId": "A"
         },
         {
-          "expr": "vsphere_cluster_mem_usage{cluster=\"$cluster\"}/vsphere_cluster_mem_effective{cluster=\"$cluster\"}*100",
+          "expr": "vmware_cluster_mem_usage{cluster=\"$cluster\"}/vmware_cluster_mem_effective{cluster=\"$cluster\"}*100",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Memory",
@@ -155,28 +155,28 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "vsphere_cluster_vmop_numVMotion{cluster=\"$cluster\"}",
+          "expr": "vmware_cluster_vmop_numVMotion{cluster=\"$cluster\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "vMotion vm",
           "refId": "A"
         },
         {
-          "expr": "vsphere_cluster_vmop_numDestroy{cluster=\"$cluster\"}",
+          "expr": "vmware_cluster_vmop_numDestroy{cluster=\"$cluster\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Delete vm",
           "refId": "B"
         },
         {
-          "expr": "vsphere_cluster_vmop_numPoweron{cluster=\"$cluster\"}",
+          "expr": "vmware_cluster_vmop_numPoweron{cluster=\"$cluster\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Power On vm",
           "refId": "C"
         },
         {
-          "expr": "vsphere_cluster_vmop_numPoweroff{cluster=\"$cluster\"}",
+          "expr": "vmware_cluster_vmop_numPoweroff{cluster=\"$cluster\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Power Off vm",
@@ -264,28 +264,28 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "vsphere_cluster_cpu_effective{cluster=\"$cluster\"}*1000000",
+          "expr": "vmware_cluster_cpu_effective{cluster=\"$cluster\"}*1000000",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Effective Total",
           "refId": "A"
         },
         {
-          "expr": "vsphere_cluster_cpu_usage{cluster=\"$cluster\"}*1000000",
+          "expr": "vmware_cluster_cpu_usage{cluster=\"$cluster\"}*1000000",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Usage",
           "refId": "B"
         },
         {
-          "expr": "vsphere_cluster_cpu_demand{cluster=\"$cluster\"}*1000000",
+          "expr": "vmware_cluster_cpu_demand{cluster=\"$cluster\"}*1000000",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Demand",
           "refId": "C"
         },
         {
-          "expr": "vsphere_cluster_cpu_total{cluster=\"$cluster\"}*1000000",
+          "expr": "vmware_cluster_cpu_total{cluster=\"$cluster\"}*1000000",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Total",
@@ -374,35 +374,35 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "vsphere_cluster_mem_effective{cluster=\"$cluster\"}",
+          "expr": "vmware_cluster_mem_effective{cluster=\"$cluster\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Effective Total",
           "refId": "A"
         },
         {
-          "expr": "vsphere_cluster_mem_usage{cluster=\"$cluster\"}",
+          "expr": "vmware_cluster_mem_usage{cluster=\"$cluster\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Usage",
           "refId": "B"
         },
         {
-          "expr": "vsphere_cluster_mem_ballooned{cluster=\"$cluster\"}",
+          "expr": "vmware_cluster_mem_ballooned{cluster=\"$cluster\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Ballooned",
           "refId": "C"
         },
         {
-          "expr": "vsphere_cluster_mem_swapped{cluster=\"$cluster\"}",
+          "expr": "vmware_cluster_mem_swapped{cluster=\"$cluster\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Swapped",
           "refId": "D"
         },
         {
-          "expr": "vsphere_cluster_mem_total{cluster=\"$cluster\"}",
+          "expr": "vmware_cluster_mem_total{cluster=\"$cluster\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Total",
@@ -491,7 +491,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "vsphere_host_cpu_pusage{cluster=\"$cluster\"}",
+          "expr": "vmware_host_cpu_pusage{cluster=\"$cluster\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{host}}",
@@ -579,7 +579,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "vsphere_host_mem_pusage{cluster=\"$cluster\"}",
+          "expr": "vmware_host_mem_pusage{cluster=\"$cluster\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{host}}",
