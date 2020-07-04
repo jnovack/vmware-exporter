@@ -16,12 +16,16 @@ echo "[---] DOCKER_REPO: ${DOCKER_REPO}"
 echo "[---] IMAGE_NAME: ${IMAGE_NAME}"
 echo "[---] APPLICATION: ${APPLICATION}"
 
+# $(echo "index.docker.io/user/respository" | cut -d '/' -f 2-3) = "user/repository"
+GITHUB_USERREPO=$(echo "${DOCKER_REPO}" | cut -d '/' -f 2-3)
+
 # Set description from github
-DESCRIPTION=$(shell curl -s https://api.github.com/repos/${DOCKER_REPO} \
+DESCRIPTION=$(shell curl -s https://api.github.com/repos/${GITHUB_USERREPO} \
     | grep '"description".*' \
     | head -n 1 \
     | cut -d '"' -f 4)
 
+echo "[---] GITHUB_USERREPO: ${GITHUB_USERREPO}"
 echo "[---] DESCRIPTION: ${DESCRIPTION}"
 
 ## Build all variant images.
