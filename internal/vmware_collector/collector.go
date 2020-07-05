@@ -271,6 +271,45 @@ func ClusterFromRef(client *govmomi.Client, ref types.ManagedObjectReference) (*
 	return nil, errors.New("ClusterFromRef returned an unknown type, please create an issue")
 }
 
+// getCluster TODO Comment
+func getCluster(client *govmomi.Client, reference types.ManagedObjectReference) (mo.ManagedEntity, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 500*time.Second)
+	defer cancel()
+
+	var emptyEntity mo.ManagedEntity
+	var managedEntity mo.ManagedEntity
+	err := client.RetrieveOne(ctx, reference, []string{"name", "parent"}, &managedEntity)
+	if err != nil {
+		return emptyEntity, errors.New("unable to retrieve managedEntity")
+	}
+
+	var oldEntity string
+	for {
+		oldEntity = managedEntity.Reference().String()
+		log.Debug().Str("name", oldEntity).Msg("oldEntity exists")
+
+		managedEntity, err := getParent(client, managedEntity.Parent.Reference())
+		log.Debug().Str("name", managedEntity.Name).Str("type", managedEntity.Self.Type).Str("value", managedEntity.Self.Value).Str("string", managedEntity.Reference().String()).Msg("managedEntity found")
+		if err != nil {
+			break
+		}
+		if oldEntity == managedEntity.Reference().String() {
+			break
+		}
+		if reflect.DeepEqual(client.ServiceContent.RootFolder.Reference(), managedEntity.Reference()) {
+			break
+		}
+		if managedEntity.Self.Type == "ComputeResource" {
+			return emptyEntity, errors.New("returned stand-alone host")
+		}
+		if managedEntity.Self.Type == "ClusterComputeResource" {
+			return managedEntity, nil
+		}
+	}
+
+	return emptyEntity, errors.New("getCluster returned an unknown type")
+}
+
 // GetVMLineage gets the parent and grandparent ManagedEntity objects
 func GetVMLineage(ctx context.Context, client *govmomi.Client, host types.ManagedObjectReference) (mo.ManagedEntity, mo.ManagedEntity, mo.ManagedEntity, error) {
 	var emptyEntity mo.ManagedEntity
