@@ -280,6 +280,7 @@ func GetVMLineage(ctx context.Context, client *govmomi.Client, host types.Manage
 		log.Error().Err(err).Msg("Unable to retrieve hostEntity.")
 		return emptyEntity, emptyEntity, emptyEntity, err
 	}
+	log.Debug().Str("name", hostEntity.Name).Str("type", hostEntity.Self.Type).Str("value", hostEntity.Self.Value).Msg("host found")
 
 	var parent mo.ManagedEntity
 	var datacenter mo.ManagedEntity
@@ -295,13 +296,16 @@ func GetVMLineage(ctx context.Context, client *govmomi.Client, host types.Manage
 			break
 		}
 		if parent.Self.Type == "ClusterComputeResource" {
+			log.Debug().Str("name", parent.Name).Str("type", parent.Self.Type).Str("value", parent.Self.Value).Msg("cluster found")
 			cluster = parent
 			continue
 		}
 		if parent.Self.Type == "Datacenter" {
+			log.Debug().Str("name", parent.Name).Str("type", parent.Self.Type).Str("value", parent.Self.Value).Msg("datacenter found")
 			datacenter = parent
-			break
+			continue
 		}
+		log.Debug().Str("name", parent.Name).Str("type", parent.Self.Type).Str("value", parent.Self.Value).Msg("object found")
 	}
 
 	return hostEntity, cluster, datacenter, err
