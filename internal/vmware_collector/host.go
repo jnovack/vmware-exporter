@@ -3,7 +3,6 @@ package vmwarecollector
 import (
 	"context"
 	"math"
-	"strings"
 
 	"github.com/rs/zerolog/log"
 	"github.com/vmware/govmomi/object"
@@ -48,13 +47,11 @@ func HostCounters() []VMetric {
 		// Get name of cluster the host is part of
 		cls, err := ClusterFromRef(c, hs.Parent.Reference())
 		if err != nil {
-			log.Error().Err(err).Msg("connected locally to a EXSi host, not a vSphere")
-			// return nil
-			cname = hs.Name
+			// log.Debug().Str("msg", err.Error()).Msgf("%s is connected locally to a EXSi host, not a vSphere cluster", *hostname)
+			cname = ""
 			name = hs.Name
 		} else {
 			cname = cls.Name()
-			cname = strings.ToLower(cname)
 			name = hs.Summary.Config.Name
 		}
 
@@ -153,12 +150,10 @@ func HostMetrics() []VMetric {
 		// Get name of cluster the host is part of
 		cls, err := ClusterFromRef(c, hs.Parent.Reference())
 		if err != nil {
-			log.Error().Err(err).Msg("An error occurred.")
-			cname = hs.Name
-			// return nil
+			// log.Debug().Str("msg", err.Error()).Msgf("%s is connected locally to a EXSi host, not a vSphere cluster", *hostname)
+			cname = ""
 		} else {
 			cname = cls.Name()
-			cname = strings.ToLower(cname)
 		}
 
 		name := hs.Summary.Config.Name
@@ -220,10 +215,10 @@ func HostHBAStatus() []VMetric {
 		// Get name of cluster the host is part of
 		cls, err := ClusterFromRef(c, host.Parent.Reference())
 		if err != nil {
-			log.Debug().Str("msg", err.Error()).Msgf("%s is connected locally to a EXSi host, not a vSphere cluster", *hostname)
-			cname = *hostname
+			// log.Debug().Str("msg", err.Error()).Msgf("%s is connected locally to a EXSi host, not a vSphere cluster", *hostname)
+			cname = ""
 		} else {
-			cname = strings.ToLower(cls.Name())
+			cname = cls.Name()
 		}
 
 		hcm := object.NewHostConfigManager(c.Client, host.Reference())
