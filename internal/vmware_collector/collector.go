@@ -301,14 +301,26 @@ func GetVMLineage(ctx context.Context, client *govmomi.Client, host types.Manage
 	return hostEntity, cluster, datacenter, nil
 }
 
+// getParent will return the ManagedEntity object for the parent object of the current ManagedObjectReference
 func getParent(ctx context.Context, client *govmomi.Client, objMOR types.ManagedObjectReference) (mo.ManagedEntity, error) {
-	var parentEntity mo.ManagedEntity
-	err := client.RetrieveOne(ctx, objMOR.Reference(), []string{"name", "parent"}, &parentEntity)
+	var err error
+	var emptyEntity mo.ManagedEntity
+	var thisEntity mo.ManagedEntity
+	err = client.RetrieveOne(ctx, objMOR.Reference(), []string{"name", "parent"}, &thisEntity)
 	if err != nil {
-		log.Warn().Err(err).Msg("Unable to retrieve parentEntity.")
-		return parentEntity, err
+		log.Error().Err(err).Str("name", thisEntity.Name).Str("type", thisEntity.Self.Type).Str("value", thisEntity.Self.Value).Msg("Unable to retrieve thisEntity.")
+		return emptyEntity, errors.New("unable to retrieve thisEntity")
 	}
-	log.Info().Str("name", parentEntity.Name).Str("type", parentEntity.Self.Type).Msg("Found parentEntity")
+	log.Trace().Str("name", thisEntity.Name).Str("type", thisEntity.Self.Type).Str("value", thisEntity.Self.Value).Msg("Found thisEntity")
+
+	var parentEntity mo.ManagedEntity
+	err = client.RetrieveOne(ctx, thisEntity.Parent.Reference(), []string{"name", "parent"}, &parentEntity)
+	if err != nil {
+		log.Error().Err(err).Str("name", thisEntity.Name).Str("type", thisEntity.Self.Type).Str("value", thisEntity.Self.Value).Msg("Unable to retrieve parent of thisEntity.")
+		return emptyEntity, errors.New("unable to retrieve parent of thisEntity")
+	}
+
+	log.Trace().Str("name", parentEntity.Name).Str("type", parentEntity.Self.Type).Str("value", parentEntity.Self.Value).Msg("Returning parentEntity")
 	return parentEntity, nil
 }
 
