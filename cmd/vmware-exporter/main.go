@@ -51,6 +51,8 @@ func init() {
 
 	var zerologlevel zerolog.Level
 	switch *loglevel {
+	case -1:
+		zerologlevel = zerolog.TraceLevel
 	case 0:
 		zerologlevel = zerolog.DebugLevel
 	case 2:
