@@ -114,7 +114,23 @@ func (c *Collector) Collect(ch chan<- prometheus.Metric) {
 		}()
 	}
 
-	// // Host Counters
+	// Host Metrics
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		defer timeTrack(ch, time.Now(), "HostMetrics")
+		cm := HostMetrics()
+		for _, m := range cm {
+			ch <- prometheus.MustNewConstMetric(
+				prometheus.NewDesc(m.name, m.help, []string{}, m.labels),
+				prometheus.GaugeValue,
+				float64(m.value),
+			)
+		}
+
+	}()
+
+	// Host Counters
 	if *vmStats == true {
 		wg.Add(1)
 		go func() {
@@ -281,7 +297,7 @@ func GetVMLineage(ctx context.Context, client *govmomi.Client, host types.Manage
 			break
 		}
 	}
-	
+
 	return hostEntity, cluster, datacenter, nil
 }
 

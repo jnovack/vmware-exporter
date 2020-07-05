@@ -120,7 +120,7 @@ func HostCounters() []VMetric {
 }
 
 // HostMetrics Collects Hypervisor metrics
-func HostMetrics(ch chan<- prometheus.Metric, objCLS mo.ClusterComputeResource) []VMetric {
+func HostMetrics() []VMetric {
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
 
@@ -133,7 +133,7 @@ func HostMetrics(ch chan<- prometheus.Metric, objCLS mo.ClusterComputeResource) 
 
 	m := view.NewManager(c.Client)
 
-	view, err := m.CreateContainerView(ctx, objCLS.Reference(), []string{"HostSystem"}, true)
+	view, err := m.CreateContainerView(ctx, c.ServiceContent.RootFolder, []string{"HostSystem"}, true)
 	if err != nil {
 		log.Error().Err(err).Msg("An error occurred.")
 	}

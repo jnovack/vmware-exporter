@@ -2,9 +2,7 @@ package vmwarecollector
 
 import (
 	"context"
-	"fmt"
 	"sync"
-	"time"
 
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/rs/zerolog/log"
@@ -103,17 +101,6 @@ func ClusterMetrics(ch chan<- prometheus.Metric, objDC mo.Datacenter) []VMetric 
 			// Misc
 			metrics = append(metrics, VMetric{name: "vmware_cluster_hosts_effective", help: "Total number of effective hosts.", value: float64(qs.NumEffectiveHosts), labels: map[string]string{"cluster": objCLS.Name}})
 			metrics = append(metrics, VMetric{name: "vmware_cluster_hosts_total", help: "Total number of hosts.", value: float64(qs.NumHosts), labels: map[string]string{"cluster": objCLS.Name}})
-
-			waitGroupCLS.Add(1)
-			go func(ch chan<- prometheus.Metric, objCLS mo.ClusterComputeResource) {
-				defer waitGroupCLS.Done()
-				defer timeTrack(ch, time.Now(), fmt.Sprintf("HostMetrics - %s", objCLS.Name))
-
-				stats := HostMetrics(ch, objCLS)
-				for _, s := range stats {
-					metrics = append(metrics, s)
-				}
-			}(ch, objCLS)
 
 		}
 	}
