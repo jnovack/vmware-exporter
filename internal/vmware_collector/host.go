@@ -105,10 +105,10 @@ func HostCounters() []VMetric {
 			}
 		}
 
-		metrics = append(metrics, VMetric{name: "vmware_host_vcpu_all", help: "Total number of virtual CPUs configured on host", value: float64(vCPU), labels: map[string]string{"host": name, "cluster": cname}})
-		metrics = append(metrics, VMetric{name: "vmware_host_vmem_all", help: "Total amount of virtual memory (in MB) configured on host", value: float64(vMem), labels: map[string]string{"host": name, "cluster": cname}})
-		metrics = append(metrics, VMetric{name: "vmware_host_vcpu_used", help: "Number of virtual CPUs used by VMs on host", value: float64(vCPUOn), labels: map[string]string{"host": name, "cluster": cname}})
-		metrics = append(metrics, VMetric{name: "vmware_host_vmem_used", help: "Memory used (in MB) by VMs on host", value: float64(vMemOn), labels: map[string]string{"host": name, "cluster": cname}})
+		metrics = append(metrics, VMetric{name: "vmware_host_cpu_all", help: "Total number of virtual CPUs configured on host", value: float64(vCPU), labels: map[string]string{"host": name, "cluster": cname}})
+		metrics = append(metrics, VMetric{name: "vmware_host_mem_all", help: "Total amount of virtual memory (in MB) configured on host", value: float64(vMem), labels: map[string]string{"host": name, "cluster": cname}})
+		metrics = append(metrics, VMetric{name: "vmware_host_cpu_used", help: "Number of virtual CPUs used by VMs on host", value: float64(vCPUOn), labels: map[string]string{"host": name, "cluster": cname}})
+		metrics = append(metrics, VMetric{name: "vmware_host_mem_used", help: "Memory used (in MB) by VMs on host", value: float64(vMemOn), labels: map[string]string{"host": name, "cluster": cname}})
 
 		cores := hs.Summary.Hardware.NumCpuCores
 		metrics = append(metrics, VMetric{name: "vmware_host_cores", help: "Number of physical cores available on host", value: float64(cores), labels: map[string]string{"host": name, "cluster": cname}})
@@ -149,14 +149,18 @@ func HostMetrics(ch chan<- prometheus.Metric, objCLS mo.ClusterComputeResource) 
 	var metrics []VMetric
 
 	for _, hs := range hosts {
+		var cname string
+
 		// Get name of cluster the host is part of
 		cls, err := ClusterFromRef(c, hs.Parent.Reference())
 		if err != nil {
 			log.Error().Err(err).Msg("An error occurred.")
-			return nil
+			cname = hs.Name
+			// return nil
+		} else {
+			cname = cls.Name()
+			cname = strings.ToLower(cname)
 		}
-		cname := cls.Name()
-		cname = strings.ToLower(cname)
 
 		name := hs.Summary.Config.Name
 		totalCPU := int64(hs.Summary.Hardware.CpuMhz) * int64(hs.Summary.Hardware.NumCpuCores)
