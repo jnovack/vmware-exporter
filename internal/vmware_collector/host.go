@@ -5,7 +5,6 @@ import (
 	"math"
 	"strings"
 
-	"github.com/prometheus/client_golang/prometheus"
 	"github.com/rs/zerolog/log"
 	"github.com/vmware/govmomi/object"
 	"github.com/vmware/govmomi/property"
