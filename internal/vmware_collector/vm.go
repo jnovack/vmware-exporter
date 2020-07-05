@@ -51,7 +51,7 @@ func VirtualMachineMetrics() []VMetric {
 		// Labels - host, datacenter
 		host, cluster, datacenter, err := GetVMLineage(ctx, c, vm.Runtime.Host.Reference())
 		if err != nil {
-			log.Error().Err(err).Msg("Unable to get the VM lineage.")
+			log.Error().Err(err).Str("vm", vm.Name).Str("host", vm.Runtime.Host.Value).Msg("Unable to get the VM lineage.")
 			return nil
 		}
 
