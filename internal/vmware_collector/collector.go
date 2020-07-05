@@ -284,6 +284,10 @@ func GetVMLineage(ctx context.Context, client *govmomi.Client, host types.Manage
 	var cluster mo.ManagedEntity
 	parent = hostEntity
 	for {
+		if parent.Parent == nil {
+			log.Trace().Str("name", parent.Name).Str("type", parent.Self.Type).Str("value", parent.Self.Value).Msg("root found")
+			break
+		}
 		parent, err = getParent(ctx, client, parent.Parent.Reference())
 		if err != nil {
 			break
