@@ -1,6 +1,8 @@
 version: '2.4'
 
 services:
+    vcsim:
+      command: ["-api-version", "7.0", "-dc", "1", "-host", "1", "-folder", "2", "-ds", "1", "-pool", "2", "-app", "0", "-cluster", "2", "-vm", "2", "-standalone-host", "1"]
   exporter:
     environment:
         HOSTNAME: "localhost:8989"

@@ -6,7 +6,6 @@ services:
     build:
       context: ./contrib/
       dockerfile: Dockerfile.vcsim
-    command: ["-api-version", "7.0", "-dc", "1", "-host", "3", "-folder", "2", "-ds", "3", "-pool", "2", "-app", "1", "-cluster", "2", "-vm", "3"]
     ports:
       - 8989:8989
 
