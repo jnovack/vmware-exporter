@@ -313,6 +313,9 @@ func GetVMLineage(ctx context.Context, client *govmomi.Client, host types.Manage
 
 // getParent will return the ManagedEntity object for the parent object of the current ManagedObjectReference
 func getParent(client *govmomi.Client, objMOR types.ManagedObjectReference) (mo.ManagedEntity, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+	defer cancel()
+
 	var err error
 	var emptyEntity mo.ManagedEntity
 	var thisEntity mo.ManagedEntity
