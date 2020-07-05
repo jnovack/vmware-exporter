@@ -256,20 +256,44 @@ func ClusterFromRef(client *govmomi.Client, ref types.ManagedObjectReference) (*
 }
 
 // GetVMLineage gets the parent and grandparent ManagedEntity objects
-func GetVMLineage(ctx context.Context, client *govmomi.Client, host types.ManagedObjectReference) (mo.ManagedEntity, mo.ManagedEntity, error) {
+func GetVMLineage(ctx context.Context, client *govmomi.Client, host types.ManagedObjectReference) (mo.ManagedEntity, mo.ManagedEntity, mo.ManagedEntity, error) {
 	var hostEntity mo.ManagedEntity
 	err := client.RetrieveOne(ctx, host.Reference(), []string{"name", "parent"}, &hostEntity)
 	if err != nil {
-		log.Fatal().Err(err).Msg("A fatal error occurred.")
+		log.Fatal().Err(err).Msg("Unable to retrieve hostEntity.")
 	}
 
-	var clusterEntity mo.ManagedEntity
-	err = client.RetrieveOne(ctx, hostEntity.Parent.Reference(), []string{"name", "parent"}, &clusterEntity)
+	var parent mo.ManagedEntity
+	var datacenter mo.ManagedEntity
+	var cluster mo.ManagedEntity
+	parent = hostEntity
+	for {
+		parent, err = getParent(ctx, client, parent.Parent.Reference())
+		if err != nil {
+			break
+		}
+		if parent.Self.Type == "ClusterComputeResource" {
+			cluster = parent
+			continue
+		}
+		if parent.Self.Type == "Datacenter" {
+			datacenter = parent
+			break
+		}
+	}
+	
+	return hostEntity, cluster, datacenter, nil
+}
+
+func getParent(ctx context.Context, client *govmomi.Client, objMOR types.ManagedObjectReference) (mo.ManagedEntity, error) {
+	var parentEntity mo.ManagedEntity
+	err := client.RetrieveOne(ctx, objMOR.Reference(), []string{"name", "parent"}, &parentEntity)
 	if err != nil {
-		log.Fatal().Err(err).Msg("A fatal error occurred.")
+		log.Warn().Err(err).Msg("Unable to retrieve parentEntity.")
+		return parentEntity, err
 	}
-
-	return hostEntity, clusterEntity, nil
+	log.Info().Str("name", parentEntity.Name).Str("type", parentEntity.Self.Type).Msg("Found parentEntity")
+	return parentEntity, nil
 }
 
 // GetMetricMap TODO Comment
