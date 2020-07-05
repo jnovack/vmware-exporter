@@ -101,8 +101,8 @@ func (c *Collector) Collect(ch chan<- prometheus.Metric) {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
-			defer timeTrack(ch, time.Now(), "VMMetrics")
-			cm := VMMetrics()
+			defer timeTrack(ch, time.Now(), "VirtualMachineMetrics")
+			cm := VirtualMachineMetrics()
 			for _, m := range cm {
 				ch <- prometheus.MustNewConstMetric(
 					prometheus.NewDesc(m.name, m.help, []string{}, m.labels),

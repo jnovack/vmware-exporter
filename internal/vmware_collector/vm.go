@@ -9,8 +9,8 @@ import (
 	"github.com/vmware/govmomi/vim25/mo"
 )
 
-// VMMetrics TODO Comment
-func VMMetrics() []VMetric {
+// VirtualMachineMetrics TODO Comment
+func VirtualMachineMetrics() []VMetric {
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 
