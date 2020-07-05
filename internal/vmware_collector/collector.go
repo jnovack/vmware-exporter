@@ -273,10 +273,12 @@ func ClusterFromRef(client *govmomi.Client, ref types.ManagedObjectReference) (*
 
 // GetVMLineage gets the parent and grandparent ManagedEntity objects
 func GetVMLineage(ctx context.Context, client *govmomi.Client, host types.ManagedObjectReference) (mo.ManagedEntity, mo.ManagedEntity, mo.ManagedEntity, error) {
+	var emptyEntity mo.ManagedEntity
 	var hostEntity mo.ManagedEntity
 	err := client.RetrieveOne(ctx, host.Reference(), []string{"name", "parent"}, &hostEntity)
 	if err != nil {
-		log.Fatal().Err(err).Msg("Unable to retrieve hostEntity.")
+		log.Error().Err(err).Msg("Unable to retrieve hostEntity.")
+		return emptyEntity, emptyEntity, emptyEntity, err
 	}
 
 	var parent mo.ManagedEntity
@@ -302,7 +304,7 @@ func GetVMLineage(ctx context.Context, client *govmomi.Client, host types.Manage
 		}
 	}
 
-	return hostEntity, cluster, datacenter, nil
+	return hostEntity, cluster, datacenter, err
 }
 
 // getParent will return the ManagedEntity object for the parent object of the current ManagedObjectReference
