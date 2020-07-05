@@ -17,6 +17,7 @@ import (
 )
 
 var port = flag.Int("port", 9272, "port to bind exporter")
+var loglevel = flag.Int("loglevel", 1, "log level (0=debug, 1=info, 2=warn, 3=error")
 
 func main() {
 
@@ -46,7 +47,19 @@ func init() {
 		// Format using JSON if running as a service (or container)
 		zerolog.TimeFieldFormat = zerolog.TimeFormatUnix
 	}
-	zerolog.SetGlobalLevel(zerolog.InfoLevel)
-
 	flag.Parse()
+
+	var zerologlevel zerolog.Level
+	switch *loglevel {
+	case 0:
+		zerologlevel = zerolog.DebugLevel
+	case 2:
+		zerologlevel = zerolog.WarnLevel
+	case 3:
+		zerologlevel = zerolog.ErrorLevel
+	default:
+		zerologlevel = zerolog.InfoLevel
+	}
+
+	zerolog.SetGlobalLevel(zerologlevel)
 }
