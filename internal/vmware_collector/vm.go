@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/rs/zerolog/log"
+	"github.com/vmware/govmomi/object"
 	"github.com/vmware/govmomi/view"
 	"github.com/vmware/govmomi/vim25/mo"
 )
@@ -33,7 +34,7 @@ func VirtualMachineMetrics() []VMetric {
 	var vms []mo.VirtualMachine
 
 	// https://pubs.vmware.com/vi3/sdk/ReferenceGuide/vim.VirtualMachine.html#field_detail
-	err = view.Retrieve(ctx, []string{"VirtualMachine"}, []string{"summary", "config", "name", "runtime", "guestHeartbeatStatus"}, &vms)
+	err = view.Retrieve(ctx, []string{"VirtualMachine"}, []string{"summary", "config", "name", "runtime", "resourcePool", "guestHeartbeatStatus"}, &vms)
 	if err != nil {
 		log.Error().Err(err).Msg("An error occurred.")
 	}
@@ -55,8 +56,17 @@ func VirtualMachineMetrics() []VMetric {
 			return nil
 		}
 
-		if cluster.Name != "" {
+		var rp *object.ResourcePool
+		if vm.ResourcePool != nil {
+			rp, err = getResourcePoolFromRef(c, vm.ResourcePool.Reference())
+			if err != nil {
+				log.Error().Err(err).Str("vm", vm.Name).Str("host", vm.Runtime.Host.Value).Msg("Unable to get the VM resource pool.")
+			}
+		}
 
+		var clusterName string
+		if cluster != nil {
+			clusterName = cluster.Name()
 		}
 
 		// Calculations
@@ -82,15 +92,15 @@ func VirtualMachineMetrics() []VMetric {
 		}
 
 		// Add Metrics
-		metrics = append(metrics, VMetric{name: "vmware_vm_mem_total", help: "Memory size of the virtual machine, in MB.", value: float64(vm.Config.Hardware.MemoryMB), labels: map[string]string{"vm": vm.Name, "cluster": cluster.Name, "host": host.Name, "datacenter": datacenter.Name, "uuid": vm.Config.Uuid}})
-		metrics = append(metrics, VMetric{name: "vmware_vm_mem_free", help: "Guest memory free statistics, in MB. This is also known as free guest memory. The number can be between 0 and the configured memory size of the virtual machine. Valid while the virtual machine is running.", value: float64(freeMemory), labels: map[string]string{"vm": vm.Name, "cluster": cluster.Name, "host": host.Name, "datacenter": datacenter.Name, "uuid": vm.Config.Uuid}})
-		metrics = append(metrics, VMetric{name: "vmware_vm_mem_usage", help: "Guest memory utilization statistics, in MB. This is also known as active guest memory. The number can be between 0 and the configured memory size of the virtual machine. Valid while the virtual machine is running.", value: float64(vm.Summary.QuickStats.GuestMemoryUsage), labels: map[string]string{"vm": vm.Name, "cluster": cluster.Name, "host": host.Name, "datacenter": datacenter.Name, "uuid": vm.Config.Uuid}})
+		metrics = append(metrics, VMetric{name: "vmware_vm_mem_total", help: "Memory size of the virtual machine, in MB.", value: float64(vm.Config.Hardware.MemoryMB), labels: map[string]string{"vm": vm.Name, "cluster": clusterName, "host": host.Name, "datacenter": datacenter.Name, "uuid": vm.Config.Uuid, "resource_pool": rp.Name()}})
+		metrics = append(metrics, VMetric{name: "vmware_vm_mem_free", help: "Guest memory free statistics, in MB. This is also known as free guest memory. The number can be between 0 and the configured memory size of the virtual machine. Valid while the virtual machine is running.", value: float64(freeMemory), labels: map[string]string{"vm": vm.Name, "cluster": clusterName, "host": host.Name, "datacenter": datacenter.Name, "uuid": vm.Config.Uuid, "resource_pool": rp.Name()}})
+		metrics = append(metrics, VMetric{name: "vmware_vm_mem_usage", help: "Guest memory utilization statistics, in MB. This is also known as active guest memory. The number can be between 0 and the configured memory size of the virtual machine. Valid while the virtual machine is running.", value: float64(vm.Summary.QuickStats.GuestMemoryUsage), labels: map[string]string{"vm": vm.Name, "cluster": clusterName, "host": host.Name, "datacenter": datacenter.Name, "uuid": vm.Config.Uuid, "resource_pool": rp.Name()}})
 
-		metrics = append(metrics, VMetric{name: "vmware_vm_cpu_usage", help: "Basic CPU performance statistics, in MHz. Valid while the virtual machine is running.", value: float64(vm.Summary.QuickStats.OverallCpuUsage), labels: map[string]string{"vm": vm.Name, "cluster": cluster.Name, "host": host.Name, "datacenter": datacenter.Name, "uuid": vm.Config.Uuid}})
-		metrics = append(metrics, VMetric{name: "vmware_vm_cpu_count", help: "Number of processors in the virtual machine.", value: float64(vm.Summary.Config.NumCpu), labels: map[string]string{"vm": vm.Name, "cluster": cluster.Name, "host": host.Name, "datacenter": datacenter.Name, "uuid": vm.Config.Uuid}})
+		metrics = append(metrics, VMetric{name: "vmware_vm_cpu_usage", help: "Basic CPU performance statistics, in MHz. Valid while the virtual machine is running.", value: float64(vm.Summary.QuickStats.OverallCpuUsage), labels: map[string]string{"vm": vm.Name, "cluster": clusterName, "host": host.Name, "datacenter": datacenter.Name, "uuid": vm.Config.Uuid, "resource_pool": rp.Name()}})
+		metrics = append(metrics, VMetric{name: "vmware_vm_cpu_count", help: "Number of processors in the virtual machine.", value: float64(vm.Summary.Config.NumCpu), labels: map[string]string{"vm": vm.Name, "cluster": clusterName, "host": host.Name, "datacenter": datacenter.Name, "uuid": vm.Config.Uuid, "resource_pool": rp.Name()}})
 
-		metrics = append(metrics, VMetric{name: "vmware_vm_heartbeat", help: "Overall alarm status on this node from VMware Tools.", value: float64(status), labels: map[string]string{"vm": vm.Name, "cluster": cluster.Name, "host": host.Name, "datacenter": datacenter.Name, "uuid": vm.Config.Uuid}})
-		metrics = append(metrics, VMetric{name: "vmware_vm_powerstate", help: "The current power state of the virtual machine.", value: float64(powerState), labels: map[string]string{"vm": vm.Name, "cluster": cluster.Name, "host": host.Name, "datacenter": datacenter.Name, "uuid": vm.Config.Uuid}})
+		metrics = append(metrics, VMetric{name: "vmware_vm_heartbeat", help: "Overall alarm status on this node from VMware Tools.", value: float64(status), labels: map[string]string{"vm": vm.Name, "cluster": clusterName, "host": host.Name, "datacenter": datacenter.Name, "uuid": vm.Config.Uuid, "resource_pool": rp.Name()}})
+		metrics = append(metrics, VMetric{name: "vmware_vm_powerstate", help: "The current power state of the virtual machine.", value: float64(powerState), labels: map[string]string{"vm": vm.Name, "cluster": clusterName, "host": host.Name, "datacenter": datacenter.Name, "uuid": vm.Config.Uuid, "resource_pool": rp.Name()}})
 
 	}
 

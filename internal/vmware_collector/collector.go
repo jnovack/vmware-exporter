@@ -309,19 +309,23 @@ func getCluster(client *govmomi.Client, reference types.ManagedObjectReference) 
 }
 
 // GetVMLineage gets the parent and grandparent ManagedEntity objects
-func GetVMLineage(ctx context.Context, client *govmomi.Client, host types.ManagedObjectReference) (mo.ManagedEntity, mo.ManagedEntity, mo.ManagedEntity, error) {
+func GetVMLineage(ctx context.Context, client *govmomi.Client, host types.ManagedObjectReference) (mo.ManagedEntity, *object.ClusterComputeResource, mo.ManagedEntity, error) {
 	var emptyEntity mo.ManagedEntity
 	var hostEntity mo.ManagedEntity
 	err := client.RetrieveOne(ctx, host.Reference(), []string{"name", "parent"}, &hostEntity)
 	if err != nil {
 		log.Error().Err(err).Msg("Unable to retrieve hostEntity.")
-		return emptyEntity, emptyEntity, emptyEntity, err
+		return emptyEntity, nil, emptyEntity, err
 	}
 	log.Debug().Str("name", hostEntity.Name).Str("type", hostEntity.Self.Type).Str("value", hostEntity.Self.Value).Msg("host found")
 
+	cluster, err := ClusterFromRef(client, hostEntity.Parent.Reference())
+	if err != nil {
+		// Nothing really necessary here, happily passes a nil object back.
+	}
+
 	var parent mo.ManagedEntity
 	var datacenter mo.ManagedEntity
-	var cluster mo.ManagedEntity
 	parent = hostEntity
 	for {
 		if parent.Parent == nil {
@@ -331,11 +335,6 @@ func GetVMLineage(ctx context.Context, client *govmomi.Client, host types.Manage
 		parent, err = getParent(client, parent.Parent.Reference())
 		if err != nil {
 			break
-		}
-		if parent.Self.Type == "ClusterComputeResource" {
-			log.Debug().Str("name", parent.Name).Str("type", parent.Self.Type).Str("value", parent.Self.Value).Msg("cluster found")
-			cluster = parent
-			continue
 		}
 		if parent.Self.Type == "Datacenter" {
 			log.Debug().Str("name", parent.Name).Str("type", parent.Self.Type).Str("value", parent.Self.Value).Msg("datacenter found")
@@ -372,6 +371,25 @@ func getParent(client *govmomi.Client, objMOR types.ManagedObjectReference) (mo.
 
 	log.Trace().Str("name", parentEntity.Name).Str("type", parentEntity.Self.Type).Str("value", parentEntity.Self.Value).Msg("Returning parentEntity")
 	return parentEntity, nil
+}
+
+// getResourcePoolFromRef returns a ClusterComputeResource, a subclass of
+// ComputeResource that is used for clusters.
+func getResourcePoolFromRef(client *govmomi.Client, reference types.ManagedObjectReference) (*object.ResourcePool, error) {
+	finder := find.NewFinder(client.Client, false)
+
+	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+	defer cancel()
+	obj, err := finder.ObjectReference(ctx, reference)
+	if err != nil {
+		return nil, err
+	}
+	typeObj := reflect.TypeOf(obj)
+	switch typeObj.String() {
+	case "*object.ResourcePool":
+		return obj.(*object.ResourcePool), nil
+	}
+	return nil, errors.New("getResourcePoolFromRef returned an unknown type, please create an issue")
 }
 
 // GetMetricMap TODO Comment
