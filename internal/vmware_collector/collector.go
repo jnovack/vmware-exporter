@@ -131,22 +131,20 @@ func (c *Collector) Collect(ch chan<- prometheus.Metric) {
 	}()
 
 	// Host Counters
-	if *vmStats == true {
-		wg.Add(1)
-		go func() {
-			defer wg.Done()
-			defer timeTrack(ch, time.Now(), "HostCounters")
-			cm := HostCounters()
-			for _, m := range cm {
-				ch <- prometheus.MustNewConstMetric(
-					prometheus.NewDesc(m.name, m.help, []string{}, m.labels),
-					prometheus.GaugeValue,
-					float64(m.value),
-				)
-			}
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		defer timeTrack(ch, time.Now(), "HostCounters")
+		cm := HostCounters()
+		for _, m := range cm {
+			ch <- prometheus.MustNewConstMetric(
+				prometheus.NewDesc(m.name, m.help, []string{}, m.labels),
+				prometheus.GaugeValue,
+				float64(m.value),
+			)
+		}
 
-		}()
-	}
+	}()
 
 	// vcsim does not have any HBAs, and the query causes a panic.
 	if *vcsim != true {
