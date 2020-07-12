@@ -99,8 +99,8 @@ func VirtualMachineMetrics() []VMetric {
 		metrics = append(metrics, VMetric{name: "vmware_vm_cpu_usage", help: "Basic CPU performance statistics, in MHz. Valid while the virtual machine is running.", value: float64(vm.Summary.QuickStats.OverallCpuUsage), labels: map[string]string{"vm": vm.Name, "cluster": clusterName, "host": host.Name, "datacenter": datacenter.Name, "uuid": vm.Config.Uuid, "resource_pool": rp.Name()}})
 		metrics = append(metrics, VMetric{name: "vmware_vm_cpu_count", help: "Number of processors in the virtual machine.", value: float64(vm.Summary.Config.NumCpu), labels: map[string]string{"vm": vm.Name, "cluster": clusterName, "host": host.Name, "datacenter": datacenter.Name, "uuid": vm.Config.Uuid, "resource_pool": rp.Name()}})
 
-		metrics = append(metrics, VMetric{name: "vmware_vm_heartbeat", help: "Overall alarm status on this node from VMware Tools.", value: float64(status), labels: map[string]string{"vm": vm.Name, "cluster": clusterName, "host": host.Name, "datacenter": datacenter.Name, "uuid": vm.Config.Uuid, "resource_pool": rp.Name()}})
-		metrics = append(metrics, VMetric{name: "vmware_vm_powerstate", help: "The current power state of the virtual machine.", value: float64(powerState), labels: map[string]string{"vm": vm.Name, "cluster": clusterName, "host": host.Name, "datacenter": datacenter.Name, "uuid": vm.Config.Uuid, "resource_pool": rp.Name()}})
+		metrics = append(metrics, VMetric{name: "vmware_vm_heartbeat", help: "Overall alarm status on this node from VMware Tools.  (-2 Unknown, -1 Red, 0 Yellow, 1 Green)", value: float64(status), labels: map[string]string{"vm": vm.Name, "cluster": clusterName, "host": host.Name, "datacenter": datacenter.Name, "uuid": vm.Config.Uuid, "resource_pool": rp.Name()}})
+		metrics = append(metrics, VMetric{name: "vmware_vm_powerstate", help: "The current power state of the virtual machine.  (-1 Suspended, 0 PoweedrOff, 1 PoweredOn)", value: float64(powerState), labels: map[string]string{"vm": vm.Name, "cluster": clusterName, "host": host.Name, "datacenter": datacenter.Name, "uuid": vm.Config.Uuid, "resource_pool": rp.Name()}})
 
 	}
 
