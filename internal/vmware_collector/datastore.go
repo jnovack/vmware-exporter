@@ -2,7 +2,6 @@ package vmwarecollector
 
 import (
 	"context"
-	"strings"
 
 	"github.com/rs/zerolog/log"
 	"github.com/vmware/govmomi/view"
@@ -40,7 +39,6 @@ func DatastoreMetrics(objDC mo.Datacenter) []VMetric {
 	for _, cls := range lst {
 
 		cname := cls.Name
-		cname = strings.ToLower(cname)
 
 		var dsl []mo.Datastore
 		pc := c.PropertyCollector()
