@@ -10,8 +10,8 @@ import (
 	"time"
 
 	secrets "github.com/ijustfool/docker-secrets"
+	"github.com/jnovack/flag"
 	build "github.com/jnovack/go-version"
-	"github.com/namsral/flag"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/rs/zerolog/log"
 	"github.com/vmware/govmomi"

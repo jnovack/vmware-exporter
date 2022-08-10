@@ -6,10 +6,10 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/jnovack/flag"
 	build "github.com/jnovack/go-version"
 	vmwareCollector "github.com/jnovack/vmware-exporter/internal/vmware_collector"
 	"github.com/mattn/go-isatty"
-	"github.com/namsral/flag"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/rs/zerolog"
