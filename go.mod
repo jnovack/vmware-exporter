@@ -11,9 +11,9 @@ require (
 	github.com/kr/text v0.2.0 // indirect
 	github.com/magiconair/properties v1.8.1
 	github.com/mattn/go-isatty v0.0.12
-	github.com/prometheus/client_golang v1.7.1
+	github.com/prometheus/client_golang v1.11.1
 	github.com/rs/zerolog v1.19.0
 	github.com/sirupsen/logrus v1.6.0
 	github.com/vmware/govmomi v0.23.1
-	golang.org/x/net v0.0.0-20190620200207-3b0461eec859
+	golang.org/x/net v0.0.0-20200625001655-4c5254603344
 )
