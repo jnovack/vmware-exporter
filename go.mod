@@ -15,5 +15,5 @@ require (
 	github.com/rs/zerolog v1.19.0
 	github.com/sirupsen/logrus v1.6.0
 	github.com/vmware/govmomi v0.23.1
-	golang.org/x/net v0.0.0-20190620200207-3b0461eec859
+	golang.org/x/net v0.7.0
 )
